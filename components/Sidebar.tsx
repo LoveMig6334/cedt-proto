@@ -68,7 +68,7 @@ export default function Sidebar() {
               const isActive = pathname === item.href;
               return (
                 <Link
-                  key={item.href}
+                  key={item.label}
                   href={item.href}
                   className={[
                     'flex items-center gap-[10px] px-[10px] py-[9px] rounded-[10px]',
