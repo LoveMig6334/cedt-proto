@@ -76,20 +76,11 @@ export default function LandingPage() {
           <a href="#process" className="text-n-700 text-sm font-medium hover:text-p-500 transition-colors">
             กระบวนการ
           </a>
-          <a href="#" className="text-n-700 text-sm font-medium hover:text-p-500 transition-colors">
-            ราคา
-          </a>
           <Link
             href="/login"
             className="bg-white text-n-800 border-[1.5px] border-n-200 rounded-[9px] px-5 py-[9px] text-[13px] font-semibold flex items-center gap-1.5 hover:border-p-300 hover:text-p-500 transition-all"
           >
             เข้าสู่ระบบ
-          </Link>
-          <Link
-            href="/login"
-            className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-[22px] py-[10px] text-[13px] font-semibold flex items-center gap-1.5 shadow-[0_4px_20px_rgba(244,114,182,.25)] hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(244,114,182,.4)] transition-all"
-          >
-            ทดลองใช้ฟรี →
           </Link>
         </div>
       </nav>
