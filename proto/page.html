@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreshPro — ระบบจัดการโรงงานแปรรูปเนื้อสัตว์</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FFF9F5;--white:#FFFFFF;
+  --p50:#FFF0F7;--p100:#FCE7F3;--p200:#FBCFE8;--p300:#F9A8D4;--p400:#F472B6;--p500:#EC4899;
+  --n900:#0F172A;--n800:#1E293B;--n700:#334155;--n600:#475569;--n500:#64748B;
+  --n400:#94A3B8;--n300:#CBD5E1;--n200:#E2E8F0;--n100:#F1F5F9;
+  --green:#10B981;--yellow:#F59E0B;--red:#EF4444;--blue:#3B82F6;
+  --r:12px;--rlg:16px;
+  --sh:0 4px 6px rgba(0,0,0,.05),0 2px 4px rgba(0,0,0,.04);
+  --shlg:0 12px 28px rgba(0,0,0,.08),0 4px 10px rgba(0,0,0,.04);
+  --shp:0 4px 20px rgba(244,114,182,.25);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Prompt',sans-serif;background:var(--cream);color:var(--n800);overflow-x:hidden}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:var(--p200);border-radius:3px}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ─── DEMO NAV ─── */
+.demo-nav{
+  position:fixed;top:0;left:0;right:0;height:46px;
+  background:var(--n900);display:flex;align-items:center;
+  gap:4px;padding:0 14px;z-index:9999;overflow-x:auto;
+  border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;
+}
+.demo-lbl{color:var(--p300);font-size:9.5px;font-weight:700;letter-spacing:1.3px;
+  text-transform:uppercase;white-space:nowrap;padding-right:10px;
+  border-right:1px solid rgba(255,255,255,.1);margin-right:4px;flex-shrink:0}
+.db{padding:5px 11px;background:transparent;border:1px solid rgba(255,255,255,.14);
+  border-radius:6px;color:rgba(255,255,255,.5);font-family:'Prompt',sans-serif;
+  font-size:11px;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0}
+.db:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.85)}
+.db.on{background:var(--p500);border-color:var(--p500);color:#fff}
+
+/* ─── PAGE / SECTION VISIBILITY ─── */
+.pg{display:none;min-height:calc(100vh - 46px);margin-top:46px}
+.pg.show{display:block}
+.app-pg{display:none!important;height:calc(100vh - 46px);margin-top:46px}
+.app-pg.show{display:flex!important}
+.sec{display:none}.sec.show{display:block}
+
+/* ═══════════════════════════════════════
+   LANDING PAGE
+═══════════════════════════════════════ */
+/* Navbar */
+.lp-nav{display:flex;align-items:center;justify-content:space-between;
+  padding:20px 64px;position:relative;z-index:5}
+.logo-wrap{display:flex;align-items:center;gap:11px}
+.logo-txt{font-size:22px;font-weight:800;color:var(--n900)}
+.logo-txt b{color:var(--p500)}
+.lp-links{display:flex;align-items:center;gap:28px}
+.ll{color:var(--n700);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.ll:hover{color:var(--p500)}
+.btn-p{background:linear-gradient(135deg,var(--p400),var(--p500));color:#fff;
+  border:none;border-radius:9px;padding:10px 22px;font-family:'Prompt',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:var(--shp);
+  display:flex;align-items:center;gap:6px;white-space:nowrap}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(244,114,182,.4)}
+.btn-o{background:#fff;color:var(--n800);border:1.5px solid var(--n200);border-radius:9px;
+  padding:9px 20px;font-family:'Prompt',sans-serif;font-size:13px;font-weight:600;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.btn-o:hover{border-color:var(--p300);color:var(--p500)}
+
+/* Hero */
+.hero{min-height:calc(100vh - 46px - 74px);display:flex;align-items:center;
+  padding:40px 64px;gap:72px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-120px;width:680px;height:680px;
+  background:radial-gradient(circle,var(--p100) 0%,transparent 60%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-120px;left:-60px;width:480px;height:480px;
+  background:radial-gradient(circle,rgba(244,114,182,.07) 0%,transparent 65%);pointer-events:none}
+.hero-l{flex:1;max-width:580px;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--p100);
+  color:var(--p500);padding:6px 16px;border-radius:100px;font-size:12px;font-weight:600;
+  margin-bottom:26px;border:1px solid var(--p200)}
+.pulse{width:6px;height:6px;background:var(--p500);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+.hero-h1{font-size:52px;font-weight:800;line-height:1.12;color:var(--n900);
+  margin-bottom:20px;letter-spacing:-1.5px}
+.hero-h1 .pk{color:var(--p500)}
+.hero-p{font-size:15.5px;color:var(--n500);line-height:1.8;margin-bottom:34px}
+.hero-btns{display:flex;gap:13px;align-items:center;margin-bottom:44px}
+.hero-btn-p{background:linear-gradient(135deg,var(--p400),var(--p500));color:#fff;
+  border:none;border-radius:var(--r);padding:15px 34px;font-family:'Prompt',sans-serif;
+  font-size:15px;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:var(--shp)}
+.hero-btn-p:hover{transform:translateY(-3px);box-shadow:0 14px 35px rgba(244,114,182,.45)}
+.hero-btn-s{background:#fff;color:var(--n800);border:2px solid var(--n200);border-radius:var(--r);
+  padding:15px 34px;font-family:'Prompt',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all .3s}
+.hero-btn-s:hover{border-color:var(--p300);color:var(--p500);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:36px;align-items:center}
+.hs-div{width:1px;height:32px;background:var(--n200)}
+.hs-val{font-size:28px;font-weight:800;color:var(--n900)}
+.hs-lbl{font-size:11.5px;color:var(--n500);margin-top:2px}
+
+/* Hero Preview Card */
+.hero-r{flex:1;display:flex;justify-content:center;align-items:center;position:relative;z-index:1}
+.prev-card{background:#fff;border-radius:20px;overflow:hidden;width:100%;max-width:460px;
+  box-shadow:0 24px 64px rgba(0,0,0,.13),0 8px 24px rgba(244,114,182,.14);
+  transform:perspective(1000px) rotateY(-7deg) rotateX(3deg) rotateZ(1deg)}
+.prev-tb{background:var(--n900);padding:10px 16px;display:flex;align-items:center;gap:6px}
+.pd{width:10px;height:10px;border-radius:50%}
+.pdr{background:#FF5F57}.pdy{background:#FFBD2E}.pdg{background:#28C840}
+.prev-url{flex:1;height:21px;background:var(--n700);border-radius:6px;margin-left:8px}
+.prev-body{display:flex;height:285px}
+.prev-sb{width:50px;background:var(--n900);padding:9px 7px;display:flex;flex-direction:column;
+  align-items:center;gap:5px}
+.prev-logo-sm{width:28px;height:28px;background:var(--p500);border-radius:7px;margin-bottom:5px}
+.pni{width:32px;height:32px;border-radius:7px;background:rgba(255,255,255,.05);
+  display:flex;align-items:center;justify-content:center}
+.pni.a{background:rgba(244,114,182,.2)}
+.pni-ic{width:13px;height:13px;background:rgba(255,255,255,.22);border-radius:3px}
+.pni.a .pni-ic{background:var(--p400)}
+.prev-ct{flex:1;background:var(--cream);padding:11px;overflow:hidden}
+.pct-h{font-size:9.5px;font-weight:700;color:var(--n800);margin-bottom:7px}
+.pkpi-g{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:7px}
+.pkpi{background:#fff;border-radius:5px;padding:6px 7px;border:1px solid var(--p100)}
+.pkpi-l{font-size:7px;color:var(--n500);margin-bottom:1px}
+.pkpi-v{font-size:12.5px;font-weight:700;color:var(--n900)}
+.pkpi-v.pk{color:var(--p500)}
+.p-chart{height:46px;background:#fff;border-radius:5px;padding:5px;
+  display:flex;align-items:flex-end;gap:3px}
+.pb{flex:1;border-radius:2px 2px 0 0;background:var(--p200)}
+.pb.hi{background:var(--p400)}.pb.hhi{background:var(--p500)}
+
+/* LP Process Flow */
+.lp-flow{padding:72px 64px;background:var(--cream)}
+.sec-ttl{text-align:center;font-size:34px;font-weight:800;color:var(--n900);margin-bottom:10px}
+.sec-sub{text-align:center;color:var(--n500);font-size:14.5px;margin-bottom:52px}
+.flow-wrap{display:flex;justify-content:space-between;align-items:flex-start;
+  max-width:900px;margin:0 auto;position:relative}
+.flow-wrap::before{content:'';position:absolute;top:26px;left:52px;right:52px;height:2px;
+  background:linear-gradient(90deg,var(--p200),var(--p400),var(--p200));z-index:0}
+.flow-step{display:flex;flex-direction:column;align-items:center;gap:10px;
+  flex:1;position:relative;z-index:1}
+.fdot{width:52px;height:52px;border-radius:50%;background:#fff;
+  border:2.5px solid var(--p300);display:flex;align-items:center;justify-content:center;
+  font-size:20px;box-shadow:0 0 0 6px var(--cream)}
+.flow-step.factive .fdot{background:var(--p500);border-color:var(--p500);
+  box-shadow:0 0 0 6px var(--p100),var(--shp)}
+.fstep-lbl{font-size:12px;font-weight:600;color:var(--n600);text-align:center}
+.flow-step.factive .fstep-lbl{color:var(--p500)}
+.fstep-sub{font-size:10.5px;color:var(--n400);text-align:center}
+
+/* LP Features */
+.lp-feat{background:#fff;padding:72px 64px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1080px;margin:0 auto}
+.feat-card{background:var(--cream);border:1px solid var(--p100);border-radius:var(--rlg);
+  padding:28px 22px;transition:all .3s;cursor:default}
+.feat-card:hover{transform:translateY(-6px);box-shadow:var(--shlg);border-color:var(--p300)}
+.feat-icon{width:50px;height:50px;background:var(--p100);border-radius:13px;
+  display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+.feat-h{font-size:16.5px;font-weight:700;color:var(--n900);margin-bottom:7px}
+.feat-p{font-size:13px;color:var(--n500);line-height:1.65}
+
+/* LP Footer */
+.lp-footer{background:var(--n900);padding:36px 64px;display:flex;
+  justify-content:space-between;align-items:center}
+.lp-footer .logo-txt b{color:var(--p400)}
+.lp-footer .logo-txt{color:#fff}
+.lp-fc{font-size:12.5px;color:rgba(255,255,255,.35)}
+.lp-fa{color:rgba(255,255,255,.4);text-decoration:none;font-size:12.5px;transition:color .2s}
+.lp-fa:hover{color:var(--p400)}
+
+/* ═══════════════════════════════════════
+   LOGIN PAGE
+═══════════════════════════════════════ */
+.login-wrap{display:flex;min-height:calc(100vh - 46px)}
+.login-l{flex:1;background:var(--n900);display:flex;align-items:center;justify-content:center;
+  padding:56px;position:relative;overflow:hidden}
+.login-l::before{content:'';position:absolute;top:-40px;right:-40px;width:420px;height:420px;
+  background:radial-gradient(circle,rgba(244,114,182,.12) 0%,transparent 65%)}
+.login-l::after{content:'';position:absolute;bottom:-60px;left:-60px;width:360px;height:360px;
+  background:radial-gradient(circle,rgba(244,114,182,.07) 0%,transparent 65%)}
+.login-lc{position:relative;z-index:1;text-align:center;max-width:340px}
+.login-logo-area{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:28px}
+.login-name{font-size:32px;font-weight:800;color:#fff}
+.login-name b{color:var(--p400)}
+.login-tag{color:rgba(255,255,255,.45);font-size:14px;line-height:1.7;margin-bottom:32px}
+.login-checks{display:flex;flex-direction:column;gap:13px;text-align:left}
+.lci{display:flex;align-items:center;gap:11px;color:rgba(255,255,255,.6);font-size:13px}
+.chk-ic{width:23px;height:23px;border-radius:50%;background:rgba(244,114,182,.18);
+  display:flex;align-items:center;justify-content:center;color:var(--p400);
+  font-size:11px;flex-shrink:0}
+
+.login-r{flex:1;display:flex;align-items:center;justify-content:center;
+  padding:56px;background:var(--cream)}
+.login-form{width:100%;max-width:400px}
+.login-fh{font-size:26px;font-weight:800;color:var(--n900);margin-bottom:5px}
+.login-fs{font-size:13.5px;color:var(--n500);margin-bottom:30px}
+.fg{margin-bottom:17px}
+.fl{display:block;font-size:12.5px;font-weight:600;color:var(--n700);margin-bottom:7px}
+.fi{width:100%;padding:11px 14px;background:#fff;border:2px solid var(--n200);border-radius:var(--r);
+  font-family:'Prompt',sans-serif;font-size:13px;color:var(--n800);outline:none;transition:all .2s}
+.fi:focus{border-color:var(--p400);box-shadow:0 0 0 4px rgba(244,114,182,.08)}
+.fi::placeholder{color:var(--n300)}
+.fs{width:100%;padding:10px 13px;background:#fff;border:2px solid var(--n200);border-radius:var(--r);
+  font-family:'Prompt',sans-serif;font-size:13px;color:var(--n800);outline:none;cursor:pointer;transition:all .2s}
+.fs:focus{border-color:var(--p400)}
+.fta{width:100%;padding:11px 14px;background:#fff;border:2px solid var(--n200);border-radius:var(--r);
+  font-family:'Prompt',sans-serif;font-size:13px;color:var(--n800);outline:none;transition:all .2s;
+  resize:vertical;min-height:80px}
+.fta:focus{border-color:var(--p400)}
+.fr2{display:flex;gap:12px}.fr2 .fg{flex:1}
+.fhint{font-size:11px;color:var(--n400);margin-top:5px}
+.login-extras{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.ckl{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--n600);cursor:pointer}
+.ck{width:15px;height:15px;accent-color:var(--p500)}
+.forgot{color:var(--p500);font-size:12.5px;text-decoration:none;font-weight:500}
+.btn-login{width:100%;padding:13px;background:linear-gradient(135deg,var(--p400),var(--p500));
+  color:#fff;border:none;border-radius:var(--r);font-family:'Prompt',sans-serif;
+  font-size:15px;font-weight:700;cursor:pointer;box-shadow:var(--shp);transition:all .3s;margin-bottom:16px}
+.btn-login:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(244,114,182,.4)}
+.reg-lnk{text-align:center;font-size:13px;color:var(--n500)}
+.reg-lnk a{color:var(--p500);font-weight:600;text-decoration:none}
+
+/* ═══════════════════════════════════════
+   APP SHELL
+═══════════════════════════════════════ */
+/* SIDEBAR */
+.sidebar{width:248px;height:100%;background:var(--n900);display:flex;
+  flex-direction:column;flex-shrink:0;overflow-y:auto;overflow-x:hidden}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:20px 16px;
+  border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-logo-txt{font-size:18.5px;font-weight:800;color:#fff}
+.sb-logo-txt b{color:var(--p400)}
+.sb-sec{padding:14px 10px 6px}
+.sb-lbl{color:rgba(255,255,255,.22);font-size:9px;font-weight:700;
+  letter-spacing:1.3px;text-transform:uppercase;padding:0 8px;margin-bottom:4px}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;
+  cursor:pointer;color:rgba(255,255,255,.42);font-size:13px;font-weight:500;
+  transition:all .2s;margin-bottom:2px;position:relative;user-select:none}
+.ni:hover{background:rgba(255,255,255,.05);color:rgba(255,255,255,.78)}
+.ni.active{background:rgba(244,114,182,.14);color:var(--p300)}
+.ni.active::before{content:'';position:absolute;left:0;top:22%;bottom:22%;
+  width:3px;background:var(--p400);border-radius:0 3px 3px 0}
+.ni-ic{font-size:15px;width:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ni.active .ni-ic{filter:none}
+.ni-badge{margin-left:auto;background:var(--p500);color:#fff;font-size:9.5px;
+  font-weight:700;padding:2px 7px;border-radius:100px}
+.sb-divider{height:1px;background:rgba(255,255,255,.06);margin:9px 10px}
+.sb-bottom{margin-top:auto;padding:13px 10px;border-top:1px solid rgba(255,255,255,.06)}
+.user-card{display:flex;align-items:center;gap:10px;padding:9px;border-radius:10px;
+  background:rgba(255,255,255,.04);cursor:pointer;transition:background .2s}
+.user-card:hover{background:rgba(255,255,255,.08)}
+.u-av{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--p400),var(--p500));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex-shrink:0}
+.u-nm{color:#fff;font-size:12.5px;font-weight:600}
+.u-rl{color:rgba(255,255,255,.3);font-size:10.5px}
+
+/* APP MAIN */
+.app-main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{height:58px;background:#fff;border-bottom:1px solid var(--p100);
+  display:flex;align-items:center;padding:0 24px;gap:12px;flex-shrink:0}
+.tb-title{font-size:15.5px;font-weight:700;color:var(--n900)}
+.tb-sep{color:var(--n300);font-size:13px}
+.tb-cur{color:var(--p500);font-size:13px;font-weight:600}
+.tb-r{margin-left:auto;display:flex;align-items:center;gap:9px}
+.tbtn{width:36px;height:36px;border-radius:9px;border:1px solid var(--n200);background:#fff;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  font-size:15px;position:relative;transition:all .2s}
+.tbtn:hover{background:var(--p50);border-color:var(--p200)}
+.notif{position:absolute;top:7px;right:7px;width:7px;height:7px;
+  background:var(--p500);border-radius:50%;border:1.5px solid #fff}
+.tb-av{width:36px;height:36px;border-radius:9px;
+  background:linear-gradient(135deg,var(--p400),var(--p500));
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  font-size:12.5px;font-weight:700;cursor:pointer}
+.content{flex:1;overflow-y:auto;padding:22px 24px}
+
+/* ═══════════════════════════════════════
+   SHARED COMPONENTS
+═══════════════════════════════════════ */
+.pg-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}
+.pg-ttl{font-size:20px;font-weight:800;color:var(--n900);margin-bottom:3px}
+.pg-sub{font-size:12.5px;color:var(--n500)}
+
+.card{background:#fff;border-radius:var(--rlg);border:1px solid var(--p100);
+  box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.ch{padding:16px 20px 13px;border-bottom:1px solid var(--n100);
+  display:flex;align-items:center;justify-content:space-between}
+.ch-t{font-size:13.5px;font-weight:700;color:var(--n900)}
+.ch-s{font-size:11px;color:var(--n500);margin-top:1px}
+.cb{padding:16px 20px}
+
+.krow{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:20px}
+.kpi{background:#fff;border-radius:var(--rlg);border:1px solid var(--p100);
+  padding:16px;position:relative;overflow:hidden}
+.kpi::after{content:'';position:absolute;top:-8px;right:-8px;width:64px;height:64px;
+  background:var(--p50);border-radius:50%}
+.kpi-i{font-size:20px;margin-bottom:9px}
+.kpi-v{font-size:23px;font-weight:800;color:var(--n900);margin-bottom:2px}
+.kpi-l{font-size:11px;color:var(--n500)}
+.kpi-c{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;
+  font-weight:600;margin-top:6px;padding:2px 8px;border-radius:100px}
+.cup{background:#D1FAE5;color:#059669}.cdn{background:#FEE2E2;color:#DC2626}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.col-r{display:grid;grid-template-columns:1fr 310px;gap:18px}
+.col-rl{display:grid;grid-template-columns:1fr 360px;gap:18px}
+.mb4{margin-bottom:16px}.mb3{margin-bottom:12px}.mb2{margin-bottom:8px}
+
+table{width:100%;border-collapse:collapse}
+th{background:var(--cream);color:var(--n500);font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.5px;padding:10px 13px;text-align:left;
+  border-bottom:1px solid var(--n100);white-space:nowrap}
+td{padding:11px 13px;font-size:12.5px;color:var(--n700);border-bottom:1px solid var(--n100);vertical-align:middle}
+tr:hover td{background:var(--p50)}
+tr:last-child td{border-bottom:none}
+
+.bdg{display:inline-flex;align-items:center;padding:3px 9px;
+  border-radius:100px;font-size:10.5px;font-weight:600;white-space:nowrap}
+.bg{background:#D1FAE5;color:#059669}.by{background:#FEF3C7;color:#D97706}
+.bp{background:var(--p100);color:var(--p500)}.bb{background:#DBEAFE;color:#2563EB}
+.bgr{background:var(--n100);color:var(--n500)}.br{background:#FEE2E2;color:#DC2626}
+
+.tabs{display:flex;gap:3px;background:var(--n100);padding:3px;
+  border-radius:10px;margin-bottom:18px;width:fit-content}
+.tab{padding:8px 16px;border:none;border-radius:8px;background:transparent;
+  font-family:'Prompt',sans-serif;font-size:12.5px;font-weight:500;
+  color:var(--n500);cursor:pointer;transition:all .2s}
+.tab.on{background:#fff;color:var(--n900);font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.07)}
+
+.search{display:flex;align-items:center;gap:7px;background:#fff;
+  border:1.5px solid var(--n200);border-radius:9px;padding:8px 12px;transition:all .2s}
+.search:focus-within{border-color:var(--p400);box-shadow:0 0 0 3px rgba(244,114,182,.08)}
+.search input{border:none;outline:none;font-family:'Prompt',sans-serif;font-size:13px;
+  color:var(--n800);background:transparent;width:100%}
+.search input::placeholder{color:var(--n300)}
+
+.upz{border:2px dashed var(--p300);border-radius:var(--r);padding:26px;text-align:center;
+  cursor:pointer;background:var(--p50);transition:all .2s}
+.upz:hover{background:var(--p100);border-color:var(--p400)}
+.upz-ic{font-size:26px;margin-bottom:9px}
+.upz-l{font-size:13px;color:var(--n600);margin-bottom:3px}
+.upz-h{font-size:11px;color:var(--n400)}
+
+.prog{height:6px;background:var(--n100);border-radius:100px;overflow:hidden}
+.pf{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--p300),var(--p500))}
+.pfg{background:linear-gradient(90deg,#34D399,#10B981)}
+.pfy{background:linear-gradient(90deg,#FCD34D,#F59E0B)}
+.pfr{background:linear-gradient(90deg,#FCA5A5,#EF4444)}
+
+.bchart{display:flex;align-items:flex-end;gap:6px;height:90px}
+.bc-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  height:100%;justify-content:flex-end}
+.bc-bar{width:100%;border-radius:3px 3px 0 0;background:linear-gradient(180deg,var(--p300),var(--p500));min-height:3px}
+.bc-l{font-size:9px;color:var(--n400);white-space:nowrap}
+
+.tl{padding-left:24px;position:relative}
+.tl::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;
+  width:2px;background:var(--p200)}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-dot{position:absolute;left:-20px;top:4px;width:10px;height:10px;
+  border-radius:50%;background:var(--p400);border:2px solid #fff;
+  box-shadow:0 0 0 2px var(--p200)}
+.tl-time{font-size:10px;color:var(--n400);margin-bottom:2px}
+.tl-txt{font-size:12.5px;color:var(--n700)}
+.tl-sub{font-size:11px;color:var(--n500);margin-top:1.5px}
+
+/* Supplier card */
+.sup{background:#fff;border:1.5px solid var(--p100);border-radius:var(--r);
+  padding:15px;transition:all .2s;cursor:pointer}
+.sup:hover{border-color:var(--p400);box-shadow:var(--shp);transform:translateY(-2px)}
+.sup.sel{border-color:var(--p500);background:var(--p50)}
+.sup-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:11px}
+.sup-logo{width:40px;height:40px;border-radius:10px;background:var(--n100);
+  display:flex;align-items:center;justify-content:center;font-size:17px}
+.sup-rat{display:flex;align-items:center;gap:3px;font-size:11.5px;font-weight:600;color:var(--yellow)}
+.sup-nm{font-size:13.5px;font-weight:700;color:var(--n900);margin-bottom:2px}
+.sup-sb{font-size:11.5px;color:var(--n500)}
+.sup-tags{display:flex;gap:4px;flex-wrap:wrap;margin:9px 0}
+.stag{padding:2px 9px;background:var(--p50);color:var(--p500);border-radius:100px;
+  font-size:10px;font-weight:600;border:1px solid var(--p200)}
+.sup-ftr{display:flex;justify-content:space-between;align-items:center;
+  padding-top:9px;border-top:1px solid var(--n100)}
+.sup-price{font-size:14.5px;font-weight:800;color:var(--n900)}
+.sup-price span{font-size:10.5px;color:var(--n400);font-weight:400}
+
+/* AI Chat */
+.chat-wrap{display:flex;flex-direction:column;height:100%;min-height:280px}
+.chat-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:9px}
+.cmsg{display:flex;gap:7px;align-items:flex-start}
+.cmsg.u{flex-direction:row-reverse}
+.cav{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;
+  justify-content:center;font-size:11.5px;flex-shrink:0}
+.cav-ai{background:linear-gradient(135deg,var(--p400),var(--p500));color:#fff}
+.cav-u{background:var(--n800);color:#fff}
+.cbub{max-width:84%;padding:8px 12px;border-radius:10px;font-size:12.5px;line-height:1.5}
+.ai-bub{background:#fff;color:var(--n800);border:1px solid var(--p100)}
+.u-bub{background:var(--n900);color:#fff}
+.chat-inp-row{padding:9px 11px;border-top:1px solid var(--n100);display:flex;gap:7px}
+.chat-inp{flex:1;padding:9px 12px;border:1.5px solid var(--n200);border-radius:9px;
+  font-family:'Prompt',sans-serif;font-size:12.5px;outline:none;background:var(--cream);transition:all .2s}
+.chat-inp:focus{border-color:var(--p400)}
+.chat-send{width:36px;height:36px;background:linear-gradient(135deg,var(--p400),var(--p500));
+  border:none;border-radius:9px;cursor:pointer;color:#fff;font-size:15px;flex-shrink:0}
+
+/* QC */
+.qc-box{background:var(--n900);border-radius:var(--r);padding:26px;
+  text-align:center;position:relative;overflow:hidden}
+.qc-box::before{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 26px,
+    rgba(244,114,182,.035) 26px,rgba(244,114,182,.035) 27px)}
+.scan-f{width:130px;height:130px;margin:0 auto 12px;position:relative;z-index:1}
+.scan-f::before{content:'';position:absolute;top:0;left:0;width:26px;height:26px;
+  border-top:2px solid var(--p400);border-left:2px solid var(--p400);border-radius:4px 0 0 0}
+.scan-f::after{content:'';position:absolute;bottom:0;right:0;width:26px;height:26px;
+  border-bottom:2px solid var(--p400);border-right:2px solid var(--p400);border-radius:0 0 4px 0}
+.scan-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:42px;background:rgba(244,114,182,.04);border-radius:8px;position:relative;overflow:hidden}
+.scan-line{position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--p400),transparent);
+  animation:sl 2s ease-in-out infinite}
+@keyframes sl{0%{top:5%;opacity:0}20%{opacity:1}80%{opacity:1}100%{top:95%;opacity:0}}
+.grade-c{width:84px;height:84px;border-radius:50%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;margin:0 auto 12px}
+.gA{background:linear-gradient(135deg,#34D399,#10B981)}
+.gB{background:linear-gradient(135deg,var(--p300),var(--p500))}
+.gC{background:linear-gradient(135deg,#FCD34D,#F59E0B)}
+.g-let{font-size:28px;font-weight:800;color:#fff;line-height:1}
+.g-sc{font-size:10px;color:rgba(255,255,255,.8)}
+
+/* Inventory */
+.inv-card{background:#fff;border-radius:var(--r);border:1px solid var(--p100);
+  padding:13px;transition:all .2s}
+.inv-card:hover{border-color:var(--p300);box-shadow:var(--sh)}
+.inv-id{font-size:10px;color:var(--n400);margin-bottom:3px}
+.inv-nm{font-size:13px;font-weight:700;color:var(--n900);margin-bottom:2px}
+.inv-dt{font-size:11.5px;color:var(--n500)}
+.inv-ftr{display:flex;justify-content:space-between;align-items:center;
+  margin-top:9px;padding-top:9px;border-top:1px solid var(--n100)}
+
+/* Delivery */
+.del-card{background:#fff;border:1.5px solid var(--n100);border-radius:var(--r);
+  padding:13px;display:flex;align-items:center;gap:12px;transition:all .2s;margin-bottom:8px}
+.del-card:hover{border-color:var(--p200);box-shadow:var(--sh)}
+.del-ic{width:42px;height:42px;border-radius:10px;background:var(--p100);
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.del-info{flex:1}
+.del-nm{font-size:13px;font-weight:700;color:var(--n900);margin-bottom:2px}
+.del-dt{font-size:11px;color:var(--n500)}
+.del-r{text-align:right}
+.del-price{font-size:14px;font-weight:800;color:var(--n900)}
+.del-time{font-size:10.5px;color:var(--n400);margin-top:2px}
+
+/* Info rows */
+.ir{display:flex;align-items:baseline;gap:7px;margin-bottom:7px}
+.ik{font-size:11px;color:var(--n400);min-width:96px;flex-shrink:0}
+.iv{font-size:13px;font-weight:600;color:var(--n800)}
+
+/* Image thumbs */
+.thumbs{display:flex;gap:7px;flex-wrap:wrap;margin-top:6px}
+.thumb{width:60px;height:60px;border-radius:7px;background:var(--n100);
+  border:1.5px solid var(--n200);display:flex;align-items:center;
+  justify-content:center;font-size:18px;cursor:pointer;transition:border-color .2s}
+.thumb:hover{border-color:var(--p400)}
+.thumb-more{background:var(--p100);border-color:var(--p200);
+  font-size:12px;font-weight:700;color:var(--p500)}
+
+/* Activity */
+.act{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--n100)}
+.act:last-child{border-bottom:none}
+.act-i{width:32px;height:32px;border-radius:9px;background:var(--p100);
+  display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.act-tx{font-size:12.5px;color:var(--n800);font-weight:500;margin-bottom:2px}
+.act-tm{font-size:10.5px;color:var(--n400)}
+
+/* Misc utils */
+.flex{display:flex}.ic{align-items:center}.jb{justify-content:space-between}.jc{justify-content:center}
+.g1{gap:4px}.g2u{gap:8px}.g3u{gap:12px}.g4u{gap:16px}
+.mt1{margin-top:4px}.mt2{margin-top:8px}.mt3{margin-top:12px}.mt4{margin-top:16px}
+.mb1{margin-bottom:4px}.mb2{margin-bottom:8px}.mb3{margin-bottom:12px}.mb4{margin-bottom:16px}
+.fw7{font-weight:700}.fw8{font-weight:800}.txt-sm{font-size:12.5px}.txt-xs{font-size:11px}
+.txt-p{color:var(--p500)}.txt-g{color:var(--green)}.txt-y{color:var(--yellow)}
+.txt-r{color:var(--red)}.txt-gray{color:var(--n500)}.txt-dark{color:var(--n900)}
+.sdot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:4px}
+.sdg{background:var(--green)}.sdy{background:var(--yellow)}.sdp{background:var(--p500)}.sdb{background:var(--blue)}
+.sep{height:1px;background:var(--n100);margin:14px 0}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap}
+.tag{padding:3px 10px;background:var(--p50);color:var(--p500);border-radius:100px;
+  font-size:10.5px;font-weight:600;border:1px solid var(--p200)}
+.tag-gray{background:var(--n100);color:var(--n600);border-color:var(--n200)}
+.qc-mrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.qc-ml{font-size:12px;color:var(--n600)}
+.qc-mv{font-size:12px;font-weight:600;color:var(--n900)}
+.bill-hdr{background:var(--p50);border:1px solid var(--p200);border-radius:var(--r);
+  padding:13px;margin-bottom:14px}
+.bill-no{font-size:13.5px;font-weight:700;color:var(--n900);margin-bottom:2px}
+.bill-dt{font-size:11px;color:var(--n500)}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ DEMO NAVIGATOR ══════════════════════ -->
+<div class="demo-nav">
+  <span class="demo-lbl">📱 Preview Screens</span>
+  <button class="db on" onclick="goPg('landing',this)">🏠 Landing</button>
+  <button class="db" onclick="goPg('login',this)">🔑 Login</button>
+  <button class="db" onclick="goPg('app',this);goSec('dashboard')">📊 Dashboard</button>
+  <button class="db" onclick="goPg('app',this);goSec('sourcing')">🔍 จัดหา</button>
+  <button class="db" onclick="goPg('app',this);goSec('intake')">📦 รับเข้า</button>
+  <button class="db" onclick="goPg('app',this);goSec('production')">🏭 ผลิต</button>
+  <button class="db" onclick="goPg('app',this);goSec('qc')">🔬 ตรวจ QC</button>
+  <button class="db" onclick="goPg('app',this);goSec('warehouse')">🏪 คลัง</button>
+  <button class="db" onclick="goPg('app',this);goSec('sales')">🚚 ขาย & ส่ง</button>
+</div>
+
+<!-- ══════════════════════ LOGO SVG SYMBOL ══════════════════════ -->
+<svg style="display:none">
+  <symbol id="bull-logo" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="24" fill="#F472B6"/>
+    <!-- horns -->
+    <path d="M14 21 Q10 14 12.5 11.5 Q14.5 15.5 16.5 19" fill="white"/>
+    <path d="M34 21 Q38 14 35.5 11.5 Q33.5 15.5 31.5 19" fill="white"/>
+    <!-- ears -->
+    <ellipse cx="13.5" cy="23" rx="3" ry="2" fill="white" transform="rotate(-18 13.5 23)"/>
+    <ellipse cx="34.5" cy="23" rx="3" ry="2" fill="white" transform="rotate(18 34.5 23)"/>
+    <!-- head -->
+    <ellipse cx="24" cy="27" rx="9.5" ry="8.5" fill="white"/>
+    <!-- nose -->
+    <ellipse cx="24" cy="31.5" rx="5.5" ry="3" fill="#FCE7F3"/>
+    <circle cx="22" cy="31.5" r="1.1" fill="#F472B6"/>
+    <circle cx="26" cy="31.5" r="1.1" fill="#F472B6"/>
+    <!-- eyes -->
+    <circle cx="20" cy="25.5" r="1.7" fill="#1E293B"/>
+    <circle cx="28" cy="25.5" r="1.7" fill="#1E293B"/>
+    <circle cx="20.5" cy="25" r="0.6" fill="white"/>
+    <circle cx="28.5" cy="25" r="0.6" fill="white"/>
+  </symbol>
+</svg>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 1 : LANDING PAGE
+══════════════════════════════════════════════════════════ -->
+<div id="pg-landing" class="pg show">
+
+  <!-- Navbar -->
+  <nav class="lp-nav">
+    <div class="logo-wrap">
+      <svg width="42" height="42"><use href="#bull-logo"/></svg>
+      <span class="logo-txt">Fresh<b>Pro</b></span>
+    </div>
+    <div class="lp-links">
+      <a href="#" class="ll">ฟีเจอร์</a>
+      <a href="#" class="ll">กระบวนการ</a>
+      <a href="#" class="ll">ราคา</a>
+      <button class="btn-o" onclick="goPg('login',null)">เข้าสู่ระบบ</button>
+      <button class="btn-p" onclick="goPg('login',null)">ทดลองใช้ฟรี →</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-l">
+      <div class="hero-badge"><span class="pulse"></span> AI-Powered Meat Processing Platform</div>
+      <h1 class="hero-h1">บริหารจัดการ<br>โรงงานเนื้อวัว<br><span class="pk">อัจฉริยะ</span></h1>
+      <p class="hero-p">ระบบจัดการครบวงจร ตั้งแต่จัดหาวัตถุดิบ ควบคุมกระบวนการผลิต<br>ตรวจสอบคุณภาพด้วย AI จนถึงส่งมอบสินค้าให้ลูกค้า</p>
+      <div class="hero-btns">
+        <button class="hero-btn-p" onclick="goPg('login',null)">เริ่มต้นใช้งานฟรี</button>
+        <button class="hero-btn-s">ชมตัวอย่างระบบ ▶</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hs-val">200+</div><div class="hs-lbl">โรงงานที่ใช้งาน</div></div>
+        <div class="hs-div"></div>
+        <div><div class="hs-val">98.5%</div><div class="hs-lbl">ความแม่นยำ AI QC</div></div>
+        <div class="hs-div"></div>
+        <div><div class="hs-val">24/7</div><div class="hs-lbl">ระบบซัพพอร์ต</div></div>
+      </div>
+    </div>
+
+    <!-- Preview Mockup -->
+    <div class="hero-r">
+      <div class="prev-card">
+        <div class="prev-tb">
+          <span class="pd pdr"></span><span class="pd pdy"></span><span class="pd pdg"></span>
+          <div class="prev-url"></div>
+        </div>
+        <div class="prev-body">
+          <div class="prev-sb">
+            <div class="prev-logo-sm"></div>
+            <div class="pni a"><div class="pni-ic"></div></div>
+            <div class="pni"><div class="pni-ic"></div></div>
+            <div class="pni"><div class="pni-ic"></div></div>
+            <div class="pni"><div class="pni-ic"></div></div>
+            <div class="pni"><div class="pni-ic"></div></div>
+            <div class="pni"><div class="pni-ic"></div></div>
+          </div>
+          <div class="prev-ct">
+            <div class="pct-h">📊 ภาพรวมโรงงาน — FreshPro</div>
+            <div class="pkpi-g">
+              <div class="pkpi"><div class="pkpi-l">รับวัวเข้าวันนี้</div><div class="pkpi-v">24 ตัว</div></div>
+              <div class="pkpi"><div class="pkpi-l">ผลผลิตสัปดาห์</div><div class="pkpi-v pk">1,240 กก.</div></div>
+              <div class="pkpi"><div class="pkpi-l">คะแนน QC</div><div class="pkpi-v">94.2%</div></div>
+              <div class="pkpi"><div class="pkpi-l">ยอดขายเดือนนี้</div><div class="pkpi-v pk">฿2.8M</div></div>
+            </div>
+            <div class="p-chart">
+              <div class="pb" style="height:44%"></div>
+              <div class="pb" style="height:62%"></div>
+              <div class="pb" style="height:50%"></div>
+              <div class="pb hi" style="height:76%"></div>
+              <div class="pb" style="height:58%"></div>
+              <div class="pb hhi" style="height:90%"></div>
+              <div class="pb hi" style="height:70%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Flow -->
+  <div class="lp-flow">
+    <h2 class="sec-ttl">ครอบคลุมทุกขั้นตอนการผลิต</h2>
+    <p class="sec-sub">ระบบเดียวที่จัดการกระบวนการทั้งหมดของโรงงานแปรรูปเนื้อวัว ตั้งแต่ต้นน้ำถึงปลายน้ำ</p>
+    <div class="flow-wrap">
+      <div class="flow-step factive">
+        <div class="fdot">🔍</div>
+        <div class="fstep-lbl">จัดหา</div>
+        <div class="fstep-sub">AI Sourcing</div>
+      </div>
+      <div class="flow-step factive">
+        <div class="fdot">📦</div>
+        <div class="fstep-lbl">รับเข้า</div>
+        <div class="fstep-sub">Intake Record</div>
+      </div>
+      <div class="flow-step factive">
+        <div class="fdot">🏭</div>
+        <div class="fstep-lbl">ผลิต</div>
+        <div class="fstep-sub">Production</div>
+      </div>
+      <div class="flow-step factive">
+        <div class="fdot">🔬</div>
+        <div class="fstep-lbl">ตรวจ QC</div>
+        <div class="fstep-sub">AI Quality</div>
+      </div>
+      <div class="flow-step factive">
+        <div class="fdot">🏪</div>
+        <div class="fstep-lbl">คลัง</div>
+        <div class="fstep-sub">Warehouse</div>
+      </div>
+      <div class="flow-step factive">
+        <div class="fdot">🚚</div>
+        <div class="fstep-lbl">ขาย & ส่ง</div>
+        <div class="fstep-sub">Sales & Delivery</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Grid -->
+  <div class="lp-feat">
+    <h2 class="sec-ttl">ฟีเจอร์เด่นของ FreshPro</h2>
+    <p class="sec-sub">ออกแบบมาเพื่อโรงงานแปรรูปเนื้อวัวโดยเฉพาะ ครบทุกฟังก์ชันในระบบเดียว</p>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon">🤖</div>
+        <div class="feat-h">AI จัดหาผู้จัดส่ง</div>
+        <div class="feat-p">ใช้ AI วิเคราะห์และแนะนำผู้จัดส่งที่เหมาะสม เปรียบเทียบราคา คุณภาพ และความเชื่อถือได้แบบอัตโนมัติ</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📸</div>
+        <div class="feat-h">บันทึกพร้อมรูปภาพ</div>
+        <div class="feat-p">บันทึกการรับเข้าพร้อม timestamp และรูปภาพ สามารถวิเคราะห์ยอดรายเดือนได้ทันที</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⚙️</div>
+        <div class="feat-h">ควบคุมการผลิต</div>
+        <div class="feat-p">เบิกวัตถุดิบจาก Stock บันทึกผลผลิตและของเสียแบบ Real-time พร้อมรายงานประสิทธิภาพ</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔬</div>
+        <div class="feat-h">AI ตรวจสอบคุณภาพ</div>
+        <div class="feat-p">Computer Vision วิเคราะห์ความสมบูรณ์ชิ้นเนื้อทุกชิ้น ความแม่นยำ 98.5% ลดปัญหา Human Error</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🤝</div>
+        <div class="feat-h">Match ผู้ซื้อ-สินค้า</div>
+        <div class="feat-p">ระบบ Match สินค้าในคลังกับผู้ซื้ออัตโนมัติ บริหารสต็อกและติดตามสถานะแบบ Live</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📊</div>
+        <div class="feat-h">วิเคราะห์ยอดขาย</div>
+        <div class="feat-p">Dashboard วิเคราะห์ยอดขาย ดู trend รายวัน รายสัปดาห์ รายเดือน Export รายงานได้ทันที</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="lp-footer">
+    <div class="flex ic g3u">
+      <svg width="32" height="32"><use href="#bull-logo"/></svg>
+      <span class="logo-txt" style="color:#fff">Fresh<b>Pro</b></span>
+    </div>
+    <span class="lp-fc">© 2025 FreshPro. สงวนลิขสิทธิ์ทุกกรณี</span>
+    <div class="flex g4u">
+      <a href="#" class="lp-fa">Privacy</a>
+      <a href="#" class="lp-fa">Terms</a>
+      <a href="#" class="lp-fa">Contact</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 2 : LOGIN PAGE
+══════════════════════════════════════════════════════════ -->
+<div id="pg-login" class="pg">
+  <div class="login-wrap">
+
+    <!-- Left Panel -->
+    <div class="login-l">
+      <div class="login-lc">
+        <div class="login-logo-area">
+          <svg width="72" height="72"><use href="#bull-logo"/></svg>
+          <div class="login-name">Fresh<b>Pro</b></div>
+        </div>
+        <p class="login-tag">ระบบบริหารจัดการโรงงานแปรรูปเนื้อวัวครบวงจร<br>พร้อม AI อัจฉริยะ</p>
+        <div class="login-checks">
+          <div class="lci"><span class="chk-ic">✓</span> จัดหาผู้จัดส่งด้วย AI อัตโนมัติ</div>
+          <div class="lci"><span class="chk-ic">✓</span> ตรวจสอบคุณภาพด้วย Computer Vision</div>
+          <div class="lci"><span class="chk-ic">✓</span> ติดตามกระบวนการผลิตแบบ Real-time</div>
+          <div class="lci"><span class="chk-ic">✓</span> Dashboard วิเคราะห์ยอดขายอัตโนมัติ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Form -->
+    <div class="login-r">
+      <div class="login-form">
+        <div class="login-fh">ยินดีต้อนรับกลับ 👋</div>
+        <div class="login-fs">เข้าสู่ระบบ FreshPro เพื่อจัดการโรงงานของคุณ</div>
+        <div class="fg">
+          <label class="fl">อีเมล</label>
+          <input type="email" class="fi" placeholder="admin@freshpro.th">
+        </div>
+        <div class="fg">
+          <label class="fl">รหัสผ่าน</label>
+          <input type="password" class="fi" placeholder="••••••••">
+        </div>
+        <div class="login-extras">
+          <label class="ckl"><input type="checkbox" class="ck" checked> จดจำการเข้าสู่ระบบ</label>
+          <a href="#" class="forgot">ลืมรหัสผ่าน?</a>
+        </div>
+        <button class="btn-login" onclick="goPg('app',null);goSec('dashboard')">เข้าสู่ระบบ</button>
+        <div class="reg-lnk">ยังไม่มีบัญชี? <a href="#">สมัครใช้งานฟรี</a> · หรือ <a href="#">ตั้งค่าโรงงานใหม่</a></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 3-9 : MAIN APP
+══════════════════════════════════════════════════════════ -->
+<div id="pg-app" class="app-pg">
+
+  <!-- ─── SIDEBAR ─── -->
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <svg width="34" height="34"><use href="#bull-logo"/></svg>
+      <span class="sb-logo-txt">Fresh<b>Pro</b></span>
+    </div>
+
+    <div class="sb-sec">
+      <div class="sb-lbl">ภาพรวม</div>
+      <div class="ni active" data-sec="dashboard" onclick="goSec('dashboard')">
+        <span class="ni-ic">📊</span> Dashboard
+      </div>
+    </div>
+
+    <div class="sb-divider"></div>
+
+    <div class="sb-sec">
+      <div class="sb-lbl">กระบวนการผลิต</div>
+      <div class="ni" data-sec="sourcing" onclick="goSec('sourcing')">
+        <span class="ni-ic">🔍</span> จัดหา
+        <span class="ni-badge">AI</span>
+      </div>
+      <div class="ni" data-sec="intake" onclick="goSec('intake')">
+        <span class="ni-ic">📦</span> รับเข้า
+      </div>
+      <div class="ni" data-sec="production" onclick="goSec('production')">
+        <span class="ni-ic">🏭</span> ผลิต
+      </div>
+      <div class="ni" data-sec="qc" onclick="goSec('qc')">
+        <span class="ni-ic">🔬</span> ตรวจ QC
+        <span class="ni-badge">AI</span>
+      </div>
+      <div class="ni" data-sec="warehouse" onclick="goSec('warehouse')">
+        <span class="ni-ic">🏪</span> คลัง
+      </div>
+      <div class="ni" data-sec="sales" onclick="goSec('sales')">
+        <span class="ni-ic">🚚</span> ขาย & ส่ง
+      </div>
+    </div>
+
+    <div class="sb-divider"></div>
+
+    <div class="sb-sec">
+      <div class="sb-lbl">ระบบ</div>
+      <div class="ni" onclick="">
+        <span class="ni-ic">📑</span> รายงาน
+      </div>
+      <div class="ni" onclick="">
+        <span class="ni-ic">⚙️</span> ตั้งค่าโรงงาน
+      </div>
+    </div>
+
+    <div class="sb-bottom">
+      <div class="user-card">
+        <div class="u-av">สม</div>
+        <div>
+          <div class="u-nm">สมชาย มีดี</div>
+          <div class="u-rl">ผู้จัดการโรงงาน</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ─── MAIN AREA ─── -->
+  <div class="app-main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <span class="tb-title">FreshPro</span>
+      <span class="tb-sep">›</span>
+      <span class="tb-cur" id="tb-cur">ภาพรวม</span>
+      <div class="tb-r">
+        <div class="tbtn">🔔<span class="notif"></span></div>
+        <div class="tbtn">🔍</div>
+        <div class="tbtn">⚙️</div>
+        <div class="tb-av">สม</div>
+      </div>
+    </div>
+
+    <!-- CONTENT AREA -->
+    <div class="content">
+
+      <!-- ════════════════════════════════════════
+           SECTION: DASHBOARD
+      ════════════════════════════════════════ -->
+      <div id="sec-dashboard" class="sec show">
+        <div class="pg-hdr">
+          <div>
+            <div class="pg-ttl">สวัสดีตอนเช้า, คุณสมชาย 👋</div>
+            <div class="pg-sub">ภาพรวมโรงงาน FreshPro — อัปเดตล่าสุด: วันนี้ 08:30 น.</div>
+          </div>
+          <div class="flex ic g2u">
+            <button class="btn-o">📥 Export รายงาน</button>
+            <button class="btn-p">+ เพิ่มรายการ</button>
+          </div>
+        </div>
+
+        <!-- KPI Row -->
+        <div class="krow">
+          <div class="kpi">
+            <div class="kpi-i">🐄</div>
+            <div class="kpi-v">24</div>
+            <div class="kpi-l">รับวัวเข้าวันนี้ (ตัว)</div>
+            <div class="kpi-c cup">↑ +3 จากเมื่อวาน</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-i">🏭</div>
+            <div class="kpi-v">1,240</div>
+            <div class="kpi-l">ผลผลิตสัปดาห์นี้ (กก.)</div>
+            <div class="kpi-c cup">↑ +8.2%</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-i">🔬</div>
+            <div class="kpi-v">94.2%</div>
+            <div class="kpi-l">คะแนน QC เฉลี่ย</div>
+            <div class="kpi-c cup">↑ +1.4%</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-i">💰</div>
+            <div class="kpi-v">฿2.8M</div>
+            <div class="kpi-l">ยอดขายเดือนนี้</div>
+            <div class="kpi-c cdn">↓ -2.1%</div>
+          </div>
+        </div>
+
+        <div class="g2 mb4">
+          <!-- Production Chart -->
+          <div class="card">
+            <div class="ch">
+              <div>
+                <div class="ch-t">📈 ผลผลิตรายสัปดาห์</div>
+                <div class="ch-s">รายงาน 7 วันล่าสุด</div>
+              </div>
+              <select class="fs" style="width:auto;padding:6px 10px;font-size:12px">
+                <option>7 วัน</option><option>30 วัน</option>
+              </select>
+            </div>
+            <div class="cb">
+              <div class="bchart" style="height:110px">
+                <div class="bc-col"><div class="bc-bar" style="height:55%"></div><div class="bc-l">จ.</div></div>
+                <div class="bc-col"><div class="bc-bar" style="height:72%"></div><div class="bc-l">อ.</div></div>
+                <div class="bc-col"><div class="bc-bar" style="height:60%"></div><div class="bc-l">พ.</div></div>
+                <div class="bc-col"><div class="bc-bar" style="height:84%"></div><div class="bc-l">พฤ.</div></div>
+                <div class="bc-col"><div class="bc-bar" style="height:68%"></div><div class="bc-l">ศ.</div></div>
+                <div class="bc-col"><div class="bc-bar" style="height:42%"></div><div class="bc-l">ส.</div></div>
+                <div class="bc-col"><div class="bc-bar" style="height:35%"></div><div class="bc-l">อา.</div></div>
+              </div>
+              <div class="sep"></div>
+              <div class="flex ic jb txt-xs txt-gray">
+                <span>ผลผลิตรวม: <b class="txt-dark">1,240 กก.</b></span>
+                <span>ของเสีย: <b class="txt-r">48 กก. (3.8%)</b></span>
+                <span>เป้าหมาย: <b class="txt-g">฿1,500 กก./สัปดาห์</b></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- QC Distribution -->
+          <div class="card">
+            <div class="ch">
+              <div>
+                <div class="ch-t">🔬 การกระจาย Grade QC</div>
+                <div class="ch-s">เดือนนี้ — ทั้งหมด 312 ชิ้น</div>
+              </div>
+            </div>
+            <div class="cb">
+              <div style="margin-bottom:14px">
+                <div class="flex ic jb mb2"><span class="txt-sm
