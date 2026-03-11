@@ -35,8 +35,8 @@ const navGroups: NavGroup[] = [
   {
     section: 'ระบบ',
     items: [
-      { href: '#', icon: '📑', label: 'รายงาน' },
-      { href: '#', icon: '⚙️', label: 'ตั้งค่าโรงงาน' },
+      { href: '/reports', icon: '📑', label: 'รายงาน' },
+      { href: '/settings', icon: '⚙️', label: 'ตั้งค่าโรงงาน' },
     ],
   },
 ];
@@ -68,7 +68,7 @@ export default function Sidebar() {
               const isActive = pathname === item.href;
               return (
                 <Link
-                  key={item.href}
+                  key={item.label}
                   href={item.href}
                   className={[
                     'flex items-center gap-[10px] px-[10px] py-[9px] rounded-[10px]',

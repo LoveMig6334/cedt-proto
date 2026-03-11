@@ -1,0 +1,68 @@
+[
+  {
+    "provinceId": 10,
+    "provinceName": "กรุงเทพมหานคร",
+    "districts": [
+      {
+        "districtId": 1001,
+        "districtName": "เขตพระนคร",
+        "subDistricts": [
+          { "subDistrictId": 100101, "subDistrictName": "พระบรมมหาราชวัง", "zipcode": "10200" },
+          { "subDistrictId": 100102, "subDistrictName": "วังบูรพาภิรมย์", "zipcode": "10200" }
+        ]
+      },
+      {
+        "districtId": 1002,
+        "districtName": "เขตดุสิต",
+        "subDistricts": [
+          { "subDistrictId": 100201, "subDistrictName": "ดุสิต", "zipcode": "10300" },
+          { "subDistrictId": 100202, "subDistrictName": "วชิรพยาบาล", "zipcode": "10300" }
+        ]
+      }
+    ]
+  },
+  {
+    "provinceId": 50,
+    "provinceName": "เชียงใหม่",
+    "districts": [
+      {
+        "districtId": 5001,
+        "districtName": "อำเภอเมืองเชียงใหม่",
+        "subDistricts": [
+          { "subDistrictId": 500101, "subDistrictName": "ศรีภูมิ", "zipcode": "50200" },
+          { "subDistrictId": 500102, "subDistrictName": "พระสิงห์", "zipcode": "50200" }
+        ]
+      },
+      {
+        "districtId": 5006,
+        "districtName": "อำเภอแม่ริม",
+        "subDistricts": [
+          { "subDistrictId": 500601, "subDistrictName": "ริมใต้", "zipcode": "50180" },
+          { "subDistrictId": 500602, "subDistrictName": "โป่งแยง", "zipcode": "50180" }
+        ]
+      }
+    ]
+  },
+  {
+    "provinceId": 83,
+    "provinceName": "ภูเก็ต",
+    "districts": [
+      {
+        "districtId": 8301,
+        "districtName": "อำเภอเมืองภูเก็ต",
+        "subDistricts": [
+          { "subDistrictId": 830101, "subDistrictName": "ตลาดใหญ่", "zipcode": "83000" },
+          { "subDistrictId": 830102, "subDistrictName": "ตลาดเหนือ", "zipcode": "83000" }
+        ]
+      },
+      {
+        "districtId": 8302,
+        "districtName": "อำเภอกะทู้",
+        "subDistricts": [
+          { "subDistrictId": 830201, "subDistrictName": "กะทู้", "zipcode": "83120" },
+          { "subDistrictId": 830202, "subDistrictName": "ป่าตอง", "zipcode": "83150" }
+        ]
+      }
+    ]
+  }
+]
