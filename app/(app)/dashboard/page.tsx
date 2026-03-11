@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { AnimatedCard } from '@/components/motion/AnimatedCard';
+import { AnimatedButton } from '@/components/motion/AnimatedButton';
 
 export const metadata: Metadata = { title: 'Dashboard | FreshPro' };
 
@@ -52,16 +54,23 @@ export default function DashboardPage() {
           <button className="bg-white text-n-800 border-[1.5px] border-n-200 rounded-[9px] px-5 py-[9px] text-[13px] font-semibold flex items-center gap-1.5 hover:border-p-300 hover:text-p-500 transition-all">
             📥 Export รายงาน
           </button>
-          <button className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-[10px] text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)] hover:-translate-y-0.5 transition-all">
-            + เพิ่มรายการ
-          </button>
+          <AnimatedButton>
+            <button className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-[10px] text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)]">
+              + เพิ่มรายการ
+            </button>
+          </AnimatedButton>
         </div>
       </div>
 
       {/* KPI row */}
       <div className="grid grid-cols-4 gap-[15px] mb-5">
         {kpis.map((kpi) => (
-          <div key={kpi.label} className="bg-white rounded-rlg border border-p-100 p-4 relative overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,.04)]">
+          <AnimatedCard
+            key={kpi.label}
+            className="bg-white rounded-rlg border border-p-100 p-4 relative overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,.04)]"
+            hoverY={-4}
+            hoverShadow="0 8px 20px rgba(0,0,0,0.07)"
+          >
             <div className="absolute -top-2 -right-2 w-16 h-16 bg-p-50 rounded-full" />
             <div className="text-[20px] mb-[9px]">{kpi.icon}</div>
             <div className="text-[23px] font-extrabold text-n-900 mb-0.5">{kpi.value}</div>
@@ -73,7 +82,7 @@ export default function DashboardPage() {
             >
               {kpi.change}
             </div>
-          </div>
+          </AnimatedCard>
         ))}
       </div>
 
@@ -170,7 +179,12 @@ export default function DashboardPage() {
           </div>
           <div className="p-4 space-y-2">
             {deliveries.map((d) => (
-              <div key={d.name} className="flex items-center gap-3 p-3 border-[1.5px] border-n-100 rounded-r hover:border-p-200 hover:shadow-[0_2px_8px_rgba(0,0,0,.04)] transition-all">
+              <AnimatedCard
+                key={d.name}
+                className="flex items-center gap-3 p-3 border-[1.5px] border-n-100 rounded-r hover:border-p-200"
+                hoverY={-2}
+                hoverShadow="0 2px 8px rgba(0,0,0,0.04)"
+              >
                 <div className="w-[42px] h-[42px] rounded-[10px] bg-p-100 flex items-center justify-center text-[18px] flex-shrink-0">
                   🚚
                 </div>
@@ -185,7 +199,7 @@ export default function DashboardPage() {
                 <span className={`px-[9px] py-[3px] rounded-full text-[10.5px] font-semibold whitespace-nowrap ${d.badgeCls}`}>
                   {d.status}
                 </span>
-              </div>
+              </AnimatedCard>
             ))}
           </div>
         </div>
