@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
 import BullLogo from './BullLogo';
 
 type NavItem = {
@@ -72,7 +73,7 @@ export default function Sidebar() {
                   href={item.href}
                   className={[
                     'flex items-center gap-[10px] px-[10px] py-[9px] rounded-[10px]',
-                    'text-[13px] font-medium transition-all duration-200 mb-0.5 relative select-none',
+                    'text-[13px] font-medium mb-0.5 relative select-none',
                     isActive
                       ? 'bg-[rgba(244,114,182,.14)] text-p-300'
                       : 'text-white/[.42] hover:bg-white/[.05] hover:text-white/[.78]',
@@ -99,7 +100,11 @@ export default function Sidebar() {
 
       {/* User card */}
       <div className="mt-auto px-[10px] py-[13px] border-t border-white/[.06]">
-        <div className="flex items-center gap-[10px] p-[9px] rounded-[10px] bg-white/[.04] cursor-pointer hover:bg-white/[.08] transition-colors">
+        <motion.div
+          className="flex items-center gap-[10px] p-[9px] rounded-[10px] bg-white/[.04] cursor-pointer"
+          whileHover={{ backgroundColor: 'rgba(255,255,255,0.08)' }}
+          transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+        >
           <div className="w-[34px] h-[34px] rounded-[9px] bg-gradient-to-br from-p-400 to-p-500 flex items-center justify-center text-white text-[13px] font-bold flex-shrink-0">
             สม
           </div>
@@ -107,7 +112,7 @@ export default function Sidebar() {
             <div className="text-white text-[12.5px] font-semibold">สมชาย มีดี</div>
             <div className="text-white/30 text-[10.5px]">ผู้จัดการโรงงาน</div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </aside>
   );
