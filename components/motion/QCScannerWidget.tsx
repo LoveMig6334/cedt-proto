@@ -1,28 +1,28 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export function QCScannerWidget() {
   return (
     <div
-      className="bg-n-900 rounded-r p-[26px] text-center relative overflow-hidden mb-4"
+      className="bg-n-900 rounded-r p-6.5 text-center relative overflow-hidden mb-4"
       style={{
         backgroundImage:
-          'repeating-linear-gradient(0deg,transparent,transparent 26px,rgba(244,114,182,.035) 26px,rgba(244,114,182,.035) 27px)',
+          "repeating-linear-gradient(0deg,transparent,transparent 26px,rgba(244,114,182,.035) 26px,rgba(244,114,182,.035) 27px)",
       }}
     >
-      <div className="w-[130px] h-[130px] mx-auto mb-3 relative z-10">
-        <div className="absolute top-0 left-0 w-[26px] h-[26px] border-t-2 border-l-2 border-p-400 rounded-[4px_0_0_0]" />
-        <div className="absolute bottom-0 right-0 w-[26px] h-[26px] border-b-2 border-r-2 border-p-400 rounded-[0_0_4px_0]" />
-        <div className="w-full h-full flex items-center justify-center text-[42px] bg-[rgba(244,114,182,.04)] rounded-[8px] relative overflow-hidden">
+      <div className="w-32.5 h-32.5 mx-auto mb-3 relative z-10">
+        <div className="absolute top-0 left-0 w-6.5 h-6.5 border-t-2 border-l-2 border-p-400 rounded-[4px_0_0_0]" />
+        <div className="absolute bottom-0 right-0 w-6.5 h-6.5 border-b-2 border-r-2 border-p-400 rounded-[0_0_4px_0]" />
+        <div className="w-full h-full flex items-center justify-center text-[42px] bg-[rgba(244,114,182,.04)] rounded-lg relative overflow-hidden">
           🥩
           <motion.div
-            className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-p-400 to-transparent"
-            animate={{ top: ['5%', '5%', '95%', '95%'], opacity: [0, 1, 1, 0] }}
+            className="absolute left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-p-400 to-transparent"
+            animate={{ top: ["5%", "5%", "95%", "95%"], opacity: [0, 1, 1, 0] }}
             transition={{
               duration: 2,
               repeat: Infinity,
-              ease: 'linear',
+              ease: "linear",
               times: [0, 0.2, 0.8, 1],
             }}
           />

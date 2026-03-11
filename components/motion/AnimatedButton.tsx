@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
-const spring = { type: 'spring' as const, stiffness: 300, damping: 25 };
+const spring = { type: "spring" as const, stiffness: 300, damping: 25 };
 
 interface AnimatedButtonProps {
   children: React.ReactNode;
@@ -20,8 +20,10 @@ export function AnimatedButton({
 }: AnimatedButtonProps) {
   return (
     <motion.div
-      className={`inline-flex${className ? ` ${className}` : ''}`}
-      whileHover={hoverShadow ? { y: hoverY, boxShadow: hoverShadow } : { y: hoverY }}
+      className={`inline-flex${className ? ` ${className}` : ""}`}
+      whileHover={
+        hoverShadow ? { y: hoverY, boxShadow: hoverShadow } : { y: hoverY }
+      }
       transition={spring}
     >
       {children}

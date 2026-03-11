@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
-const spring = { type: 'spring' as const, stiffness: 300, damping: 25 };
+const spring = { type: "spring" as const, stiffness: 300, damping: 25 };
 
 interface AnimatedCardProps {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export function AnimatedCard({
   children,
   className,
   hoverY = -6,
-  hoverShadow = '0 12px 28px rgba(0,0,0,0.08),0 4px 10px rgba(0,0,0,0.04)',
+  hoverShadow = "0 12px 28px rgba(0,0,0,0.08),0 4px 10px rgba(0,0,0,0.04)",
 }: AnimatedCardProps) {
   return (
     <motion.div

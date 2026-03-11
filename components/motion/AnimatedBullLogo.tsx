@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import BullLogo from '@/components/BullLogo';
+import BullLogo from "@/components/BullLogo";
+import { motion } from "framer-motion";
 
-const spring = { type: 'spring' as const, stiffness: 300, damping: 25 };
+const spring = { type: "spring" as const, stiffness: 300, damping: 25 };
 
 interface AnimatedBullLogoProps {
   size?: number;

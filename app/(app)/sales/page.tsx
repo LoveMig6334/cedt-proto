@@ -17,17 +17,17 @@ const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.'
 export default function SalesPage() {
   return (
     <div>
-      <div className="flex justify-between items-start mb-[22px]">
+      <div className="flex justify-between items-start mb-5.5">
         <div>
-          <div className="text-[20px] font-extrabold text-n-900 mb-[3px]">🚚 ขาย & จัดส่ง</div>
+          <div className="text-[20px] font-extrabold text-n-900 mb-0.75">🚚 ขาย & จัดส่ง</div>
           <div className="text-[12.5px] text-n-500">จัดการออร์เดอร์และติดตามสถานะการจัดส่งแบบ Real-time</div>
         </div>
         <div className="flex gap-2">
-          <button className="bg-white text-n-800 border-[1.5px] border-n-200 rounded-[9px] px-5 py-[9px] text-[13px] font-semibold hover:border-p-300 hover:text-p-500 transition-all">
+          <button className="bg-white text-n-800 border-[1.5px] border-n-200 rounded-[9px] px-5 py-2.25 text-[13px] font-semibold hover:border-p-300 hover:text-p-500 transition-all">
             📥 Export
           </button>
           <AnimatedButton>
-            <button className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-[10px] text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)]">
+            <button className="bg-linear-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-2.5 text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)]">
               + สร้างออร์เดอร์
             </button>
           </AnimatedButton>
@@ -35,7 +35,7 @@ export default function SalesPage() {
       </div>
 
       {/* KPIs */}
-      <div className="grid grid-cols-4 gap-[15px] mb-5">
+      <div className="grid grid-cols-4 gap-3.75 mb-5">
         {[
           { icon: '💰', v: '฿2.8M', l: 'ยอดขายเดือนนี้', chg: '↓ -2.1%', up: false },
           { icon: '📋', v: '47', l: 'ออร์เดอร์ทั้งหมด', chg: '↑ +12', up: true },
@@ -44,24 +44,24 @@ export default function SalesPage() {
         ].map((k) => (
           <div key={k.l} className="bg-white rounded-rlg border border-p-100 p-4 relative overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,.04)]">
             <div className="absolute -top-2 -right-2 w-16 h-16 bg-p-50 rounded-full" />
-            <div className="text-[20px] mb-[9px]">{k.icon}</div>
+            <div className="text-[20px] mb-2.25">{k.icon}</div>
             <div className="text-[23px] font-extrabold text-n-900 mb-0.5">{k.v}</div>
             <div className="text-[11px] text-n-500">{k.l}</div>
-            <div className={`inline-flex items-center text-[10.5px] font-semibold mt-1.5 px-2 py-[2px] rounded-full ${k.up ? 'bg-[#D1FAE5] text-[#059669]' : 'bg-[#FEE2E2] text-[#DC2626]'}`}>
+            <div className={`inline-flex items-center text-[10.5px] font-semibold mt-1.5 px-2 py-0.5 rounded-full ${k.up ? 'bg-[#D1FAE5] text-[#059669]' : 'bg-[#FEE2E2] text-[#DC2626]'}`}>
               {k.chg}
             </div>
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-[1fr_280px] gap-[18px]">
+      <div className="grid grid-cols-[1fr_280px] gap-4.5">
         {/* Orders table */}
         <div className="bg-white rounded-rlg border border-p-100 shadow-[0_1px_3px_rgba(0,0,0,.04)]">
-          <div className="px-5 pt-4 pb-[13px] border-b border-n-100 flex items-center justify-between">
+          <div className="px-5 pt-4 pb-3.25 border-b border-n-100 flex items-center justify-between">
             <div className="text-[13.5px] font-bold text-n-900">รายการออร์เดอร์</div>
-            <div className="flex items-center gap-2 bg-n-100 p-[3px] rounded-[10px]">
+            <div className="flex items-center gap-2 bg-n-100 p-0.75 rounded-[10px]">
               {['ทั้งหมด', 'วันนี้', 'รอส่ง'].map((t, i) => (
-                <button key={t} className={`px-3 py-[7px] rounded-[8px] font-sans text-[12px] font-medium transition-all ${i === 0 ? 'bg-white text-n-900 font-bold shadow-[0_1px_3px_rgba(0,0,0,.07)]' : 'text-n-500'}`}>
+                <button key={t} className={`px-3 py-1.75 rounded-lg font-sans text-[12px] font-medium transition-all ${i === 0 ? 'bg-white text-n-900 font-bold shadow-[0_1px_3px_rgba(0,0,0,.07)]' : 'text-n-500'}`}>
                   {t}
                 </button>
               ))}
@@ -72,7 +72,7 @@ export default function SalesPage() {
               <thead>
                 <tr>
                   {['ออร์เดอร์', 'ลูกค้า', 'รายการ', 'ยอดรวม', 'กำหนดส่ง', 'สถานะ'].map((h) => (
-                    <th key={h} className="bg-cream text-n-500 text-[10px] font-bold uppercase tracking-[.5px] px-[13px] py-[10px] text-left border-b border-n-100 whitespace-nowrap">
+                    <th key={h} className="bg-cream text-n-500 text-[10px] font-bold uppercase tracking-[.5px] px-3.25 py-2.5 text-left border-b border-n-100 whitespace-nowrap">
                       {h}
                     </th>
                   ))}
@@ -81,13 +81,13 @@ export default function SalesPage() {
               <tbody>
                 {orders.map((o) => (
                   <tr key={o.id} className="hover:[&>td]:bg-p-50">
-                    <td className="px-[13px] py-[11px] text-[11px] text-n-400 border-b border-n-100 font-mono">{o.id}</td>
-                    <td className="px-[13px] py-[11px] text-[12.5px] text-n-900 border-b border-n-100 font-semibold">{o.customer}</td>
-                    <td className="px-[13px] py-[11px] text-[12.5px] text-n-700 border-b border-n-100">{o.items}</td>
-                    <td className="px-[13px] py-[11px] text-[12.5px] text-n-900 border-b border-n-100 font-bold">{o.total}</td>
-                    <td className="px-[13px] py-[11px] text-[12.5px] text-n-700 border-b border-n-100 whitespace-nowrap">{o.delivery}</td>
-                    <td className="px-[13px] py-[11px] border-b border-n-100">
-                      <span className={`inline-flex items-center px-[9px] py-[3px] rounded-full text-[10.5px] font-semibold ${o.statusCls}`}>
+                    <td className="px-3.25 py-2.75 text-[11px] text-n-400 border-b border-n-100 font-mono">{o.id}</td>
+                    <td className="px-3.25 py-2.75 text-[12.5px] text-n-900 border-b border-n-100 font-semibold">{o.customer}</td>
+                    <td className="px-3.25 py-2.75 text-[12.5px] text-n-700 border-b border-n-100">{o.items}</td>
+                    <td className="px-3.25 py-2.75 text-[12.5px] text-n-900 border-b border-n-100 font-bold">{o.total}</td>
+                    <td className="px-3.25 py-2.75 text-[12.5px] text-n-700 border-b border-n-100 whitespace-nowrap">{o.delivery}</td>
+                    <td className="px-3.25 py-2.75 border-b border-n-100">
+                      <span className={`inline-flex items-center px-2.25 py-0.75 rounded-full text-[10.5px] font-semibold ${o.statusCls}`}>
                         {o.status}
                       </span>
                     </td>
@@ -100,16 +100,16 @@ export default function SalesPage() {
 
         {/* Monthly chart */}
         <div className="bg-white rounded-rlg border border-p-100 shadow-[0_1px_3px_rgba(0,0,0,.04)]">
-          <div className="px-5 pt-4 pb-[13px] border-b border-n-100">
+          <div className="px-5 pt-4 pb-3.25 border-b border-n-100">
             <div className="text-[13.5px] font-bold text-n-900">📈 ยอดขายรายเดือน</div>
             <div className="text-[11px] text-n-500 mt-0.5">ปี 2568</div>
           </div>
           <div className="p-4">
-            <div className="flex items-end gap-1 h-[120px] mb-3">
+            <div className="flex items-end gap-1 h-30 mb-3">
               {salesChart.map((h, i) => (
-                <div key={i} className="flex-1 flex flex-col items-center gap-[3px] h-full justify-end">
+                <div key={i} className="flex-1 flex flex-col items-center gap-0.75 h-full justify-end">
                   <div
-                    className={`w-full rounded-[3px_3px_0_0] ${i === 2 ? 'bg-p-500' : 'bg-gradient-to-t from-p-400 to-p-200'} min-h-[3px]`}
+                    className={`w-full rounded-[3px_3px_0_0] ${i === 2 ? 'bg-p-500' : 'bg-linear-to-t from-p-400 to-p-200'} min-h-0.75`}
                     style={{ height: `${h}%` }}
                   />
                   <div className="text-[7px] text-n-400 whitespace-nowrap">{months[i]}</div>
