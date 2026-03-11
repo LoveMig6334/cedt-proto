@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { AnimatedCard } from '@/components/motion/AnimatedCard';
+import { AnimatedButton } from '@/components/motion/AnimatedButton';
 
 export const metadata: Metadata = { title: 'จัดหาวัตถุดิบ | FreshPro' };
 
@@ -22,9 +24,11 @@ export default function SourcingPage() {
           <div className="text-[20px] font-extrabold text-n-900 mb-[3px]">🔍 จัดหาวัตถุดิบ</div>
           <div className="text-[12.5px] text-n-500">AI วิเคราะห์และจับคู่ผู้จัดส่งที่ดีที่สุดให้คุณ</div>
         </div>
-        <button className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-[10px] text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)] hover:-translate-y-0.5 transition-all">
-          + สร้างใบสั่งซื้อ
-        </button>
+        <AnimatedButton>
+          <button className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-[10px] text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)]">
+            + สร้างใบสั่งซื้อ
+          </button>
+        </AnimatedButton>
       </div>
 
       <div className="grid grid-cols-[1fr_320px] gap-[18px]">
@@ -36,7 +40,12 @@ export default function SourcingPage() {
           </div>
           <div className="space-y-3">
             {suppliers.map((sup, i) => (
-              <div key={sup.name} className={`bg-white border-[1.5px] rounded-r p-[15px] transition-all cursor-pointer hover:border-p-400 hover:shadow-[0_4px_20px_rgba(244,114,182,.25)] hover:-translate-y-0.5 ${i === 0 ? 'border-p-500 bg-p-50' : 'border-p-100'}`}>
+              <AnimatedCard
+                key={sup.name}
+                className={`bg-white border-[1.5px] rounded-r p-[15px] cursor-pointer hover:border-p-400 ${i === 0 ? 'border-p-500 bg-p-50' : 'border-p-100'}`}
+                hoverY={-2}
+                hoverShadow="0 4px 20px rgba(244,114,182,0.25)"
+              >
                 <div className="flex justify-between items-start mb-[11px]">
                   <div className="w-10 h-10 rounded-[10px] bg-n-100 flex items-center justify-center text-[17px]">🐄</div>
                   <div className="flex items-center gap-[3px] text-[11.5px] font-semibold text-fp-yellow">
@@ -61,7 +70,7 @@ export default function SourcingPage() {
                   </div>
                   <div className="text-[11px] text-n-400">AI Score: <b className="text-p-500">{sup.score}/100</b></div>
                 </div>
-              </div>
+              </AnimatedCard>
             ))}
           </div>
         </div>
