@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { AnimatedButton } from '@/components/motion/AnimatedButton';
 
 export const metadata: Metadata = { title: 'ขาย & จัดส่ง | FreshPro' };
 
@@ -25,9 +26,11 @@ export default function SalesPage() {
           <button className="bg-white text-n-800 border-[1.5px] border-n-200 rounded-[9px] px-5 py-[9px] text-[13px] font-semibold hover:border-p-300 hover:text-p-500 transition-all">
             📥 Export
           </button>
-          <button className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-[10px] text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)] hover:-translate-y-0.5 transition-all">
-            + สร้างออร์เดอร์
-          </button>
+          <AnimatedButton>
+            <button className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-[10px] text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)]">
+              + สร้างออร์เดอร์
+            </button>
+          </AnimatedButton>
         </div>
       </div>
 
