@@ -1,16 +1,20 @@
 interface BullLogoProps {
   size?: number;
+  className?: string;
 }
 
-export default function BullLogo({ size = 48 }: BullLogoProps) {
+export default function BullLogo({
+  size = 48,
+  className = 'drop-shadow-sm transition-transform hover:scale-110 active:scale-95',
+}: BullLogoProps) {
   return (
     <svg
       width={size}
       height={size}
-      viewBox="0 0 512 512" 
+      viewBox="0 0 512 512"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="drop-shadow-sm transition-transform hover:scale-110 active:scale-95"
+      className={className}
     >
       <path
         d="M187.73 10.74c0 0-32.64 0-40.63-0.86-13.85-3.41-26.73-1.14-26.73-1.14s12.88 2.27 26.73 1.14c7.99 0.86 40.63 0.86 40.63 0.86z"
