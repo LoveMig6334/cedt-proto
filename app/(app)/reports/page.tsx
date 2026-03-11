@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 /**
  * Mock data for the reports
@@ -84,17 +85,11 @@ export default function ReportsPage() {
   const data = reportData[period];
 
   return (
-    <div className="animate-fade-in-up">
-      <style>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in-up {
-          animation: fadeInUp 0.4s ease-out forwards;
-        }
-      `}</style>
-      
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+    >
       {/* Header */}
       <div className="flex justify-between items-end mb-7">
         <div>
@@ -129,12 +124,17 @@ export default function ReportsPage() {
 
       <div className="grid grid-cols-4 gap-[18px] mb-6">
         {data.kpis.map((kpi, i) => (
-          <div 
-            key={kpi.label} 
-            className="bg-white border border-p-100 p-5 rounded-rlg relative overflow-hidden group hover:border-p-300 hover:shadow-xl hover:shadow-p-500/5 transition-all duration-300"
-            style={{ animationDelay: `${i * 100}ms` }}
+          <motion.div
+            key={kpi.label}
+            className="bg-white border border-p-100 p-5 rounded-rlg relative overflow-hidden hover:border-p-300 hover:shadow-xl hover:shadow-p-500/5"
+            whileHover="hover"
+            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
           >
-            <div className={`absolute -top-3 -right-3 w-16 h-16 bg-gradient-to-br transition-all duration-500 group-hover:scale-125 ${kpi.up ? 'from-p-50 to-p-100' : 'from-n-50 to-n-100'}`} />
+            <motion.div
+              className={`absolute -top-3 -right-3 w-16 h-16 bg-gradient-to-br ${kpi.up ? 'from-p-50 to-p-100' : 'from-n-50 to-n-100'}`}
+              variants={{ hover: { scale: 1.25 } }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            />
             <div className="relative z-10">
               <div className="text-[12px] font-bold text-n-400 mb-1 uppercase tracking-wider">{kpi.label}</div>
               <div className="text-[28px] font-extrabold text-n-900 mb-0.5 tracking-tight">{kpi.value}</div>
@@ -145,7 +145,7 @@ export default function ReportsPage() {
                 {kpi.up ? '↑' : '↓'} {kpi.trend}
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -275,6 +275,6 @@ export default function ReportsPage() {
             </table>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
