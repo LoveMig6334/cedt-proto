@@ -1,5 +1,9 @@
 import Link from 'next/link';
 import BullLogo from '@/components/BullLogo';
+import { AnimatedBullLogo } from '@/components/motion/AnimatedBullLogo';
+import { AnimatedButton } from '@/components/motion/AnimatedButton';
+import { AnimatedCard } from '@/components/motion/AnimatedCard';
+import { HeroMockup } from '@/components/motion/HeroMockup';
 
 const heroStats = [
   { value: '200+', label: 'โรงงานที่ใช้งาน' },
@@ -49,14 +53,6 @@ const features = [
   },
 ];
 
-const mockupKpis = [
-  { label: 'รับวัวเข้าวันนี้', value: '24 ตัว', pink: false },
-  { label: 'ผลผลิตสัปดาห์', value: '1,240 กก.', pink: true },
-  { label: 'คะแนน QC', value: '94.2%', pink: false },
-  { label: 'ยอดขายเดือนนี้', value: '฿2.8M', pink: true },
-];
-
-const chartBars = [44, 62, 50, 76, 58, 90, 70];
 
 export default function LandingPage() {
   return (
@@ -64,7 +60,7 @@ export default function LandingPage() {
       {/* ── Navbar ── */}
       <nav className="flex items-center justify-between px-16 py-5 relative z-10">
         <div className="flex items-center gap-[11px]">
-          <BullLogo size={42} />
+          <AnimatedBullLogo size={42} />
           <span className="text-[22px] font-extrabold text-n-900">
             Fresh<b className="text-p-500">Pro</b>
           </span>
@@ -76,12 +72,14 @@ export default function LandingPage() {
           <a href="#process" className="text-n-700 text-sm font-medium hover:text-p-500 transition-colors">
             กระบวนการ
           </a>
-          <Link
-            href="/login"
-            className="bg-white text-n-800 border-[1.5px] border-n-200 rounded-[9px] px-5 py-[9px] text-[13px] font-semibold flex items-center gap-1.5 hover:border-p-300 hover:text-p-500 transition-all"
-          >
-            เข้าสู่ระบบ
-          </Link>
+          <AnimatedButton>
+            <Link
+              href="/login"
+              className="bg-white text-n-800 border-[1.5px] border-n-200 rounded-[9px] px-5 py-[9px] text-[13px] font-semibold flex items-center gap-1.5 hover:border-p-300 hover:text-p-500"
+            >
+              เข้าสู่ระบบ
+            </Link>
+          </AnimatedButton>
         </div>
       </nav>
 
@@ -105,15 +103,23 @@ export default function LandingPage() {
           </p>
 
           <div className="flex gap-[13px] items-center mb-11">
-            <Link
-              href="/login"
-              className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-r px-[34px] py-[15px] text-[15px] font-bold shadow-[0_4px_20px_rgba(244,114,182,.25)] hover:-translate-y-[3px] hover:shadow-[0_14px_35px_rgba(244,114,182,.45)] transition-all"
+            <AnimatedButton
+              className="rounded-r"
+              hoverY={-3}
+              hoverShadow="0 14px 35px rgba(244,114,182,.45)"
             >
-              เริ่มต้นใช้งานฟรี
-            </Link>
-            <button className="bg-white text-n-800 border-2 border-n-200 rounded-r px-[34px] py-[15px] text-[15px] font-bold hover:border-p-300 hover:text-p-500 hover:-translate-y-0.5 transition-all">
-              ชมตัวอย่างระบบ ▶
-            </button>
+              <Link
+                href="/login"
+                className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-r px-[34px] py-[15px] text-[15px] font-bold shadow-[0_4px_20px_rgba(244,114,182,.25)]"
+              >
+                เริ่มต้นใช้งานฟรี
+              </Link>
+            </AnimatedButton>
+            <AnimatedButton>
+              <button className="bg-white text-n-800 border-2 border-n-200 rounded-r px-[34px] py-[15px] text-[15px] font-bold hover:border-p-300 hover:text-p-500">
+                ชมตัวอย่างระบบ ▶
+              </button>
+            </AnimatedButton>
           </div>
 
           <div className="flex items-center gap-9">
@@ -131,104 +137,7 @@ export default function LandingPage() {
 
         {/* Right — browser mockup */}
         <div className="flex-1 flex justify-center items-center relative z-10">
-          
-          {/* ── CSS Animations ── */}
-          <style>{`
-            @keyframes floatMockup {
-              0%, 100% { transform: perspective(1000px) rotateY(-7deg) rotateX(3deg) rotateZ(1deg) translateY(0); }
-              50% { transform: perspective(1000px) rotateY(-5deg) rotateX(4deg) rotateZ(0deg) translateY(-15px); }
-            }
-            .animate-float-mockup {
-              animation: floatMockup 6s ease-in-out infinite;
-            }
-            
-            @keyframes popIn {
-              0% { opacity: 0; transform: translateY(15px) scale(0.95); }
-              100% { opacity: 1; transform: translateY(0) scale(1); }
-            }
-            .animate-pop-in {
-              animation: popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-            }
-            
-            @keyframes scaleYUp {
-              0% { transform: scaleY(0); opacity: 0; }
-              100% { transform: scaleY(1); opacity: 1; }
-            }
-            .animate-scale-up {
-              animation: scaleYUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-              transform-origin: bottom;
-            }
-          `}</style>
-
-          <div className="bg-white rounded-[20px] overflow-hidden w-full max-w-[460px] shadow-[0_24px_64px_rgba(0,0,0,.13),0_8px_24px_rgba(244,114,182,.14)] animate-float-mockup hover:shadow-[0_30px_70px_rgba(0,0,0,.15),0_12px_30px_rgba(244,114,182,.25)] transition-shadow duration-700">
-            {/* Browser bar */}
-            <div className="bg-n-900 px-4 py-[10px] flex items-center gap-1.5">
-              <span className="w-[10px] h-[10px] rounded-full bg-[#FF5F57] hover:scale-110 transition-transform cursor-pointer" />
-              <span className="w-[10px] h-[10px] rounded-full bg-[#FFBD2E] hover:scale-110 transition-transform cursor-pointer" />
-              <span className="w-[10px] h-[10px] rounded-full bg-[#28C840] hover:scale-110 transition-transform cursor-pointer" />
-              <div className="flex-1 h-[21px] bg-n-700 rounded-md ml-2 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full bg-white/[0.03] animate-pulse" />
-              </div>
-            </div>
-            
-            {/* Preview body */}
-            <div className="flex h-[285px]">
-              {/* Mini sidebar */}
-              <div className="w-[50px] bg-n-900 px-[7px] py-[9px] flex flex-col items-center gap-[5px]">
-                <div className="w-7 h-7 bg-p-500 rounded-[7px] mb-[5px] shadow-[0_2px_8px_rgba(244,114,182,.4)]" />
-                {[true, false, false, false, false, false].map((active, i) => (
-                  <div
-                    key={i}
-                    className={`w-8 h-8 rounded-[7px] flex items-center justify-center cursor-pointer transition-all duration-300 group hover:scale-110 ${
-                      active ? 'bg-[rgba(244,114,182,.2)]' : 'bg-white/[.05] hover:bg-white/10'
-                    }`}
-                  >
-                    <div
-                      className={`w-[13px] h-[13px] rounded-[3px] transition-colors duration-300 ${
-                        active ? 'bg-p-400' : 'bg-white/[.22] group-hover:bg-white/40'
-                      }`}
-                    />
-                  </div>
-                ))}
-              </div>
-              
-              {/* Mini content */}
-              <div className="flex-1 bg-cream p-[11px] overflow-hidden">
-                <div className="text-[9.5px] font-bold text-n-800 mb-[7px] flex items-center gap-1">
-                  📊 <span className="animate-pulse">ภาพรวมโรงงาน — FreshPro</span>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-1 mb-[7px]">
-                  {mockupKpis.map((kpi, i) => (
-                    <div 
-                      key={kpi.label} 
-                      className="animate-pop-in"
-                      style={{ animationDelay: `${0.2 + (i * 0.15)}s` }}
-                    >
-                      <div className="bg-white rounded-[5px] p-[6px_7px] border border-p-100 hover:border-p-300 hover:shadow-[0_2px_8px_rgba(244,114,182,.15)] hover:-translate-y-0.5 transition-all duration-300 cursor-default h-full">
-                        <div className="text-[7px] text-n-500 mb-px">{kpi.label}</div>
-                        <div className={`text-[12.5px] font-bold ${kpi.pink ? 'text-p-500' : 'text-n-900'}`}>
-                          {kpi.value}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                
-                <div className="h-[46px] bg-white rounded-[5px] p-[5px] flex items-end gap-[3px] group border border-transparent hover:border-n-200 transition-colors">
-                  {chartBars.map((h, i) => (
-                    <div
-                      key={i}
-                      className={`flex-1 rounded-[2px_2px_0_0] animate-scale-up cursor-pointer transition-all duration-300 hover:brightness-110 hover:opacity-80 ${
-                        h > 80 ? 'bg-p-500' : h > 65 ? 'bg-p-400' : 'bg-p-200'
-                      }`}
-                      style={{ height: `${h}%`, animationDelay: `${0.6 + (i * 0.08)}s` }}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+          <HeroMockup />
         </div>
       </section>
 
@@ -264,16 +173,18 @@ export default function LandingPage() {
         </p>
         <div className="grid grid-cols-3 gap-[22px] max-w-[1080px] mx-auto">
           {features.map((feat) => (
-            <div
+            <AnimatedCard
               key={feat.title}
-              className="bg-cream border border-p-100 rounded-rlg p-[28px_22px] transition-all duration-300 hover:-translate-y-[6px] hover:shadow-[0_12px_28px_rgba(0,0,0,.08),0_4px_10px_rgba(0,0,0,.04)] hover:border-p-300"
+              className="bg-cream border border-p-100 rounded-rlg p-[28px_22px] hover:border-p-300"
+              hoverY={-6}
+              hoverShadow="0 12px 28px rgba(0,0,0,0.08),0 4px 10px rgba(0,0,0,0.04)"
             >
               <div className="w-[50px] h-[50px] bg-p-100 rounded-[13px] flex items-center justify-center text-[22px] mb-4">
                 {feat.icon}
               </div>
               <div className="text-[16.5px] font-bold text-n-900 mb-[7px]">{feat.title}</div>
               <div className="text-[13px] text-n-500 leading-[1.65]">{feat.desc}</div>
-            </div>
+            </AnimatedCard>
           ))}
         </div>
       </div>
