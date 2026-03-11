@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { QCScannerWidget } from '@/components/motion/QCScannerWidget';
+import { AnimatedButton } from '@/components/motion/AnimatedButton';
 
 export const metadata: Metadata = { title: 'ตรวจสอบคุณภาพ | FreshPro' };
 
@@ -24,28 +26,17 @@ export default function QCPage() {
           <div className="text-[20px] font-extrabold text-n-900 mb-[3px]">🔬 ตรวจสอบคุณภาพ AI</div>
           <div className="text-[12.5px] text-n-500">Computer Vision วิเคราะห์คุณภาพแต่ละล็อตด้วยความแม่นยำ 98.5%</div>
         </div>
-        <button className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-[10px] text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)] hover:-translate-y-0.5 transition-all">
-          + สแกนล็อตใหม่
-        </button>
+        <AnimatedButton>
+          <button className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-[10px] text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)]">
+            + สแกนล็อตใหม่
+          </button>
+        </AnimatedButton>
       </div>
 
       <div className="grid grid-cols-[1fr_300px] gap-[18px]">
         {/* QC table */}
         <div>
-          {/* Scanner widget */}
-          <div className="bg-n-900 rounded-r p-[26px] text-center relative overflow-hidden mb-4"
-            style={{ backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 26px,rgba(244,114,182,.035) 26px,rgba(244,114,182,.035) 27px)' }}>
-            <div className="w-[130px] h-[130px] mx-auto mb-3 relative z-10">
-              <div className="absolute top-0 left-0 w-[26px] h-[26px] border-t-2 border-l-2 border-p-400 rounded-[4px_0_0_0]" />
-              <div className="absolute bottom-0 right-0 w-[26px] h-[26px] border-b-2 border-r-2 border-p-400 rounded-[0_0_4px_0]" />
-              <div className="w-full h-full flex items-center justify-center text-[42px] bg-[rgba(244,114,182,.04)] rounded-[8px] relative overflow-hidden">
-                🥩
-                <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-p-400 to-transparent animate-scan-line" />
-              </div>
-            </div>
-            <div className="text-white text-[13px] font-semibold relative z-10 mb-1">AI กำลังสแกน...</div>
-            <div className="text-white/40 text-[11px] relative z-10">ล็อต #LP-2025-0442 — สายผลิต A</div>
-          </div>
+          <QCScannerWidget />
 
           {/* Results table */}
           <div className="bg-white rounded-rlg border border-p-100 shadow-[0_1px_3px_rgba(0,0,0,.04)]">
@@ -110,9 +101,11 @@ export default function QCPage() {
               </div>
             ))}
             <div className="h-px bg-n-100 my-2" />
-            <button className="w-full py-2.5 bg-gradient-to-br from-p-400 to-p-500 text-white rounded-r text-[13px] font-bold shadow-[0_4px_20px_rgba(244,114,182,.25)] hover:-translate-y-0.5 transition-all">
-              อนุมัติล็อตนี้
-            </button>
+            <AnimatedButton className="w-full rounded-r">
+              <button className="w-full py-2.5 bg-gradient-to-br from-p-400 to-p-500 text-white rounded-r text-[13px] font-bold shadow-[0_4px_20px_rgba(244,114,182,.25)]">
+                อนุมัติล็อตนี้
+              </button>
+            </AnimatedButton>
           </div>
         </div>
       </div>
