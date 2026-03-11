@@ -27,8 +27,7 @@
   --color-fp-red: #EF4444;
   --color-fp-blue: #3B82F6;
 
-  /* Typography */
-  --font-sans: var(--font-kodchasan), sans-serif;
+  /* Typography defined in @theme inline below */
 
   /* Border radius */
   --radius-r: 12px;
@@ -37,6 +36,10 @@
   /* Animations */
   --animate-pulse-dot: pulse-dot 2s infinite;
   --animate-scan-line: scan-line 2s ease-in-out infinite;
+}
+
+@theme inline {
+  --font-sans: var(--font-kodchasan), sans-serif;
 }
 
 @keyframes pulse-dot {
