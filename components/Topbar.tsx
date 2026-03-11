@@ -10,6 +10,7 @@ const sectionTitles: Record<string, string> = {
   '/qc': 'ตรวจสอบคุณภาพ',
   '/warehouse': 'คลังสินค้า',
   '/sales': 'ขาย & จัดส่ง',
+  '/reports': 'รายงานและสรุปผล',
 };
 
 export default function Topbar() {

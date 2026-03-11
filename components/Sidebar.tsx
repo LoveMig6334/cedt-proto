@@ -35,8 +35,8 @@ const navGroups: NavGroup[] = [
   {
     section: 'ระบบ',
     items: [
-      { href: '#', icon: '📑', label: 'รายงาน' },
-      { href: '#', icon: '⚙️', label: 'ตั้งค่าโรงงาน' },
+      { href: '/reports', icon: '📑', label: 'รายงาน' },
+      { href: '/settings', icon: '⚙️', label: 'ตั้งค่าโรงงาน' },
     ],
   },
 ];
