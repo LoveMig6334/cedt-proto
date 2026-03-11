@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import BullLogo from '@/components/BullLogo';
+import { AnimatedButton } from '@/components/motion/AnimatedButton';
 
 export const metadata: Metadata = {
   title: 'เข้าสู่ระบบ | FreshPro',
@@ -79,12 +80,17 @@ export default function LoginPage() {
             <a href="#" className="text-p-500 text-[12.5px] font-medium">ลืมรหัสผ่าน?</a>
           </div>
 
-          <Link
-            href="/dashboard"
-            className="block w-full py-[13px] bg-gradient-to-br from-p-400 to-p-500 text-white text-center rounded-r text-[15px] font-bold shadow-[0_4px_20px_rgba(244,114,182,.25)] hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(244,114,182,.4)] transition-all mb-4"
+          <AnimatedButton
+            className="w-full rounded-r mb-4"
+            hoverShadow="0 8px 28px rgba(244,114,182,.4)"
           >
-            เข้าสู่ระบบ
-          </Link>
+            <Link
+              href="/dashboard"
+              className="block w-full py-[13px] bg-gradient-to-br from-p-400 to-p-500 text-white text-center rounded-r text-[15px] font-bold shadow-[0_4px_20px_rgba(244,114,182,.25)]"
+            >
+              เข้าสู่ระบบ
+            </Link>
+          </AnimatedButton>
 
           <div className="text-center text-[13px] text-n-500">
             ยังไม่มีบัญชี?{' '}
