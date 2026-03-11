@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { AnimatedButton } from '@/components/motion/AnimatedButton';
 
 export const metadata: Metadata = { title: 'คลังสินค้า | FreshPro' };
 
@@ -18,9 +19,11 @@ export default function WarehousePage() {
           <div className="text-[20px] font-extrabold text-n-900 mb-[3px]">🏪 คลังสินค้า</div>
           <div className="text-[12.5px] text-n-500">จัดการสต็อกสินค้าและติดตามวันหมดอายุแบบ Real-time</div>
         </div>
-        <button className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-[10px] text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)] hover:-translate-y-0.5 transition-all">
-          + เพิ่มสินค้าคลัง
-        </button>
+        <AnimatedButton>
+          <button className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-[10px] text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)]">
+            + เพิ่มสินค้าคลัง
+          </button>
+        </AnimatedButton>
       </div>
 
       {/* Storage stats */}
