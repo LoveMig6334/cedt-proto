@@ -32,26 +32,10 @@
   /* Border radius */
   --radius-r: 12px;
   --radius-rlg: 16px;
-
-  /* Animations */
-  --animate-pulse-dot: pulse-dot 2s infinite;
-  --animate-scan-line: scan-line 2s ease-in-out infinite;
 }
 
 @theme inline {
   --font-sans: var(--font-kodchasan), sans-serif;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(1.4); }
-}
-
-@keyframes scan-line {
-  0%   { top: 5%;  opacity: 0; }
-  20%  { opacity: 1; }
-  80%  { opacity: 1; }
-  100% { top: 95%; opacity: 0; }
 }
 
 /* Custom scrollbar */
