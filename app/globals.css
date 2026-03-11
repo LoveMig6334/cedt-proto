@@ -28,7 +28,7 @@
   --color-fp-blue: #3B82F6;
 
   /* Typography */
-  --font-sans: var(--font-prompt), sans-serif;
+  --font-sans: var(--font-kodchasan), sans-serif;
 
   /* Border radius */
   --radius-r: 12px;

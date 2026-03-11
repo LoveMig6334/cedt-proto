@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { Prompt } from 'next/font/google';
+import { Kodchasan } from 'next/font/google';
 import './globals.css';
 
-const prompt = Prompt({
-  weight: ['300', '400', '500', '600', '700', '800'],
+const kodchasan = Kodchasan({
+  weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin', 'thai'],
-  variable: '--font-prompt',
+  variable: '--font-kodchasan',
   display: 'swap',
 });
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="th">
-      <body className={`${prompt.variable} font-sans bg-cream text-n-800 overflow-x-hidden antialiased`}>
+      <body className={`${kodchasan.variable} font-sans bg-cream text-n-800 overflow-x-hidden antialiased`}>
         {children}
       </body>
     </html>
