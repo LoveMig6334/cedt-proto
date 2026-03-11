@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { AnimatedButton } from '@/components/motion/AnimatedButton';
 
 export const metadata: Metadata = { title: 'รับเข้าวัตถุดิบ | FreshPro' };
 
@@ -17,9 +18,11 @@ export default function IntakePage() {
           <div className="text-[20px] font-extrabold text-n-900 mb-[3px]">📦 รับเข้าวัตถุดิบ</div>
           <div className="text-[12.5px] text-n-500">บันทึกการรับวัตถุดิบพร้อมรูปภาพและ timestamp อัตโนมัติ</div>
         </div>
-        <button className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-[10px] text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)] hover:-translate-y-0.5 transition-all">
-          + บันทึกรับเข้าใหม่
-        </button>
+        <AnimatedButton>
+          <button className="bg-gradient-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-[10px] text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)]">
+            + บันทึกรับเข้าใหม่
+          </button>
+        </AnimatedButton>
       </div>
 
       <div className="grid grid-cols-[1fr_300px] gap-[18px]">
@@ -97,9 +100,11 @@ export default function IntakePage() {
                 <div className="text-[11px] text-n-400">PNG, JPG สูงสุด 10MB</div>
               </div>
             </div>
-            <button className="w-full py-[13px] bg-gradient-to-br from-p-400 to-p-500 text-white rounded-r text-[15px] font-bold shadow-[0_4px_20px_rgba(244,114,182,.25)] hover:-translate-y-0.5 transition-all">
-              บันทึกรับเข้า
-            </button>
+            <AnimatedButton className="w-full rounded-r">
+              <button className="w-full py-[13px] bg-gradient-to-br from-p-400 to-p-500 text-white rounded-r text-[15px] font-bold shadow-[0_4px_20px_rgba(244,114,182,.25)]">
+                บันทึกรับเข้า
+              </button>
+            </AnimatedButton>
           </div>
         </div>
       </div>
