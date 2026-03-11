@@ -57,191 +57,196 @@ export default function LandingPage() {
   return (
     <div>
       {/* ── Navbar ── */}
-      <nav className="flex items-center justify-between px-16 py-5 relative z-10">
-        <div className="flex items-center gap-2.75">
-          <AnimatedBullLogo size={42} />
-          <span className="text-[22px] font-extrabold text-n-900">
-            Fresh<b className="text-p-500">Pro</b>
-          </span>
-        </div>
-        <div className="flex items-center gap-7">
-          <a
-            href="#features"
-            className="text-n-700 text-sm font-medium hover:text-p-500 transition-colors"
-          >
-            ฟีเจอร์
-          </a>
-          <a
-            href="#process"
-            className="text-n-700 text-sm font-medium hover:text-p-500 transition-colors"
-          >
-            กระบวนการ
-          </a>
-          <AnimatedButton>
-            <Link
-              href="/login"
-              className="bg-white text-n-800 border-[1.5px] border-n-200 rounded-[9px] px-5 py-2.25 text-[13px] font-semibold flex items-center gap-1.5 hover:border-p-300 hover:text-p-500"
+      <nav className="sticky top-0 z-50 bg-white border-b border-n-200/70 shadow-sm">
+        <div className="max-w-7xl mx-auto px-10 py-5 flex items-center justify-between">
+          <div className="flex items-center gap-2.75">
+            <AnimatedBullLogo size={42} />
+            <span className="text-[22px] font-extrabold text-n-900">
+              Fresh<b className="text-p-500">Pro</b>
+            </span>
+          </div>
+          <div className="flex items-center gap-7">
+            <a
+              href="#features"
+              className="text-n-700 text-sm font-medium hover:text-p-500 transition-colors"
             >
-              เข้าสู่ระบบ
-            </Link>
-          </AnimatedButton>
+              ฟีเจอร์
+            </a>
+            <a
+              href="#process"
+              className="text-n-700 text-sm font-medium hover:text-p-500 transition-colors"
+            >
+              กระบวนการ
+            </a>
+            <AnimatedButton>
+              <Link
+                href="/login"
+                className="bg-p-500 text-white border-[1.5px] border-p-500 rounded-[9px] px-5 py-2.25 text-[13px] font-semibold flex items-center gap-1.5 hover:bg-p-400 hover:border-p-400"
+              >
+                เข้าสู่ระบบ
+              </Link>
+            </AnimatedButton>
+          </div>
         </div>
       </nav>
 
       {/* ── Hero ── */}
-      <section className="min-h-[calc(100vh-74px)] flex items-center px-16 py-10 gap-18 relative overflow-hidden">
+      <section className="min-h-[calc(100vh-74px)] relative overflow-hidden">
         <div className="absolute -top-20 -right-30 w-170 h-170 bg-[radial-gradient(circle,#FCE7F3_0%,transparent_60%)] pointer-events-none" />
         <div className="absolute -bottom-30 -left-15 w-120 h-120 bg-[radial-gradient(circle,rgba(244,114,182,.07)_0%,transparent_65%)] pointer-events-none" />
 
-        {/* Left */}
-        <div className="flex-1 max-w-145 relative z-10">
-          <h1 className="text-[52px] font-extrabold leading-[1.12] text-n-900 mb-5 tracking-[-1.5px]">
-            บริหารจัดการ
-            <br />
-            โรงงานเนื้อวัว
-            <br />
-            <span className="text-p-500">อัจฉริยะ</span>
-          </h1>
+        <div className="max-w-7xl mx-auto px-10 min-h-[calc(100vh-74px)] flex items-center gap-16 py-10">
+          {/* Left */}
+          <div className="flex-none max-w-125 relative z-10">
+            <h1 className="text-[52px] font-extrabold leading-[1.2] text-n-900 mb-5 tracking-[-1.5px]">
+              FreshPro บริหารจัดการโรงงานเนื้อวัว
+              <span className="text-p-500">อัจฉริยะ</span>
+            </h1>
 
-          <p className="text-[15.5px] text-n-500 leading-[1.8] mb-8.5">
-            ระบบจัดการครบวงจร ตั้งแต่จัดหาวัตถุดิบ ควบคุมกระบวนการผลิต
-            <br />
-            ตรวจสอบคุณภาพด้วย AI จนถึงส่งมอบสินค้าให้ลูกค้า
-          </p>
+            <p className="text-[15.5px] text-n-500 leading-[1.8] mb-8.5">
+              ระบบจัดการครบวงจร ตั้งแต่จัดหาวัตถุดิบ ควบคุมกระบวนการผลิต
+              <br />
+              ตรวจสอบคุณภาพด้วย AI จนถึงส่งมอบสินค้าให้ลูกค้า
+            </p>
 
-          <div className="flex gap-3.25 items-center mb-11">
-            <AnimatedButton
-              className="rounded-r"
-              hoverY={-3}
-              hoverShadow="0 14px 35px rgba(244,114,182,.45)"
-            >
-              <Link
-                href="/login"
-                className="bg-linear-to-br from-p-400 to-p-500 text-white rounded-r px-8.5 py-3.75 text-[15px] font-bold shadow-[0_4px_20px_rgba(244,114,182,.25)]"
+            <div className="flex gap-3.25 items-center mb-11">
+              <AnimatedButton
+                className="rounded-r"
+                hoverY={-3}
+                hoverShadow="0 14px 35px rgba(244,114,182,.45)"
               >
-                เริ่มต้นใช้งานฟรี
-              </Link>
-            </AnimatedButton>
-            <AnimatedButton>
-              <button className="bg-white text-n-800 border-2 border-n-200 rounded-r px-8.5 py-3.75 text-[15px] font-bold hover:border-p-300 hover:text-p-500">
-                ชมตัวอย่างระบบ ▶
-              </button>
-            </AnimatedButton>
+                <Link
+                  href="/login"
+                  className="bg-linear-to-br from-p-400 to-p-500 text-white rounded-r px-8.5 py-3.75 text-[15px] font-bold shadow-[0_4px_20px_rgba(244,114,182,.25)]"
+                >
+                  เริ่มต้นใช้งานฟรี
+                </Link>
+              </AnimatedButton>
+              <AnimatedButton>
+                <button className="bg-white text-n-800 border-2 border-n-200 rounded-r px-8.5 py-3.75 text-[15px] font-bold hover:border-p-300 hover:text-p-500">
+                  ชมตัวอย่างระบบ ▶
+                </button>
+              </AnimatedButton>
+            </div>
+
+            <div className="flex items-center gap-9">
+              {heroStats.map((stat, i) => (
+                <div key={stat.label} className="flex items-center gap-9">
+                  {i > 0 && <div className="w-px h-8 bg-n-200" />}
+                  <div>
+                    <div className="text-[28px] font-extrabold text-n-900">
+                      {stat.value}
+                    </div>
+                    <div className="text-[11.5px] text-n-500 mt-0.5">
+                      {stat.label}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="flex items-center gap-9">
-            {heroStats.map((stat, i) => (
-              <div key={stat.label} className="flex items-center gap-9">
-                {i > 0 && <div className="w-px h-8 bg-n-200" />}
-                <div>
-                  <div className="text-[28px] font-extrabold text-n-900">
-                    {stat.value}
-                  </div>
-                  <div className="text-[11.5px] text-n-500 mt-0.5">
-                    {stat.label}
-                  </div>
+          {/* Right — browser mockup */}
+          <div className="flex-1 flex justify-center items-center relative z-10">
+            <HeroMockup />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Process Flow ── */}
+      <div id="process" className="bg-cream">
+        <div className="max-w-7xl mx-auto px-10 py-18">
+          <h2 className="text-center text-[34px] font-extrabold text-n-900 mb-2.5">
+            ครอบคลุมทุกขั้นตอนการผลิต
+          </h2>
+          <p className="text-center text-n-500 text-[14.5px] mb-13">
+            ระบบเดียวที่จัดการกระบวนการทั้งหมดของโรงงานแปรรูปเนื้อวัว
+            ตั้งแต่ต้นน้ำถึงปลายน้ำ
+          </p>
+          <div className="flex justify-between items-start max-w-225 mx-auto relative">
+            <div className="absolute top-6.5 left-13 right-13 h-0.5 bg-linear-to-r from-p-200 via-p-400 to-p-200 z-0" />
+            {processSteps.map((step) => (
+              <div
+                key={step.label}
+                className="flex flex-col items-center gap-2.5 flex-1 relative z-10"
+              >
+                <div className="w-13 h-13 rounded-full bg-p-500 border-[2.5px] border-p-500 flex items-center justify-center text-xl shadow-[0_0_0_6px_#FFF0F7,0_4px_20px_rgba(244,114,182,.25)]">
+                  {step.icon}
+                </div>
+                <div className="text-xs font-semibold text-p-500 text-center">
+                  {step.label}
+                </div>
+                <div className="text-[10.5px] text-n-400 text-center">
+                  {step.sub}
                 </div>
               </div>
             ))}
           </div>
         </div>
-
-        {/* Right — browser mockup */}
-        <div className="flex-1 flex justify-center items-center relative z-10">
-          <HeroMockup />
-        </div>
-      </section>
-
-      {/* ── Process Flow ── */}
-      <div id="process" className="px-16 py-18 bg-cream">
-        <h2 className="text-center text-[34px] font-extrabold text-n-900 mb-2.5">
-          ครอบคลุมทุกขั้นตอนการผลิต
-        </h2>
-        <p className="text-center text-n-500 text-[14.5px] mb-13">
-          ระบบเดียวที่จัดการกระบวนการทั้งหมดของโรงงานแปรรูปเนื้อวัว
-          ตั้งแต่ต้นน้ำถึงปลายน้ำ
-        </p>
-        <div className="flex justify-between items-start max-w-225 mx-auto relative">
-          <div className="absolute top-6.5 left-13 right-13 h-0.5 bg-linear-to-r from-p-200 via-p-400 to-p-200 z-0" />
-          {processSteps.map((step) => (
-            <div
-              key={step.label}
-              className="flex flex-col items-center gap-2.5 flex-1 relative z-10"
-            >
-              <div className="w-13 h-13 rounded-full bg-p-500 border-[2.5px] border-p-500 flex items-center justify-center text-xl shadow-[0_0_0_6px_#FFF0F7,0_4px_20px_rgba(244,114,182,.25)]">
-                {step.icon}
-              </div>
-              <div className="text-xs font-semibold text-p-500 text-center">
-                {step.label}
-              </div>
-              <div className="text-[10.5px] text-n-400 text-center">
-                {step.sub}
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* ── Features Grid ── */}
-      <div id="features" className="bg-white px-16 py-18">
-        <h2 className="text-center text-[34px] font-extrabold text-n-900 mb-2.5">
-          ฟีเจอร์เด่นของ FreshPro
-        </h2>
-        <p className="text-center text-n-500 text-[14.5px] mb-13">
-          ออกแบบมาเพื่อโรงงานแปรรูปเนื้อวัวโดยเฉพาะ ครบทุกฟังก์ชันในระบบเดียว
-        </p>
-        <div className="grid grid-cols-3 gap-5.5 max-w-270 mx-auto">
-          {features.map((feat) => (
-            <AnimatedCard
-              key={feat.title}
-              className="bg-cream border border-p-100 rounded-rlg p-[28px_22px] hover:border-p-300"
-              hoverY={-6}
-              hoverShadow="0 12px 28px rgba(0,0,0,0.08),0 4px 10px rgba(0,0,0,0.04)"
-            >
-              <div className="w-12.5 h-12.5 bg-p-100 rounded-[13px] flex items-center justify-center text-[22px] mb-4">
-                {feat.icon}
-              </div>
-              <div className="text-[16.5px] font-bold text-n-900 mb-1.75">
-                {feat.title}
-              </div>
-              <div className="text-[13px] text-n-500 leading-[1.65]">
-                {feat.desc}
-              </div>
-            </AnimatedCard>
-          ))}
+      <div id="features" className="bg-white">
+        <div className="max-w-7xl mx-auto px-10 py-18">
+          <h2 className="text-center text-[34px] font-extrabold text-n-900 mb-2.5">
+            ฟีเจอร์เด่นของ FreshPro
+          </h2>
+          <p className="text-center text-n-500 text-[14.5px] mb-13">
+            ออกแบบมาเพื่อโรงงานแปรรูปเนื้อวัวโดยเฉพาะ ครบทุกฟังก์ชันในระบบเดียว
+          </p>
+          <div className="grid grid-cols-3 gap-5.5 max-w-270 mx-auto">
+            {features.map((feat) => (
+              <AnimatedCard
+                key={feat.title}
+                className="bg-cream border border-p-100 rounded-rlg p-[28px_22px] hover:border-p-300"
+                hoverY={-6}
+                hoverShadow="0 12px 28px rgba(0,0,0,0.08),0 4px 10px rgba(0,0,0,0.04)"
+              >
+                <div className="w-12.5 h-12.5 bg-p-100 rounded-[13px] flex items-center justify-center text-[22px] mb-4">
+                  {feat.icon}
+                </div>
+                <div className="text-[16.5px] font-bold text-n-900 mb-1.75">
+                  {feat.title}
+                </div>
+                <div className="text-[13px] text-n-500 leading-[1.65]">
+                  {feat.desc}
+                </div>
+              </AnimatedCard>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* ── Footer ── */}
-      <footer className="bg-n-900 px-16 py-9 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <BullLogo size={32} />
-          <span className="text-[22px] font-extrabold text-white">
-            Fresh<b className="text-p-400">Pro</b>
-          </span>
-        </div>
-        <span className="text-[12.5px] text-white/35">
-          © 2025 FreshPro. สงวนลิขสิทธิ์ทุกกรณี
-        </span>
-        <div className="flex gap-4">
-          <a
-            href="#"
-            className="text-white/40 text-[12.5px] hover:text-p-400 transition-colors"
-          >
-            Privacy
-          </a>
-          <a
-            href="#"
-            className="text-white/40 text-[12.5px] hover:text-p-400 transition-colors"
-          >
-            Terms
-          </a>
-          <a
-            href="#"
-            className="text-white/40 text-[12.5px] hover:text-p-400 transition-colors"
-          >
-            Contact
-          </a>
+      <footer className="bg-n-900">
+        <div className="max-w-7xl mx-auto px-10 py-9 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <BullLogo size={32} />
+            <span className="text-[22px] font-extrabold text-white">
+              Fresh<b className="text-p-400">Pro</b>
+            </span>
+          </div>
+          <span className="text-[12.5px] text-white/35">© 2026 FreshPro</span>
+          <div className="flex gap-4">
+            <a
+              href="#"
+              className="text-white/40 text-[12.5px] hover:text-p-400 transition-colors"
+            >
+              Privacy
+            </a>
+            <a
+              href="#"
+              className="text-white/40 text-[12.5px] hover:text-p-400 transition-colors"
+            >
+              Terms
+            </a>
+            <a
+              href="#"
+              className="text-white/40 text-[12.5px] hover:text-p-400 transition-colors"
+            >
+              Contact
+            </a>
+          </div>
         </div>
       </footer>
     </div>

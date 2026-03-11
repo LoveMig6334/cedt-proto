@@ -15,9 +15,9 @@ const spring = { type: "spring" as const, stiffness: 300, damping: 25 };
 
 export function HeroMockup() {
   return (
-    <div style={{ perspective: "1000px" }}>
+    <div style={{ perspective: "1200px" }} className="w-full max-w-155">
       <motion.div
-        className="bg-white rounded-[20px] overflow-hidden w-full max-w-115 shadow-[0_24px_64px_rgba(0,0,0,.13),0_8px_24px_rgba(244,114,182,.14)]"
+        className="bg-white rounded-[20px] overflow-hidden w-full shadow-[0_28px_72px_rgba(0,0,0,.14),0_10px_28px_rgba(244,114,182,.16)]"
         animate={{
           y: [0, -15, 0],
           rotateY: [-7, -5, -7],
@@ -27,27 +27,27 @@ export function HeroMockup() {
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         whileHover={{
           boxShadow:
-            "0 30px 70px rgba(0,0,0,.15),0 12px 30px rgba(244,114,182,.25)",
+            "0 36px 80px rgba(0,0,0,.16),0 14px 36px rgba(244,114,182,.28)",
         }}
       >
         {/* Browser bar */}
-        <div className="bg-n-900 px-4 py-2.5 flex items-center gap-1.5">
+        <div className="bg-n-900 px-5 py-3 flex items-center gap-2">
           <motion.span
-            className="w-2.5 h-2.5 rounded-full bg-[#FF5F57] inline-block cursor-pointer"
+            className="w-3 h-3 rounded-full bg-[#FF5F57] inline-block cursor-pointer"
             whileHover={{ scale: 1.1 }}
             transition={spring}
           />
           <motion.span
-            className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] inline-block cursor-pointer"
+            className="w-3 h-3 rounded-full bg-[#FFBD2E] inline-block cursor-pointer"
             whileHover={{ scale: 1.1 }}
             transition={spring}
           />
           <motion.span
-            className="w-2.5 h-2.5 rounded-full bg-[#28C840] inline-block cursor-pointer"
+            className="w-3 h-3 rounded-full bg-[#28C840] inline-block cursor-pointer"
             whileHover={{ scale: 1.1 }}
             transition={spring}
           />
-          <div className="flex-1 h-5.25 bg-n-700 rounded-md ml-2 relative overflow-hidden">
+          <div className="flex-1 h-6 bg-n-700 rounded-md ml-3 relative overflow-hidden">
             <motion.div
               className="absolute top-0 left-0 w-full h-full bg-white/3"
               animate={{ opacity: [0.03, 0.1, 0.03] }}
@@ -57,33 +57,31 @@ export function HeroMockup() {
         </div>
 
         {/* Preview body */}
-        <div className="flex h-71.25">
-          {/* Mini sidebar (decorative, CSS hover OK here) */}
-          <div className="w-12.5 bg-n-900 px-1.75 py-2.25 flex flex-col items-center gap-1.25">
-            <div className="w-7 h-7 bg-p-500 rounded-[7px] mb-1.25 shadow-[0_2px_8px_rgba(244,114,182,.4)]" />
+        <div className="flex h-86.5">
+          {/* Mini sidebar */}
+          <div className="w-16.5 bg-n-900 px-2 py-3 flex flex-col items-center gap-1.5">
+            <div className="w-8.5 h-8.5 bg-p-500 rounded-[9px] mb-1.5 shadow-[0_2px_10px_rgba(244,114,182,.45)]" />
             {[true, false, false, false, false, false].map((active, i) => (
               <div
                 key={i}
-                className={`w-8 h-8 rounded-[7px] flex items-center justify-center cursor-pointer transition-all duration-300 group hover:scale-110 ${
+                className={`w-9.5 h-9.5 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-300 group hover:scale-110 ${
                   active
                     ? "bg-[rgba(244,114,182,.2)]"
                     : "bg-white/5 hover:bg-white/10"
                 }`}
               >
                 <div
-                  className={`w-3.25 h-3.25 rounded-[3px] transition-colors duration-300 ${
-                    active
-                      ? "bg-p-400"
-                      : "bg-white/22 group-hover:bg-white/40"
+                  className={`w-4 h-4 rounded-sm transition-colors duration-300 ${
+                    active ? "bg-p-400" : "bg-white/22 group-hover:bg-white/40"
                   }`}
                 />
               </div>
             ))}
           </div>
 
-          {/* Mini content */}
-          <div className="flex-1 bg-cream p-2.75 overflow-hidden">
-            <div className="text-[9.5px] font-bold text-n-800 mb-1.75 flex items-center gap-1">
+          {/* Main content */}
+          <div className="flex-1 bg-cream p-3.5 overflow-hidden flex flex-col gap-2.5">
+            <div className="text-[11px] font-bold text-n-800 flex items-center gap-1.5">
               📊{" "}
               <motion.span
                 animate={{ opacity: [1, 0.4, 1] }}
@@ -97,7 +95,7 @@ export function HeroMockup() {
               </motion.span>
             </div>
 
-            <div className="grid grid-cols-2 gap-1 mb-1.75">
+            <div className="grid grid-cols-2 gap-1.5">
               {mockupKpis.map((kpi, i) => (
                 <motion.div
                   key={kpi.label}
@@ -109,12 +107,12 @@ export function HeroMockup() {
                     duration: 0.6,
                   }}
                 >
-                  <div className="bg-white rounded-[5px] p-[6px_7px] border border-p-100 hover:border-p-300 hover:shadow-[0_2px_8px_rgba(244,114,182,.15)] hover:-translate-y-0.5 transition-all duration-300 cursor-default h-full">
-                    <div className="text-[7px] text-n-500 mb-px">
+                  <div className="bg-white rounded-md p-[9px_10px] border border-p-100 hover:border-p-300 hover:shadow-[0_2px_8px_rgba(244,114,182,.15)] hover:-translate-y-0.5 transition-all duration-300 cursor-default">
+                    <div className="text-[8.5px] text-n-500 mb-0.5">
                       {kpi.label}
                     </div>
                     <div
-                      className={`text-[12.5px] font-bold ${
+                      className={`text-[15px] font-bold leading-tight ${
                         kpi.pink ? "text-p-500" : "text-n-900"
                       }`}
                     >
@@ -125,7 +123,7 @@ export function HeroMockup() {
               ))}
             </div>
 
-            <div className="h-11.5 bg-white rounded-[5px] p-1.25 flex items-end gap-0.75 group border border-transparent hover:border-n-200 transition-colors">
+            <div className="flex-1 bg-white rounded-md p-2 flex items-end gap-1 group border border-transparent hover:border-n-200 transition-colors">
               {chartBars.map((h, i) => (
                 <motion.div
                   key={i}
