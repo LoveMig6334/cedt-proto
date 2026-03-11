@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/lib/useAuth";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,7 +10,6 @@ type NavItem = {
   href: string;
   icon: string;
   label: string;
-  badge?: string;
 };
 
 type NavGroup = {
@@ -25,10 +25,10 @@ const navGroups: NavGroup[] = [
   {
     section: "กระบวนการผลิต",
     items: [
-      { href: "/sourcing", icon: "🔍", label: "จัดหา", badge: "AI" },
+      { href: "/sourcing", icon: "🔍", label: "จัดหา" },
       { href: "/intake", icon: "📦", label: "รับเข้า" },
       { href: "/production", icon: "🏭", label: "ผลิต" },
-      { href: "/qc", icon: "🔬", label: "ตรวจ QC", badge: "AI" },
+      { href: "/qc", icon: "🔬", label: "ตรวจ QC" },
       { href: "/warehouse", icon: "🏪", label: "คลัง" },
       { href: "/sales", icon: "🚚", label: "ขาย & ส่ง" },
     ],
@@ -42,8 +42,21 @@ const navGroups: NavGroup[] = [
   },
 ];
 
+function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) {
+    return (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase();
+  }
+  return name.slice(0, 2);
+}
+
 export default function Sidebar() {
   const pathname = usePathname();
+  const { user, logout } = useAuth();
+
+  const displayName = user?.name ?? "ผู้ใช้งาน";
+  const displayTitle = user?.title ?? "";
+  const initials = getInitials(displayName);
 
   return (
     <aside className="w-62 h-full bg-n-900 flex flex-col shrink-0 overflow-y-auto overflow-x-hidden">
@@ -84,11 +97,6 @@ export default function Sidebar() {
                     {item.icon}
                   </span>
                   {item.label}
-                  {item.badge && (
-                    <span className="ml-auto bg-p-500 text-white text-[9.5px] font-bold px-1.75 py-0.5 rounded-full">
-                      {item.badge}
-                    </span>
-                  )}
                 </Link>
               );
             })}
@@ -99,19 +107,26 @@ export default function Sidebar() {
       {/* User card */}
       <div className="mt-auto px-2.5 py-3.25 border-t border-white/6">
         <motion.div
-          className="flex items-center gap-2.5 p-2.25 rounded-[10px] bg-white/4 cursor-pointer"
+          className="flex items-center gap-2.5 p-2.25 rounded-[10px] bg-white/4 cursor-pointer group"
           whileHover={{ backgroundColor: "rgba(255,255,255,0.08)" }}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          onClick={logout}
+          title="คลิกเพื่อออกจากระบบ"
         >
-          <div className="w-8.5 h-8.5 rounded-[9px] bg-linear-to-br from-p-400 to-p-500 flex items-center justify-center text-white text-[13px] font-bold shrink-0">
-            สม
+          <div className="w-8.5 h-8.5 rounded-[9px] bg-linear-to-br from-p-400 to-p-500 flex items-center justify-center text-white text-[12px] font-bold shrink-0">
+            {initials}
           </div>
-          <div>
-            <div className="text-white text-[12.5px] font-semibold">
-              สมชาย มีดี
+          <div className="flex-1 min-w-0">
+            <div className="text-white text-[12.5px] font-semibold truncate">
+              {displayName}
             </div>
-            <div className="text-white/30 text-[10.5px]">ผู้จัดการโรงงาน</div>
+            <div className="text-white/30 text-[10.5px] truncate">
+              {displayTitle}
+            </div>
           </div>
+          <span className="text-white/20 text-[10px] opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+            ออก
+          </span>
         </motion.div>
       </div>
     </aside>
