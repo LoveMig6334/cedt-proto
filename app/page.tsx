@@ -28,12 +28,12 @@ const features = [
   },
   {
     icon: "📸",
-    title: "บันทึกพร้อมรูปภาพ",
+    title: "บันทึกข้อมูลรับเข้า",
     desc: "บันทึกการรับเข้าพร้อม timestamp และรูปภาพ สามารถวิเคราะห์ยอดรายเดือนได้ทันที",
   },
   {
     icon: "⚙️",
-    title: "ควบคุมการผลิต",
+    title: "บันทึกข้อมูลการผลิต",
     desc: "เบิกวัตถุดิบจาก Stock บันทึกผลผลิตและของเสียแบบ Real-time พร้อมรายงานประสิทธิภาพ",
   },
   {
@@ -43,12 +43,12 @@ const features = [
   },
   {
     icon: "🤝",
-    title: "Match ผู้ซื้อ-สินค้า",
+    title: "บันทึกข้อมูลยอดขายและการจัดส่ง",
     desc: "ระบบ Match สินค้าในคลังกับผู้ซื้ออัตโนมัติ บริหารสต็อกและติดตามสถานะแบบ Live",
   },
   {
     icon: "📊",
-    title: "วิเคราะห์ยอดขาย",
+    title: "วิเคราะห์และรายงานข้อมูล แบบเรียลไทม์",
     desc: "Dashboard วิเคราะห์ยอดขาย ดู trend รายวัน รายสัปดาห์ รายเดือน Export รายงานได้ทันที",
   },
 ];
@@ -98,16 +98,21 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-10 min-h-[calc(100vh-74px)] flex items-center gap-16 py-10">
           {/* Left */}
           <div className="flex-none max-w-125 relative z-10">
-            <h1 className="text-[52px] font-extrabold leading-[1.2] text-n-900 mb-5 tracking-[-1.5px]">
-              FreshPro บริหารจัดการโรงงานเนื้อวัว
-              <span className="text-p-500">อัจฉริยะ</span>
-            </h1>
+            <div className="mb-8.5 flex flex-col items-start gap-4.5">
+              <div className="flex items-center gap-4">
+                <BullLogo size={104} className="drop-shadow-sm" />
+                <div
+                  className="font-extrabold leading-none tracking-[-1.8px] text-n-900"
+                  style={{ fontSize: "75px" }}
+                >
+                  FreshPro
+                </div>
+              </div>
 
-            <p className="text-[15.5px] text-n-500 leading-[1.8] mb-8.5">
-              ระบบจัดการครบวงจร ตั้งแต่จัดหาวัตถุดิบ ควบคุมกระบวนการผลิต
-              <br />
-              ตรวจสอบคุณภาพด้วย AI จนถึงส่งมอบสินค้าให้ลูกค้า
-            </p>
+              <p className="text-[17px] text-n-500 leading-[1.75] max-w-120">
+                แพลตฟอร์มบริหารจัดการอุตสาหกรรมการแปรรูปเนื้อสัตว์
+              </p>
+            </div>
 
             <div className="flex gap-3.25 items-center mb-11">
               <AnimatedButton
