@@ -31,7 +31,7 @@ export default function FactorySetupPage() {
 
   function handleNext() {
     if (!factoryName.trim()) {
-      setError("กรุณากรอกชื่อโรงงาน");
+      setError("*กรุณากรอกชื่อโรงงาน");
       return;
     }
     setError("");
@@ -62,7 +62,7 @@ export default function FactorySetupPage() {
             ตั้งค่าโรงงานของคุณ
           </h1>
           <p className="text-[13.5px] text-n-500">
-            กรอกข้อมูลพื้นฐานเพื่อเริ่มต้นใช้งาน FreshPro (ฟรี แผนที่ไม่ต้องใช้ API Key)
+            กรอกข้อมูลพื้นฐานเพื่อเริ่มต้นใช้งาน FreshPro
           </p>
         </div>
 
@@ -107,7 +107,7 @@ export default function FactorySetupPage() {
         {/* Section 2: Free Map Location */}
         <div className="bg-white rounded-rlg border border-p-100 shadow-[0_1px_3px_rgba(0,0,0,.04)] overflow-hidden mb-8">
           <div className="px-6 py-4 border-b border-n-100">
-            <h2 className="text-[15px] font-bold text-n-900">ที่ตั้งโรงงาน (ฟรี แผนที่ OSM)</h2>
+            <h2 className="text-[15px] font-bold text-n-900">ที่ตั้งโรงงาน</h2>
             <p className="text-[12px] text-n-500 mt-0.5">ค้นหาที่อยู่หรือคลิกลูกศรเพื่อปักหมุด</p>
           </div>
           <div className="p-6">

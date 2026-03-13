@@ -24,8 +24,8 @@ export default function SettingsPage() {
           <div className="text-[20px] font-extrabold text-n-900 mb-0.75">
             ตั้งค่าโรงงาน
           </div>
-          <div className="text-[12.5px] text-n-500">
-            จัดการข้อมูลและรายละเอียดสถานที่ตั้งของโรงงาน (ฟรี แผนที่ OSM)
+          <div className="text-[12.5px] text-n-500">  
+            จัดการข้อมูลและรายละเอียดสถานที่ตั้งของโรงงาน
           </div>
         </div>
         <button className="bg-linear-to-br from-p-400 to-p-500 text-white rounded-[9px] px-5 py-2.5 text-[13px] font-semibold shadow-[0_4px_20px_rgba(244,114,182,.25)] hover:-translate-y-0.5 transition-all">

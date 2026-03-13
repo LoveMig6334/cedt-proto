@@ -31,13 +31,33 @@ const pinIcon = L.divIcon({
   iconAnchor: [14, 40],
 });
 
+// ─── Thailand Bounds ─────────────────────────────────────────────────────────
+// ขอบเขตของประเทศไทย (Southwest → Northeast)
+const THAILAND_BOUNDS = L.latLngBounds(
+  L.latLng(5.5, 97.3),   // Southwest corner (ใต้สุด, ตะวันตกสุด)
+  L.latLng(20.5, 105.7),  // Northeast corner (เหนือสุด, ตะวันออกสุด)
+);
+
+// ตรวจสอบว่าพิกัดอยู่ในประเทศไทยหรือไม่
+function isInThailand(lat: number, lng: number): boolean {
+  return THAILAND_BOUNDS.contains(L.latLng(lat, lng));
+}
+
+// ตรวจสอบว่าชื่อที่อยู่ลงท้ายด้วย Thailand หรือ ประเทศไทย หรือไม่
+function isThailandAddress(displayName: string): boolean {
+  const normalized = displayName.trim().toLowerCase();
+  return normalized.endsWith("thailand") || normalized.endsWith("ประเทศไทย");
+}
+
 // ─── Helper Components ───────────────────────────────────────────────────────
 
-// Component to handle map clicks
+// Component to handle map clicks (restrict to Thailand)
 function ClickHandler({ onLocationChange }: { onLocationChange: (lat: number, lng: number) => void }) {
   useMapEvents({
     click(e) {
-      onLocationChange(e.latlng.lat, e.latlng.lng);
+      if (isInThailand(e.latlng.lat, e.latlng.lng)) {
+        onLocationChange(e.latlng.lat, e.latlng.lng);
+      }
     },
   });
   return null;
@@ -47,7 +67,11 @@ function ClickHandler({ onLocationChange }: { onLocationChange: (lat: number, ln
 function ChangeView({ center, zoom }: { center: [number, number]; zoom: number }) {
   const map = useMap();
   useEffect(() => {
-    map.setView(center, zoom);
+    if (map) {
+      map.flyTo(center, zoom, {
+        duration: 1.5
+      });
+    }
   }, [center, zoom, map]);
   return null;
 }
@@ -86,7 +110,9 @@ export default function FreeMapPicker({ onAddressSelect, initialLocation }: Free
         `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=th&limit=5`
       );
       const data = await response.json();
-      setSuggestions(data);
+      // กรองเฉพาะผลลัพธ์ที่อยู่ในประเทศไทย
+      const thailandOnly = data.filter((item: any) => isThailandAddress(item.display_name));
+      setSuggestions(thailandOnly);
       setShowSuggestions(true);
     } catch (error) {
       console.error("Search error:", error);
@@ -99,6 +125,8 @@ export default function FreeMapPicker({ onAddressSelect, initialLocation }: Free
   const handleSelectSuggestion = (item: any) => {
     const lat = parseFloat(item.lat);
     const lng = parseFloat(item.lon);
+    if (isNaN(lat) || isNaN(lng)) return;
+
     const address = item.display_name;
     
     setMarkerPos([lat, lng]);
@@ -111,18 +139,23 @@ export default function FreeMapPicker({ onAddressSelect, initialLocation }: Free
 
   // Handle Map Click (Reverse Geocoding)
   const handleMapClick = async (lat: number, lng: number) => {
-    setMarkerPos([lat, lng]);
     try {
       const response = await fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`
       );
       const data = await response.json();
-      const address = data.display_name || "Unknown address";
+      const address = data.display_name || "";
+
+      // ตรวจสอบว่าที่อยู่อยู่ในประเทศไทยหรือไม่
+      if (!isThailandAddress(address)) {
+        return; // ไม่ปักหมุดถ้าไม่ใช่ไทย
+      }
+
+      setMarkerPos([lat, lng]);
       setSearchQuery(address);
       onAddressSelect({ address, lat, lng });
     } catch (error) {
       console.error("Reverse geocoding error:", error);
-      onAddressSelect({ address: "เลือกตำแหน่งบนแผนที่", lat, lng });
     }
   };
 
@@ -175,12 +208,16 @@ export default function FreeMapPicker({ onAddressSelect, initialLocation }: Free
       </div>
 
       {/* Map */}
-      <div className="relative z-0 h-[300px] w-full rounded-[12px] overflow-hidden border-2 border-n-100">
+      <div className="relative z-0 h-[300px] w-full rounded-[12px] overflow-hidden border-2 border-n-100 bg-n-50">
         <MapContainer
           center={mapCenter}
           zoom={zoom}
+          minZoom={5}
+          maxBounds={THAILAND_BOUNDS}
+          maxBoundsViscosity={1.0}
           style={{ height: "100%", width: "100%" }}
           scrollWheelZoom={true}
+          key={`${mapCenter[0]}-${mapCenter[1]}`}
         >
           <ChangeView center={mapCenter} zoom={zoom} />
           <TileLayer
@@ -188,7 +225,9 @@ export default function FreeMapPicker({ onAddressSelect, initialLocation }: Free
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <ClickHandler onLocationChange={handleMapClick} />
-          {markerPos && <Marker position={markerPos} icon={pinIcon} />}
+          {markerPos && markerPos[0] !== 0 && (
+            <Marker position={markerPos} icon={pinIcon} />
+          )}
         </MapContainer>
       </div>
     </div>
