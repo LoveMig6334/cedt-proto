@@ -17,9 +17,9 @@
 
 ### Page 2 — Personnel
 
-- [ ] Factory manager: change input from full name → **username** (system username)
-- [ ] Add employee: change full name field → **username** (system username)
-- [ ] Add employee: **remove the department field**
+- [*] Factory manager: change input from full name → **username** (system username)
+- [*] Add employee: change full name field → **username** (system username)
+- [*] Add employee: **remove the department field**
 
 ### Page 3 — Suppliers
 
