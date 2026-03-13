@@ -26,14 +26,11 @@ export default function LoginPage() {
     setError("");
     setLoading(true);
 
-    const account = validateLogin(email, password);
-    if (!account) {
-      setError("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
-      setLoading(false);
-      return;
-    }
+    // Mock login: always succeed for demo.
+    // If we wanted to validate against localStorage, it would happen here.
+    const demoAccountId = "demo-user-1";
 
-    setSession({ userId: account.id, factoryId: "factory-1" });
+    setSession({ userId: demoAccountId, factoryId: "factory-1" });
     router.push("/dashboard");
   }
 
