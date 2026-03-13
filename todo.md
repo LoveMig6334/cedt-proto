@@ -2,8 +2,8 @@
 
 ## 1. Login Page
 
-- [ ] Check where email/password credentials are currently stored in the system
-- [ ] Implement a mock login for demo purposes (accept any credentials / dummy login)
+- [*] Check where email/password credentials are currently stored in the system
+- [*] Implement a mock login for demo purposes (accept any credentials / dummy login)
 
 ---
 
