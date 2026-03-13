@@ -20,11 +20,11 @@
 - [ ] Add employee: **remove the department field**
 
 ### Page 3 — Suppliers
-- [ ] **Remove** the "select raw material supplier" page
+- [*] **Remove** the "select raw material supplier" page
   - Reason: supplier selection is not fixed and is already available in the Dashboard
 
 ### Page 4 — Data Import
-- [ ] **Remove** the data import page entirely
+- [*] **Remove** the data import page entirely
 
 ---
 
