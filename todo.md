@@ -41,7 +41,11 @@
 - [ ] After receiving a supplier invoice, record it to the dashboard as a **sub-page under Sourcing** (flow continues into Intake)
 
 ### 3.3 Intake (รับเข้าวัตถุดิบ)
-- [ ] *(details TBD — source notes incomplete)*
+- [ ] After invoice is confirmed (from Sourcing flow), show a **pending row** in the intake history table with expected delivery date + notify employees
+- [ ] **Remove** the "Quick Intake Record" side page
+- [ ] On delivery date/time, show a button for employees to open the **"Record Intake" page** and upload a confirmation photo
+- [ ] Recorded data should be analyzable as **daily / weekly / monthly / yearly** purchase summaries
+- [ ] Add **mockup data** for daily, weekly, monthly, and yearly views
 
 ### 3.4 Production Control (ควบคุมการผลิต)
 - [ ] *(TBD)*
