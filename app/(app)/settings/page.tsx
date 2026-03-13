@@ -1,48 +1,20 @@
 "use client";
 
-import locationsData from "@/data/thailand-locations.json";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 
-type SubDistrictType = {
-  subDistrictId: number;
-  subDistrictName: string;
-  zipcode: string;
-};
-
-type DistrictType = {
-  districtId: number;
-  districtName: string;
-  subDistricts: SubDistrictType[];
-};
-
-type ProvinceType = {
-  provinceId: number;
-  provinceName: string;
-  districts: DistrictType[];
-};
+// Dynamically import FreeMapPicker
+const FreeMapPicker = dynamic(
+  () => import("@/components/setup/FreeMapPicker"),
+  { 
+    ssr: false,
+    loading: () => <div className="h-[300px] w-full bg-n-50 animate-pulse rounded-[12px] flex items-center justify-center text-n-400">Loading Map...</div>
+  }
+);
 
 export default function SettingsPage() {
-  const provinces: ProvinceType[] = locationsData;
-  const [selectedProvinceId, setSelectedProvinceId] = useState<string>("");
-  const [selectedDistrictId, setSelectedDistrictId] = useState<string>("");
-  const [selectedSubDistrictId, setSelectedSubDistrictId] =
-    useState<string>("");
-
-  const districts = selectedProvinceId
-    ? (provinces.find((p) => p.provinceId.toString() === selectedProvinceId)
-        ?.districts ?? [])
-    : [];
-
-  const subDistricts = selectedDistrictId
-    ? (districts.find((d) => d.districtId.toString() === selectedDistrictId)
-        ?.subDistricts ?? [])
-    : [];
-
-  const zipcode = selectedSubDistrictId
-    ? (subDistricts.find(
-        (sd) => sd.subDistrictId.toString() === selectedSubDistrictId,
-      )?.zipcode ?? "")
-    : "";
+  const [factoryType, setFactoryType] = useState<string>("");
+  const [locationData, setLocationData] = useState<{ address: string; lat: number; lng: number } | null>(null);
 
   return (
     <div>
@@ -52,7 +24,7 @@ export default function SettingsPage() {
           <div className="text-[20px] font-extrabold text-n-900 mb-0.75">
             ตั้งค่าโรงงาน
           </div>
-          <div className="text-[12.5px] text-n-500">
+          <div className="text-[12.5px] text-n-500">  
             จัดการข้อมูลและรายละเอียดสถานที่ตั้งของโรงงาน
           </div>
         </div>
@@ -62,12 +34,10 @@ export default function SettingsPage() {
       </div>
 
       <div className="max-w-3xl">
+        {/* Section: ข้อมูลทั่วไป */}
         <div className="bg-white rounded-rlg border border-p-100 shadow-[0_1px_3px_rgba(0,0,0,.04)] overflow-hidden">
           <div className="px-6 py-5 border-b border-n-100">
             <h2 className="text-[16px] font-bold text-n-900">ข้อมูลทั่วไป</h2>
-            <p className="text-[12.5px] text-n-500 mt-1">
-              ตั้งค่าประเภทโรงงานและรายละเอียดพื้นฐาน
-            </p>
           </div>
 
           <div className="p-6">
@@ -76,118 +46,44 @@ export default function SettingsPage() {
                 ประเภทโรงงาน
               </label>
               <select
-                value="meat"
-                disabled
-                className="w-full bg-n-50 text-n-500 border-2 border-n-200 rounded-[9px] px-4 py-2.5 text-[14px] font-medium outline-none cursor-not-allowed appearance-none"
+                value={factoryType}
+                onChange={(e) => setFactoryType(e.target.value)}
+                className="w-full bg-white border-2 border-n-200 rounded-[9px] px-4 py-2.5 text-[14px] font-medium text-n-800 outline-none focus:border-p-400 cursor-pointer transition-colors appearance-none"
               >
-                <option value="meat">
-                  โรงงานชำแหละและแปรรูปเนื้อสัตว์ (Meat Processing)
-                </option>
+                <option value="">-- เลือกประเภทโรงงาน --</option>
+                <option value="beef">โรงงานชำแหละและแปรรูปเนื้อวัว (Beef Processing)</option>
+                <option value="chicken">โรงงานชำแหละและแปรรูปเนื้อวัวไก่ (Chicken Processing)</option>
+                <option value="fish">โรงงานชำแหละและแปรรูปเนื้อวัวปลา (Fish Processing)</option>
+                <option value="pork">โรงงานชำแหละและแปรรูปเนื้อวัวหมู (Pork Processing)</option>
               </select>
-              <p className="text-[11.5px] text-n-400 mt-2">
-                * ขณะนี้ระบบรองรับเฉพาะการตั้งค่าโรงงานประเภทเนื้อสัตว์เท่านั้น
-              </p>
             </div>
           </div>
         </div>
 
+        {/* Section: ที่ตั้งโรงงาน */}
         <div className="bg-white rounded-rlg border border-p-100 shadow-[0_1px_3px_rgba(0,0,0,.04)] overflow-hidden mt-6">
           <div className="px-6 py-5 border-b border-n-100">
             <h2 className="text-[16px] font-bold text-n-900">ที่ตั้งโรงงาน</h2>
             <p className="text-[12.5px] text-n-500 mt-1">
-              ระบุที่อยู่ของโรงงานแบบละเอียด (เฉพาะในประเทศไทย)
+              ค้นหาที่อยู่หรือคลิกบนแผนที่เพื่อระบุตำแหน่งโรงงาน
             </p>
           </div>
 
           <div className="p-6">
-            <div className="grid grid-cols-2 gap-5 mb-5">
-              <div>
-                <label className="block text-[13px] font-bold text-n-800 mb-2">
-                  จังหวัด
-                </label>
-                <select
-                  value={selectedProvinceId}
-                  onChange={(e) => {
-                    setSelectedProvinceId(e.target.value);
-                    setSelectedDistrictId("");
-                    setSelectedSubDistrictId("");
-                  }}
-                  className="w-full bg-white border-2 border-n-200 rounded-[9px] px-4 py-2.5 text-[14px] font-medium text-n-800 outline-none focus:border-p-400 transition-colors"
-                >
-                  <option value="">-- เลือกจังหวัด --</option>
-                  {provinces.map((p) => (
-                    <option key={p.provinceId} value={p.provinceId}>
-                      {p.provinceName}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            <FreeMapPicker
+              onAddressSelect={(data) => setLocationData(data)}
+              initialLocation={locationData}
+            />
 
-              <div>
-                <label className="block text-[13px] font-bold text-n-800 mb-2">
-                  อำเภอ / เขต
-                </label>
-                <select
-                  value={selectedDistrictId}
-                  onChange={(e) => {
-                    setSelectedDistrictId(e.target.value);
-                    setSelectedSubDistrictId("");
-                  }}
-                  disabled={!selectedProvinceId}
-                  className="w-full bg-white border-2 border-n-200 rounded-[9px] px-4 py-2.5 text-[14px] font-medium text-n-800 outline-none focus:border-p-400 disabled:bg-n-50 disabled:text-n-400 cursor-pointer disabled:cursor-not-allowed transition-colors"
-                >
-                  <option value="">-- เลือกอำเภอ/เขต --</option>
-                  {districts.map((d) => (
-                    <option key={d.districtId} value={d.districtId}>
-                      {d.districtName}
-                    </option>
-                  ))}
-                </select>
+            {/* Address summary */}
+            {locationData && (
+              <div className="mt-4 p-3.5 bg-p-50 border border-p-100 rounded-[10px]">
+                <p className="text-[12px] font-bold text-p-600 mb-1">📍 ที่อยู่ที่เลือก:</p>
+                <p className="text-[13px] text-n-700 leading-relaxed font-medium">
+                  {locationData.address}
+                </p>
               </div>
-
-              <div>
-                <label className="block text-[13px] font-bold text-n-800 mb-2">
-                  ตำบล / แขวง
-                </label>
-                <select
-                  value={selectedSubDistrictId}
-                  onChange={(e) => setSelectedSubDistrictId(e.target.value)}
-                  disabled={!selectedDistrictId}
-                  className="w-full bg-white border-2 border-n-200 rounded-[9px] px-4 py-2.5 text-[14px] font-medium text-n-800 outline-none focus:border-p-400 disabled:bg-n-50 disabled:text-n-400 cursor-pointer disabled:cursor-not-allowed transition-colors"
-                >
-                  <option value="">-- เลือกตำบล/แขวง --</option>
-                  {subDistricts.map((sd) => (
-                    <option key={sd.subDistrictId} value={sd.subDistrictId}>
-                      {sd.subDistrictName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-[13px] font-bold text-n-800 mb-2">
-                  รหัสไปรษณีย์
-                </label>
-                <input
-                  type="text"
-                  value={zipcode}
-                  readOnly
-                  placeholder="รหัสไปรษณีย์"
-                  className="w-full bg-n-50 border-2 border-n-200 rounded-[9px] px-4 py-2.5 text-[14px] font-bold text-n-600 outline-none cursor-not-allowed"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-[13px] font-bold text-n-800 mb-2">
-                รายละเอียดที่อยู่ (บ้านเลขที่, ถนน, ซอย, ตึก)
-              </label>
-              <textarea
-                rows={3}
-                placeholder="บ้านเลขที่ 99/9 หมู่ 1 ถนน..."
-                className="w-full bg-white border-2 border-n-200 rounded-[9px] px-4 py-3 text-[14px] font-medium text-n-800 outline-none focus:border-p-400 transition-colors resize-none"
-              ></textarea>
-            </div>
+            )}
           </div>
         </div>
       </div>

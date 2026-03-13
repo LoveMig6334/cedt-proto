@@ -155,7 +155,7 @@ export default function EmployeesSetupPage() {
           <div className="p-6 grid grid-cols-3 gap-4">
             <div>
               <label className="block text-[12px] font-bold text-n-700 mb-1.5">
-                ชื่อ-นามสกุล <span className="text-fp-red">*</span>
+                username <span className="text-fp-red">*</span>
               </label>
               <input
                 type="text"
@@ -223,7 +223,7 @@ export default function EmployeesSetupPage() {
             <div className="grid grid-cols-5 gap-3 mb-3">
               <div>
                 <label className="block text-[11.5px] font-bold text-n-700 mb-1.5">
-                  ชื่อ-นามสกุล
+                  username
                 </label>
                 <input
                   type="text"
@@ -231,7 +231,7 @@ export default function EmployeesSetupPage() {
                   onChange={(e) =>
                     setNewEmp((n) => ({ ...n, name: e.target.value }))
                   }
-                  placeholder="ชื่อ นามสกุล"
+                  placeholder="username"
                   className={inputClass}
                 />
               </div>
@@ -277,25 +277,6 @@ export default function EmployeesSetupPage() {
                   className={inputClass}
                 />
               </div>
-              <div>
-                <label className="block text-[11.5px] font-bold text-n-700 mb-1.5">
-                  แผนก
-                </label>
-                <select
-                  value={newEmp.department}
-                  onChange={(e) =>
-                    setNewEmp((n) => ({ ...n, department: e.target.value }))
-                  }
-                  className={selectClass}
-                >
-                  <option value="">-- เลือกแผนก --</option>
-                  {departments.map((d) => (
-                    <option key={d.value} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
             </div>
             {addError && (
               <p className="text-fp-red text-[12px] mb-3">{addError}</p>
@@ -311,17 +292,16 @@ export default function EmployeesSetupPage() {
           {/* Employee list */}
           {employees.length > 0 ? (
             <div>
-              <div className="px-6 py-3 bg-n-50 border-b border-n-100 grid grid-cols-5 gap-3 text-[11px] font-bold text-n-500 uppercase tracking-wide">
+              <div className="px-6 py-3 bg-n-50 border-b border-n-100 grid grid-cols-4 gap-3 text-[11px] font-bold text-n-500 uppercase tracking-wide">
                 <span>ชื่อ-นามสกุล</span>
                 <span>อีเมล</span>
                 <span>ตำแหน่ง</span>
-                <span>แผนก</span>
                 <span />
               </div>
               {employees.map((emp, i) => (
                 <div
                   key={i}
-                  className="px-6 py-3.5 border-b border-n-100 last:border-0 grid grid-cols-5 gap-3 items-center hover:bg-n-50 transition-colors"
+                  className="px-6 py-3.5 border-b border-n-100 last:border-0 grid grid-cols-4 gap-3 items-center hover:bg-n-50 transition-colors"
                 >
                   <span className="text-[13px] font-semibold text-n-800 truncate">
                     {emp.name}
