@@ -34,11 +34,11 @@
 - [ ] *(TBD)*
 
 ### 3.2 Sourcing (จัดหาวัตถุดิบ)
-- [ ] **AI Assistant** — connect AI to the sourcing UI; when a message is submitted, AI returns the **top 3 best-matched supplier choices**
-- [ ] Expand mock supplier list to **~10 suppliers**
-- [ ] Supplier detail view — after selecting a supplier, show: location, meat types sold, price per kg
-- [ ] **Generate PO** from the selected supplier
-- [ ] After receiving a supplier invoice, record it to the dashboard as a **sub-page under Sourcing** (flow continues into Intake)
+- [*] **AI Assistant** — connect AI to the sourcing UI; when a message is submitted, AI returns the **top 3 best-matched supplier choices**
+- [*] Expand mock supplier list to **~10 suppliers**
+- [*] Supplier detail view — after selecting a supplier, show: location, meat types sold, price per kg
+- [*] **Generate PO** from the selected supplier
+- [*] After receiving a supplier invoice, record it to the dashboard as a **sub-page under Sourcing** (flow continues into Intake)(and create mock invoice)
 
 ### 3.3 Intake (รับเข้าวัตถุดิบ)
 - [ ] After invoice is confirmed (from Sourcing flow), show a **pending row** in the intake history table with expected delivery date + notify employees
