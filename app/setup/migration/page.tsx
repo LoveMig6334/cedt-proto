@@ -21,7 +21,7 @@ export default function MigrationSetupPage() {
 
   return (
     <div className="min-h-screen bg-cream flex flex-col">
-      <SetupHeader currentStep={4} />
+      <SetupHeader currentStep={3} />
 
       <main className="flex-1 max-w-[860px] mx-auto px-8 py-10 w-full">
         {/* Title + coming-soon badge */}
@@ -134,7 +134,7 @@ export default function MigrationSetupPage() {
         {/* Footer */}
         <div className="flex justify-between items-center">
           <a
-            href="/setup/suppliers"
+            href="/setup/employees"
             className="text-[13px] text-n-500 hover:text-n-700 transition-colors"
           >
             ← กลับ

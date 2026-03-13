@@ -118,7 +118,7 @@ export default function EmployeesSetupPage() {
 
     saveAccounts(allAccounts);
     setSession({ userId: managerId, factoryId: "factory-1" });
-    router.push("/setup/suppliers");
+    router.push("/setup/migration");
   }
 
   return (
@@ -369,7 +369,7 @@ export default function EmployeesSetupPage() {
             onClick={handleFinish}
             className="bg-linear-to-br from-p-400 to-p-500 text-white rounded-r px-10 py-3 text-[14.5px] font-bold shadow-[0_4px_20px_rgba(244,114,182,.3)] hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(244,114,182,.4)] transition-all"
           >
-            ถัดไป: เลือกผู้จัดส่ง →
+            ถัดไป: นำเข้าข้อมูล →
           </button>
         </div>
       </main>

@@ -3,14 +3,13 @@ import BullLogo from "@/components/BullLogo";
 const steps = [
   { number: 1, label: "ข้อมูลโรงงาน" },
   { number: 2, label: "ข้อมูลพนักงาน" },
-  { number: 3, label: "ผู้จัดส่ง" },
-  { number: 4, label: "นำเข้าข้อมูล" },
+  { number: 3, label: "นำเข้าข้อมูล" },
 ];
 
 export default function SetupHeader({
   currentStep,
 }: {
-  currentStep: 1 | 2 | 3 | 4;
+  currentStep: 1 | 2 | 3;
 }) {
   return (
     <header className="bg-white border-b border-n-200 sticky top-0 z-10">
