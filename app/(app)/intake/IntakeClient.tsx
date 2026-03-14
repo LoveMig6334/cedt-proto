@@ -230,6 +230,7 @@ export function IntakeClient() {
   const [intakeRecords, setIntakeRecords] =
     useState<IntakeRecord[]>(mockRecords);
   const [toastDismissed, setToastDismissed] = useState(false);
+  const [usedInProd, setUsedInProd] = useState<Set<string>>(new Set());
   const [activePeriod, setActivePeriod] = useState<Period>("รายสัปดาห์");
   const [confirmModal, setConfirmModal] = useState<PendingRow | null>(null);
   const [modalWeight, setModalWeight] = useState("");
@@ -243,6 +244,19 @@ export function IntakeClient() {
     setToastDismissed(dismissed);
     setPendingRows(loadPendingRows());
     setIntakeRecords(loadIntakeRecords());
+    try {
+      const prodRaw = localStorage.getItem("production_lines");
+      if (prodRaw) {
+        const prodLines: Array<{
+          requisitions: Array<{ intakeId: string }>;
+        }> = JSON.parse(prodRaw);
+        const ids = new Set<string>();
+        prodLines.forEach((l) => l.requisitions.forEach((r) => ids.add(r.intakeId)));
+        setUsedInProd(ids);
+      }
+    } catch {
+      // ignore
+    }
   }, []);
 
   function dismissToast() {
@@ -471,6 +485,11 @@ export function IntakeClient() {
                     >
                       {row.status}
                     </span>
+                    {usedInProd.has(row.id) && (
+                      <span className="ml-1.5 inline-flex items-center px-2 py-0.5 rounded-full text-[9.5px] font-semibold bg-[#DBEAFE] text-[#2563EB]">
+                        🏭 ผลิตแล้ว
+                      </span>
+                    )}
                   </td>
                 </tr>
               ))}

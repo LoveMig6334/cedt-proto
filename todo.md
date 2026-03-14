@@ -55,11 +55,11 @@
 
 ### 3.4 Production Control (ควบคุมการผลิต)
 
-- [ ] Rename button **"+ เริ่มสายการผลิต"** → **"+ เพิ่มสายการผลิต"**
-- [ ] Remove the **"เบิกวัตถุดิบ"** button from the "วัตถุดิบคงเหลือ" section — that section should only display real-time remaining raw materials
-- [ ] "เพิ่มสายการผลิต" opens a **"ตั้งค่าการผลิต"** page where users requisition stock from inventory to the production line; requisition data must sync in real-time with the intake page status
-- [ ] After creating a production line, users can click in to **update its progression** by entering output product details (e.g., ribeye steak Xkg, tenderloin steak Ykg…)
-- [ ] System **calculates waste** and displays a **production efficiency summary** for each line
+- [*] Rename button **"+ เริ่มสายการผลิต"** → **"+ เพิ่มสายการผลิต"**
+- [*] Remove the **"เบิกวัตถุดิบ"** button from the "วัตถุดิบคงเหลือ" section — that section should only display real-time remaining raw materials
+- [*] "เพิ่มสายการผลิต" opens a **"ตั้งค่าการผลิต"** page where users requisition stock from inventory to the production line; requisition data must sync in real-time with the intake page status
+- [*] After creating a production line, users can click in to **update its progression** by entering output product details (e.g., ribeye steak Xkg, tenderloin steak Ykg…)
+- [*] System **calculates waste** and displays a **production efficiency summary** for each line
 
 ### 3.5 Quality Control (ตรวจสอบคุณภาพ)
 
