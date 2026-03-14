@@ -5,12 +5,6 @@ import { AnimatedCard } from "@/components/motion/AnimatedCard";
 import { HeroMockup } from "@/components/motion/HeroMockup";
 import Link from "next/link";
 
-const heroStats = [
-  { value: "200+", label: "โรงงานที่ใช้งาน" },
-  { value: "98.5%", label: "ความแม่นยำ AI QC" },
-  { value: "24/7", label: "ระบบซัพพอร์ต" },
-];
-
 const processSteps = [
   { icon: "🔍", label: "จัดหา", sub: "AI Sourcing" },
   { icon: "📦", label: "รับเข้า", sub: "Intake Record" },
@@ -19,6 +13,13 @@ const processSteps = [
   { icon: "🏪", label: "คลัง", sub: "Warehouse" },
   { icon: "🚚", label: "ขาย & ส่ง", sub: "Sales & Delivery" },
 ];
+
+const heroStats = [
+  { value: "200+", label: "โรงงานที่ใช้งาน" },
+  { value: "98.5%", label: "ความแม่นยำ AI QC" },
+  { value: "24/7", label: "ระบบซัพพอร์ต" },
+];
+
 
 const features = [
   {
@@ -128,9 +129,12 @@ export default function LandingPage() {
                 </Link>
               </AnimatedButton>
               <AnimatedButton>
-                <button className="bg-white text-n-800 border-2 border-n-200 rounded-r px-8.5 py-3.75 text-[15px] font-bold hover:border-p-300 hover:text-p-500">
+                <Link
+                  href="/demo"
+                  className="bg-white text-n-800 border-2 border-n-200 rounded-r px-8.5 py-3.75 text-[15px] font-bold hover:border-p-300 hover:text-p-500"
+                >
                   ชมตัวอย่างระบบ ▶
-                </button>
+                </Link>
               </AnimatedButton>
             </div>
 
