@@ -228,7 +228,7 @@ export default function FreeMapPicker({
             }}
             onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
           />
-          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-n-400">
+          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-n-400 pointer-events-none flex items-center justify-center">
             <svg
               width="16"
               height="16"
@@ -244,11 +244,10 @@ export default function FreeMapPicker({
             </svg>
           </div>
           {isSearching && (
-            <div className="absolute right-3.5 top-1/2 -translate-y-1/2">
+            <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center">
               <div className="w-4 h-4 border-2 border-p-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
           )}
-          h-75
         </div>
 
         {/* Suggestions List */}
