@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import type { SlideProps } from "@/components/motion/slides/SourcingSlide";
+import { motion } from "framer-motion";
 
 const containerVariants = {
   hidden: {},
@@ -47,7 +47,9 @@ function SlotCard({ slot }: { slot: Slot }) {
   const cardInner = (
     <div className="flex flex-col gap-0.5">
       <div className="flex items-center justify-between">
-        <span className="text-[11px] font-semibold text-n-900">{slot.name}</span>
+        <span className="text-[11px] font-semibold text-n-900">
+          {slot.name}
+        </span>
         <span
           className="w-2 h-2 rounded-full inline-block"
           style={{ backgroundColor: dotColor }}
@@ -79,7 +81,9 @@ function SlotCard({ slot }: { slot: Slot }) {
 
   return (
     <motion.div variants={itemVariants}>
-      <div className={`bg-white ${borderClass} rounded-r px-2.5 py-2 flex flex-col gap-0.5`}>
+      <div
+        className={`bg-white ${borderClass} rounded-r px-2.5 py-2 flex flex-col gap-0.5`}
+      >
         {cardInner}
       </div>
     </motion.div>
@@ -92,7 +96,7 @@ export function WarehouseSlide({ isActive }: SlideProps) {
       variants={containerVariants}
       initial="hidden"
       animate={isActive ? "visible" : "hidden"}
-      className="w-full max-w-[420px] flex gap-3"
+      className="w-full max-w-105 flex gap-3"
     >
       {/* Left: storage grid */}
       <div className="flex-1 flex flex-col gap-2.5">
@@ -114,16 +118,16 @@ export function WarehouseSlide({ isActive }: SlideProps) {
         >
           อุณหภูมิ
         </span>
-        <div className="w-4 flex-1 bg-n-100 rounded-full relative overflow-hidden min-h-[140px]">
+        <div className="w-4 flex-1 bg-n-100 rounded-full relative overflow-hidden min-h-35">
           <motion.div
-            className="absolute bottom-0 left-0 right-0 bg-[#3B82F6] rounded-full"
+            className="absolute bottom-0 left-0 right-0 bg-fp-blue rounded-full"
             initial={{ height: "0%" }}
             animate={isActive ? { height: "35%" } : { height: "0%" }}
             transition={{ delay: 0.5, ease: [0.16, 1, 0.3, 1], duration: 1 }}
           />
         </div>
         <span className="text-[10px] font-bold text-n-900">-2°C</span>
-        <div className="w-5 h-5 bg-[#3B82F6] rounded-full" />
+        <div className="w-5 h-5 bg-fp-blue rounded-full" />
       </div>
     </motion.div>
   );

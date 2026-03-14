@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import type { SlideProps } from "@/components/motion/slides/SourcingSlide";
+import { motion } from "framer-motion";
 
 const containerVariants = {
   hidden: {},
@@ -74,7 +74,7 @@ function CheckmarkSecond() {
 
 export function IntakeSlide({ isActive }: SlideProps) {
   return (
-    <div className="w-full max-w-[420px] relative">
+    <div className="w-full max-w-105 relative">
       <motion.div
         className="flex flex-col gap-2.5 w-full"
         variants={containerVariants}
@@ -117,7 +117,7 @@ export function IntakeSlide({ isActive }: SlideProps) {
 
         {/* Photo upload zone */}
         <motion.div variants={itemVariants}>
-          <div className="border-2 border-dashed border-p-300 rounded-r h-[90px] relative overflow-hidden flex flex-col items-center justify-center gap-1 bg-p-50">
+          <div className="border-2 border-dashed border-p-300 rounded-r h-22.5 relative overflow-hidden flex flex-col items-center justify-center gap-1 bg-p-50">
             <span className="text-[22px]">📷</span>
             <span className="text-p-400 text-[11px] font-medium">
               อัปโหลดรูปภาพ

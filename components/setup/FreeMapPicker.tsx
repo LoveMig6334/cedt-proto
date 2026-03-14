@@ -2,8 +2,14 @@
 
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useEffect, useState, useCallback, useRef } from "react";
-import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from "react-leaflet";
+import { useEffect, useRef, useState } from "react";
+import {
+  MapContainer,
+  Marker,
+  TileLayer,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -16,6 +22,12 @@ export interface LocationData {
 interface FreeMapPickerProps {
   onAddressSelect: (data: LocationData) => void;
   initialLocation?: LocationData | null;
+}
+
+interface NominatimSearchResult {
+  display_name: string;
+  lat: string;
+  lon: string;
 }
 
 // ─── Custom Marker Icon ──────────────────────────────────────────────────────
@@ -34,8 +46,8 @@ const pinIcon = L.divIcon({
 // ─── Thailand Bounds ─────────────────────────────────────────────────────────
 // ขอบเขตของประเทศไทย (Southwest → Northeast)
 const THAILAND_BOUNDS = L.latLngBounds(
-  L.latLng(5.5, 97.3),   // Southwest corner (ใต้สุด, ตะวันตกสุด)
-  L.latLng(20.5, 105.7),  // Northeast corner (เหนือสุด, ตะวันออกสุด)
+  L.latLng(5.5, 97.3), // Southwest corner (ใต้สุด, ตะวันตกสุด)
+  L.latLng(20.5, 105.7), // Northeast corner (เหนือสุด, ตะวันออกสุด)
 );
 
 // ตรวจสอบว่าพิกัดอยู่ในประเทศไทยหรือไม่
@@ -49,10 +61,30 @@ function isThailandAddress(displayName: string): boolean {
   return normalized.endsWith("thailand") || normalized.endsWith("ประเทศไทย");
 }
 
+function isNominatimSearchResult(
+  value: unknown,
+): value is NominatimSearchResult {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+
+  const candidate = value as Record<string, unknown>;
+
+  return (
+    typeof candidate.display_name === "string" &&
+    typeof candidate.lat === "string" &&
+    typeof candidate.lon === "string"
+  );
+}
+
 // ─── Helper Components ───────────────────────────────────────────────────────
 
 // Component to handle map clicks (restrict to Thailand)
-function ClickHandler({ onLocationChange }: { onLocationChange: (lat: number, lng: number) => void }) {
+function ClickHandler({
+  onLocationChange,
+}: {
+  onLocationChange: (lat: number, lng: number) => void;
+}) {
   useMapEvents({
     click(e) {
       if (isInThailand(e.latlng.lat, e.latlng.lng)) {
@@ -64,12 +96,18 @@ function ClickHandler({ onLocationChange }: { onLocationChange: (lat: number, ln
 }
 
 // Component to programmatically move map view
-function ChangeView({ center, zoom }: { center: [number, number]; zoom: number }) {
+function ChangeView({
+  center,
+  zoom,
+}: {
+  center: [number, number];
+  zoom: number;
+}) {
   const map = useMap();
   useEffect(() => {
     if (map) {
       map.flyTo(center, zoom, {
-        duration: 1.5
+        duration: 1.5,
       });
     }
   }, [center, zoom, map]);
@@ -78,14 +116,19 @@ function ChangeView({ center, zoom }: { center: [number, number]; zoom: number }
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 
-export default function FreeMapPicker({ onAddressSelect, initialLocation }: FreeMapPickerProps) {
+export default function FreeMapPicker({
+  onAddressSelect,
+  initialLocation,
+}: FreeMapPickerProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [suggestions, setSuggestions] = useState<NominatimSearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [markerPos, setMarkerPos] = useState<[number, number] | null>(
-    initialLocation ? [initialLocation.lat, initialLocation.lng] : null
+    initialLocation ? [initialLocation.lat, initialLocation.lng] : null,
   );
-  const [mapCenter, setMapCenter] = useState<[number, number]>([13.7367, 100.5231]); // Default to Bangkok
+  const [mapCenter, setMapCenter] = useState<[number, number]>([
+    13.7367, 100.5231,
+  ]); // Default to Bangkok
   const [zoom, setZoom] = useState(6);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -93,7 +136,10 @@ export default function FreeMapPicker({ onAddressSelect, initialLocation }: Free
   // Close suggestions when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
         setShowSuggestions(false);
       }
     }
@@ -107,11 +153,15 @@ export default function FreeMapPicker({ onAddressSelect, initialLocation }: Free
     setIsSearching(true);
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=th&limit=5`
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=th&limit=5`,
       );
-      const data = await response.json();
+      const data: unknown = await response.json();
       // กรองเฉพาะผลลัพธ์ที่อยู่ในประเทศไทย
-      const thailandOnly = data.filter((item: any) => isThailandAddress(item.display_name));
+      const thailandOnly = Array.isArray(data)
+        ? data
+            .filter(isNominatimSearchResult)
+            .filter((item) => isThailandAddress(item.display_name))
+        : [];
       setSuggestions(thailandOnly);
       setShowSuggestions(true);
     } catch (error) {
@@ -122,13 +172,13 @@ export default function FreeMapPicker({ onAddressSelect, initialLocation }: Free
   };
 
   // Select Suggestion
-  const handleSelectSuggestion = (item: any) => {
+  const handleSelectSuggestion = (item: NominatimSearchResult) => {
     const lat = parseFloat(item.lat);
     const lng = parseFloat(item.lon);
     if (isNaN(lat) || isNaN(lng)) return;
 
     const address = item.display_name;
-    
+
     setMarkerPos([lat, lng]);
     setMapCenter([lat, lng]);
     setZoom(16);
@@ -141,7 +191,7 @@ export default function FreeMapPicker({ onAddressSelect, initialLocation }: Free
   const handleMapClick = async (lat: number, lng: number) => {
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`,
       );
       const data = await response.json();
       const address = data.display_name || "";
@@ -179,7 +229,16 @@ export default function FreeMapPicker({ onAddressSelect, initialLocation }: Free
             onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
           />
           <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-n-400">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
@@ -189,18 +248,21 @@ export default function FreeMapPicker({ onAddressSelect, initialLocation }: Free
               <div className="w-4 h-4 border-2 border-p-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
           )}
+          h-75
         </div>
 
         {/* Suggestions List */}
         {showSuggestions && suggestions.length > 0 && (
-          <div className="absolute z-[1001] w-full mt-1 bg-white border border-n-100 rounded-[9px] shadow-lg max-h-[200px] overflow-y-auto">
+          <div className="absolute z-1001 w-full mt-1 bg-white border border-n-100 rounded-[9px] shadow-lg max-h-50 overflow-y-auto">
             {suggestions.map((item, index) => (
               <button
                 key={index}
                 className="w-full text-left px-4 py-2.5 text-[13px] hover:bg-p-50 border-b border-n-50 last:border-0 transition-colors"
                 onClick={() => handleSelectSuggestion(item)}
               >
-                <p className="font-medium text-n-800 truncate">{item.display_name}</p>
+                <p className="font-medium text-n-800 truncate">
+                  {item.display_name}
+                </p>
               </button>
             ))}
           </div>
@@ -208,7 +270,7 @@ export default function FreeMapPicker({ onAddressSelect, initialLocation }: Free
       </div>
 
       {/* Map */}
-      <div className="relative z-0 h-[300px] w-full rounded-[12px] overflow-hidden border-2 border-n-100 bg-n-50">
+      <div className="relative z-0 h-75 w-full rounded-xl overflow-hidden border-2 border-n-100 bg-n-50">
         <MapContainer
           center={mapCenter}
           zoom={zoom}

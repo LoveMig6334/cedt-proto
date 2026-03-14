@@ -68,7 +68,7 @@ const suppliers = [
 
 export function SourcingSlide({ isActive }: SlideProps) {
   return (
-    <div className="w-full max-w-[420px] h-[280px] relative flex flex-col">
+    <div className="w-full max-w-105 h-70 relative flex flex-col">
       <motion.div
         className="flex flex-col gap-2 w-full h-full"
         variants={containerVariants}
@@ -76,10 +76,7 @@ export function SourcingSlide({ isActive }: SlideProps) {
         initial="hidden"
       >
         {/* Pulsing status row */}
-        <motion.div
-          className="flex items-center gap-2"
-          variants={itemVariants}
-        >
+        <motion.div className="flex items-center gap-2" variants={itemVariants}>
           <motion.span
             className="w-2 h-2 rounded-full bg-[#EC4899] inline-block shrink-0"
             animate={{ scale: [1, 1.3, 1] }}
