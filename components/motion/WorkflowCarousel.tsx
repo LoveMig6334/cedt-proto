@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { SourcingSlide } from "@/components/motion/slides/SourcingSlide";
 import { IntakeSlide } from "@/components/motion/slides/IntakeSlide";
 import { ProductionSlide } from "@/components/motion/slides/ProductionSlide";
 import { QCSlide } from "@/components/motion/slides/QCSlide";
-import { WarehouseSlide } from "@/components/motion/slides/WarehouseSlide";
 import { SalesSlide } from "@/components/motion/slides/SalesSlide";
 import type { SlideProps } from "@/components/motion/slides/SourcingSlide";
+import { SourcingSlide } from "@/components/motion/slides/SourcingSlide";
+import { WarehouseSlide } from "@/components/motion/slides/WarehouseSlide";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 // Slide variant config
 const slideVariants = {
@@ -152,7 +152,7 @@ export function WorkflowCarousel() {
           animate="center"
           exit="exit"
           transition={slideTransition}
-          className="grid grid-cols-2 gap-12 items-center min-h-[320px] pt-4"
+          className="grid grid-cols-2 gap-12 items-center min-h-80 pt-4"
         >
           {/* LEFT: text */}
           <div>
@@ -162,7 +162,7 @@ export function WorkflowCarousel() {
             <h3 className="text-[38px] font-extrabold text-n-900 leading-tight mb-3">
               {thaiLabel}
             </h3>
-            <p className="text-[14px] text-n-500 leading-[1.75] max-w-[360px]">
+            <p className="text-[14px] text-n-500 leading-[1.75] max-w-90">
               {desc}
             </p>
           </div>

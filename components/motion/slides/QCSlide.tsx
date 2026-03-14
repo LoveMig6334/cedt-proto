@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import type { SlideProps } from "@/components/motion/slides/SourcingSlide";
+import { motion } from "framer-motion";
 
 const containerVariants = {
   hidden: {},
@@ -20,22 +20,40 @@ const itemVariants = {
 
 const metrics = [
   { name: "สี", color: "bg-p-400", scaleX: 0.92, delay: 0.3, score: "92%" },
-  { name: "ความชื้น", color: "bg-[#3B82F6]", scaleX: 0.85, delay: 0.42, score: "85%" },
-  { name: "ความสมบูรณ์", color: "bg-fp-green", scaleX: 0.97, delay: 0.54, score: "97%" },
-  { name: "ไขมันแทรก", color: "bg-[#F59E0B]", scaleX: 0.78, delay: 0.66, score: "78%" },
+  {
+    name: "ความชื้น",
+    color: "bg-[#3B82F6]",
+    scaleX: 0.85,
+    delay: 0.42,
+    score: "85%",
+  },
+  {
+    name: "ความสมบูรณ์",
+    color: "bg-fp-green",
+    scaleX: 0.97,
+    delay: 0.54,
+    score: "97%",
+  },
+  {
+    name: "ไขมันแทรก",
+    color: "bg-[#F59E0B]",
+    scaleX: 0.78,
+    delay: 0.66,
+    score: "78%",
+  },
 ];
 
 export function QCSlide({ isActive }: SlideProps) {
   return (
     <motion.div
-      className="w-full max-w-[420px] flex flex-col gap-3"
+      className="w-full max-w-105 flex flex-col gap-3"
       variants={containerVariants}
       initial="hidden"
       animate={isActive ? "visible" : "hidden"}
     >
       {/* 1. Scanner panel */}
       <motion.div
-        className="bg-n-900 rounded-r p-4 relative overflow-hidden h-[120px]"
+        className="bg-n-900 rounded-r p-4 relative overflow-hidden h-30"
         variants={itemVariants}
         style={{
           backgroundImage:
@@ -50,8 +68,12 @@ export function QCSlide({ isActive }: SlideProps) {
         <div className="flex items-center justify-center gap-3 h-full">
           <span className="text-[32px]">🥩</span>
           <div className="flex flex-col">
-            <span className="text-white text-[12px] font-semibold">AI กำลังสแกน...</span>
-            <span className="text-white/40 text-[10px]">ล็อต #LP-2025-0442</span>
+            <span className="text-white text-[12px] font-semibold">
+              AI กำลังสแกน...
+            </span>
+            <span className="text-white/40 text-[10px]">
+              ล็อต #LP-2025-0442
+            </span>
           </div>
         </div>
 
@@ -59,7 +81,12 @@ export function QCSlide({ isActive }: SlideProps) {
         <motion.div
           className="absolute left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-p-400 to-transparent"
           animate={{ top: ["5%", "5%", "95%", "95%"], opacity: [0, 1, 1, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear", times: [0, 0.2, 0.8, 1] }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "linear",
+            times: [0, 0.2, 0.8, 1],
+          }}
         />
       </motion.div>
 
@@ -71,7 +98,7 @@ export function QCSlide({ isActive }: SlideProps) {
         <div className="flex flex-col gap-2">
           {metrics.map((metric) => (
             <div key={metric.name} className="flex items-center gap-2">
-              <span className="text-n-500 text-[11px] w-[80px]">{metric.name}</span>
+              <span className="text-n-500 text-[11px] w-20">{metric.name}</span>
               <div className="flex-1 h-1.5 bg-n-100 rounded-full overflow-hidden">
                 <motion.div
                   className={`h-full rounded-full ${metric.color}`}
@@ -85,7 +112,7 @@ export function QCSlide({ isActive }: SlideProps) {
                   }}
                 />
               </div>
-              <span className="text-n-900 text-[11px] font-bold w-[40px] text-right">
+              <span className="text-n-900 text-[11px] font-bold w-10 text-right">
                 {metric.score}
               </span>
             </div>
@@ -101,10 +128,19 @@ export function QCSlide({ isActive }: SlideProps) {
         <motion.div
           className="bg-fp-green rounded-full w-16 h-16 flex flex-col items-center justify-center shadow-[0_4px_20px_rgba(16,185,129,.35)]"
           initial={{ scale: 0.5, opacity: 0 }}
-          animate={isActive ? { scale: 1, opacity: 1 } : { scale: 0.5, opacity: 0 }}
-          transition={{ delay: 0.9, type: "spring", stiffness: 300, damping: 20 }}
+          animate={
+            isActive ? { scale: 1, opacity: 1 } : { scale: 0.5, opacity: 0 }
+          }
+          transition={{
+            delay: 0.9,
+            type: "spring",
+            stiffness: 300,
+            damping: 20,
+          }}
         >
-          <span className="text-white text-[22px] font-extrabold leading-none">A</span>
+          <span className="text-white text-[22px] font-extrabold leading-none">
+            A
+          </span>
           <span className="text-white text-[10px] font-semibold">97.4%</span>
         </motion.div>
       </motion.div>

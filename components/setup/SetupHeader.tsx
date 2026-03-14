@@ -5,14 +5,10 @@ const steps = [
   { number: 2, label: "ข้อมูลพนักงาน" },
 ];
 
-export default function SetupHeader({
-  currentStep,
-}: {
-  currentStep: 1 | 2;
-}) {
+export default function SetupHeader({ currentStep }: { currentStep: 1 | 2 }) {
   return (
     <header className="bg-white border-b border-n-200 sticky top-0 z-10">
-      <div className="max-w-[920px] mx-auto px-8 py-4 flex items-center justify-between">
+      <div className="max-w-230 mx-auto px-8 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <BullLogo size={30} />
           <span className="text-[17px] font-extrabold text-n-900">

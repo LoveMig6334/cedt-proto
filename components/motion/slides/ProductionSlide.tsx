@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import type { SlideProps } from "@/components/motion/slides/SourcingSlide";
+import { motion } from "framer-motion";
 
 const containerVariants = {
   hidden: {},
@@ -22,7 +22,8 @@ const lines = [
   {
     label: "สายผลิต A",
     statusLabel: "กำลังผลิต",
-    statusClass: "bg-fp-green/10 text-fp-green text-[10px] font-semibold rounded-full px-2 py-0.5",
+    statusClass:
+      "bg-fp-green/10 text-fp-green text-[10px] font-semibold rounded-full px-2 py-0.5",
     waste: "เสีย 2.1%",
     barTarget: 0.78,
     barDelay: 0.3,
@@ -30,7 +31,8 @@ const lines = [
   {
     label: "สายผลิต B",
     statusLabel: "หยุดพัก",
-    statusClass: "bg-fp-yellow/10 text-fp-yellow text-[10px] font-semibold rounded-full px-2 py-0.5",
+    statusClass:
+      "bg-fp-yellow/10 text-fp-yellow text-[10px] font-semibold rounded-full px-2 py-0.5",
     waste: "เสีย 5.3%",
     barTarget: 0.45,
     barDelay: 0.42,
@@ -38,7 +40,8 @@ const lines = [
   {
     label: "สายผลิต C",
     statusLabel: "กำลังผลิต",
-    statusClass: "bg-fp-green/10 text-fp-green text-[10px] font-semibold rounded-full px-2 py-0.5",
+    statusClass:
+      "bg-fp-green/10 text-fp-green text-[10px] font-semibold rounded-full px-2 py-0.5",
     waste: "เสีย 1.8%",
     barTarget: 0.92,
     barDelay: 0.54,
@@ -47,7 +50,7 @@ const lines = [
 
 export function ProductionSlide({ isActive }: SlideProps) {
   return (
-    <div className="w-full max-w-[420px] relative flex flex-col gap-2">
+    <div className="w-full max-w-105 relative flex flex-col gap-2">
       <motion.div
         className="flex flex-col gap-2 w-full"
         variants={containerVariants}

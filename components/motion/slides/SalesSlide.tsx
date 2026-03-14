@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import type { SlideProps } from "@/components/motion/slides/SourcingSlide";
+import { motion } from "framer-motion";
 
 const containerVariants = {
   hidden: {},
@@ -10,7 +10,11 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0, transition: { ease: [0.16, 1, 0.3, 1], duration: 0.5 } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { ease: [0.16, 1, 0.3, 1], duration: 0.5 },
+  },
 };
 
 const bars = [
@@ -33,7 +37,7 @@ const kpis = [
 export function SalesSlide({ isActive }: SlideProps) {
   return (
     <motion.div
-      className="w-full max-w-[420px] flex flex-col gap-3"
+      className="w-full max-w-105 flex flex-col gap-3"
       variants={containerVariants}
       initial="hidden"
       animate={isActive ? "visible" : "hidden"}
@@ -60,7 +64,7 @@ export function SalesSlide({ isActive }: SlideProps) {
         <div className="text-[10px] text-n-400 font-semibold mb-2">
           ยอดขายรายเดือน
         </div>
-        <div className="flex items-end gap-1.5 h-[80px]">
+        <div className="flex items-end gap-1.5 h-20">
           {bars.map((bar, i) => (
             <motion.div
               key={i}
@@ -100,7 +104,9 @@ export function SalesSlide({ isActive }: SlideProps) {
               style={{ backgroundColor: kpi.dotColor }}
             />
             <span className="text-[11px] text-n-500 flex-1">{kpi.label}</span>
-            <span className="text-[13px] font-bold text-n-900">{kpi.value}</span>
+            <span className="text-[13px] font-bold text-n-900">
+              {kpi.value}
+            </span>
           </div>
         ))}
       </motion.div>
