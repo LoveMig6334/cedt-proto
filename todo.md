@@ -63,13 +63,13 @@
 
 ### 3.5 Quality Control (ตรวจสอบคุณภาพ)
 
-- [ ] Remove **"moisture"** and **"fat marbling"** from the AI indicator fields
-- [ ] Mock up **"+ สแกนล็อตใหม่"** feature:
+- [*] Remove **"moisture"** and **"fat marbling"** from the AI indicator fields
+- [*] Mock up **"+ สแกนล็อตใหม่"** feature:
   - Clicking opens a window to select a finished-product lot to scan
   - App navigates to `/qc` and plays an animation of meat pieces being AI-scanned one by one
   - Each scanned piece is recorded in a table with columns: lot ID, product name (matching meat type e.g. tenderloin), grade, score, status
   - AI QC processes **one lot at a time** only
-- [ ] Completed lots move to a new **History page** (build new); all data is stored for long-term quality analysis
+- [*] Completed lots move to a new **History page** (build new); all data is stored for long-term quality analysis
 
 ### 3.6 Warehouse (คลังสินค้า)
 

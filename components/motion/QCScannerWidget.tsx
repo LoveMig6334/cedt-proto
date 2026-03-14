@@ -2,7 +2,13 @@
 
 import { motion } from "framer-motion";
 
-export function QCScannerWidget() {
+type Props = {
+  pieceName?: string;
+  pieceLabel?: string;
+  lotLabel?: string;
+};
+
+export function QCScannerWidget({ pieceName, pieceLabel, lotLabel }: Props) {
   return (
     <div
       className="bg-n-900 rounded-r p-6.5 text-center relative overflow-hidden mb-4"
@@ -15,7 +21,13 @@ export function QCScannerWidget() {
         <div className="absolute top-0 left-0 w-6.5 h-6.5 border-t-2 border-l-2 border-p-400 rounded-[4px_0_0_0]" />
         <div className="absolute bottom-0 right-0 w-6.5 h-6.5 border-b-2 border-r-2 border-p-400 rounded-[0_0_4px_0]" />
         <div className="w-full h-full flex items-center justify-center text-[42px] bg-[rgba(244,114,182,.04)] rounded-lg relative overflow-hidden">
-          🥩
+          {pieceName ? (
+            <span className="text-[12px] font-bold text-white/90 text-center px-2 leading-tight z-10">
+              {pieceName}
+            </span>
+          ) : (
+            "🥩"
+          )}
           <motion.div
             className="absolute left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-p-400 to-transparent"
             animate={{ top: ["5%", "5%", "95%", "95%"], opacity: [0, 1, 1, 0] }}
@@ -29,10 +41,10 @@ export function QCScannerWidget() {
         </div>
       </div>
       <div className="text-white text-[13px] font-semibold relative z-10 mb-1">
-        AI กำลังสแกน...
+        {pieceLabel ?? "AI กำลังสแกน..."}
       </div>
       <div className="text-white/40 text-[11px] relative z-10">
-        ล็อต #LP-2025-0442 — สายผลิต A
+        {lotLabel ?? "ล็อต #LP-2025-0442 — สายผลิต A"}
       </div>
     </div>
   );
