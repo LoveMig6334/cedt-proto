@@ -6,15 +6,23 @@ import { useState } from "react";
 // Dynamically import FreeMapPicker
 const FreeMapPicker = dynamic(
   () => import("@/components/setup/FreeMapPicker"),
-  { 
+  {
     ssr: false,
-    loading: () => <div className="h-[300px] w-full bg-n-50 animate-pulse rounded-[12px] flex items-center justify-center text-n-400">Loading Map...</div>
-  }
+    loading: () => (
+      <div className="h-75 w-full bg-n-50 animate-pulse rounded-xl flex items-center justify-center text-n-400">
+        Loading Map...
+      </div>
+    ),
+  },
 );
 
 export default function SettingsPage() {
   const [factoryType, setFactoryType] = useState<string>("");
-  const [locationData, setLocationData] = useState<{ address: string; lat: number; lng: number } | null>(null);
+  const [locationData, setLocationData] = useState<{
+    address: string;
+    lat: number;
+    lng: number;
+  } | null>(null);
 
   return (
     <div>
@@ -24,7 +32,7 @@ export default function SettingsPage() {
           <div className="text-[20px] font-extrabold text-n-900 mb-0.75">
             ตั้งค่าโรงงาน
           </div>
-          <div className="text-[12.5px] text-n-500">  
+          <div className="text-[12.5px] text-n-500">
             จัดการข้อมูลและรายละเอียดสถานที่ตั้งของโรงงาน
           </div>
         </div>
@@ -51,10 +59,18 @@ export default function SettingsPage() {
                 className="w-full bg-white border-2 border-n-200 rounded-[9px] px-4 py-2.5 text-[14px] font-medium text-n-800 outline-none focus:border-p-400 cursor-pointer transition-colors appearance-none"
               >
                 <option value="">-- เลือกประเภทโรงงาน --</option>
-                <option value="beef">โรงงานชำแหละและแปรรูปเนื้อวัว (Beef Processing)</option>
-                <option value="chicken">โรงงานชำแหละและแปรรูปเนื้อวัวไก่ (Chicken Processing)</option>
-                <option value="fish">โรงงานชำแหละและแปรรูปเนื้อวัวปลา (Fish Processing)</option>
-                <option value="pork">โรงงานชำแหละและแปรรูปเนื้อวัวหมู (Pork Processing)</option>
+                <option value="beef">
+                  โรงงานชำแหละและแปรรูปเนื้อวัว (Beef Processing)
+                </option>
+                <option value="chicken">
+                  โรงงานชำแหละและแปรรูปเนื้อวัวไก่ (Chicken Processing)
+                </option>
+                <option value="fish">
+                  โรงงานชำแหละและแปรรูปเนื้อวัวปลา (Fish Processing)
+                </option>
+                <option value="pork">
+                  โรงงานชำแหละและแปรรูปเนื้อวัวหมู (Pork Processing)
+                </option>
               </select>
             </div>
           </div>
@@ -78,7 +94,9 @@ export default function SettingsPage() {
             {/* Address summary */}
             {locationData && (
               <div className="mt-4 p-3.5 bg-p-50 border border-p-100 rounded-[10px]">
-                <p className="text-[12px] font-bold text-p-600 mb-1">📍 ที่อยู่ที่เลือก:</p>
+                <p className="text-[12px] font-bold text-p-600 mb-1">
+                  📍 ที่อยู่ที่เลือก:
+                </p>
                 <p className="text-[13px] text-n-700 leading-relaxed font-medium">
                   {locationData.address}
                 </p>

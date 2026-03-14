@@ -1,4 +1,13 @@
 {
   "cSpell.ignoreRegExpList": ["[\u0E00-\u0E7F]+"],
-  "cSpell.words": ["Makro", "rgba"]
+  "cSpell.words": [
+    "Foodland",
+    "FRESHPRO",
+    "latlng",
+    "Makro",
+    "Nominatim",
+    "rgba",
+    "Topbar",
+    "Wagyu"
+  ]
 }

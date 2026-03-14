@@ -70,7 +70,16 @@ export default function LoginPage() {
       </div>
 
       {/* ── Right form ── */}
-      <div className="flex-1 flex items-center justify-center p-14 bg-cream">
+      <div className="flex-1 flex items-center justify-center p-14 bg-cream relative">
+        <Link
+          href="/"
+          className="absolute top-7 left-7 flex items-center gap-1.5 text-[13px] text-n-500 hover:text-n-800 transition-colors"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          กลับหน้าหลัก
+        </Link>
         <div className="w-full max-w-100">
           <div className="text-[26px] font-extrabold text-n-900 mb-1.25">
             ยินดีต้อนรับกลับ 👋
