@@ -22,7 +22,7 @@ export type SourcingOrder = {
   items: Record<string, { checked: boolean; quantity: string }>;
   deliveryDate: string;
   notes: string;
-  status: "PO Sent" | "Invoice Ready" | "In Intake";
+  status: "PO Sent" | "Invoice Ready" | "In Intake" | "Received";
   timestamp: string;
 };
 
@@ -837,9 +837,9 @@ export function SourcingClient() {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-4">
                       <div
-                        className={`w-12 h-12 rounded-xl flex items-center justify-center text-[20px] ${order.status === "In Intake" ? "bg-green-50 text-green-600" : "bg-p-50 text-p-600"}`}
+                        className={`w-12 h-12 rounded-xl flex items-center justify-center text-[20px] ${order.status === "In Intake" || order.status === "Received" ? "bg-green-50 text-green-600" : "bg-p-50 text-p-600"}`}
                       >
-                        {order.status === "In Intake" ? "🚚" : "📄"}
+                        {order.status === "Received" ? "✅" : order.status === "In Intake" ? "🚚" : "📄"}
                       </div>
                       <div>
                         <div className="text-[14px] font-extrabold text-n-900">
@@ -965,6 +965,10 @@ export function SourcingClient() {
                   ) : selectedOrder.status === "In Intake" ? (
                     <div className="flex items-center justify-center gap-2 p-4 bg-green-50 rounded-xl text-green-600 font-bold text-[13px] border border-green-100">
                       <span>✅</span> ส่งไปฝ่ายรับเข้าแล้ว (Moved to Intake)
+                    </div>
+                  ) : selectedOrder.status === "Received" ? (
+                    <div className="flex items-center justify-center gap-2 p-4 bg-emerald-50 rounded-xl text-emerald-700 font-bold text-[13px] border border-emerald-100">
+                      <span>✅</span> รับสินค้าเรียบร้อยแล้ว (Received)
                     </div>
                   ) : (
                     <div className="text-center text-[11px] text-n-400 italic py-2">

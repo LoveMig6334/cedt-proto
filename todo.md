@@ -47,7 +47,7 @@
 
 ### 3.3 Intake (รับเข้าวัตถุดิบ)
 
-- [ ] After invoice is confirmed (from Sourcing flow), show a **pending row** in the intake history table with expected delivery date + notify employees
+- [*] After invoice is confirmed (from Sourcing flow), show a **pending row** in the intake history table with expected delivery date + notify employees
 - [ ] **Remove** the "Quick Intake Record" side page
 - [ ] On delivery date/time, show a button for employees to open the **"Record Intake" page** and upload a confirmation photo
 - [ ] Recorded data should be analyzable as **daily / weekly / monthly / yearly** purchase summaries
