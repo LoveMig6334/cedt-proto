@@ -3,12 +3,12 @@
 @theme {
   /* Brand palette */
   --color-cream: #FFF9F5;
-  --color-p-50: #FFF0F7;
-  --color-p-100: #FCE7F3;
-  --color-p-200: #FBCFE8;
-  --color-p-300: #F9A8D4;
-  --color-p-400: #F472B6;
-  --color-p-500: #EC4899;
+  --color-p-50: #FCF3F4;
+  --color-p-100: #F9E1E4;
+  --color-p-200: #F6C6CC;
+  --color-p-300: #F39BA7;
+  --color-p-400: #F07586;
+  --color-p-500: #eb4a61;
 
   /* Neutral palette */
   --color-n-900: #0F172A;
