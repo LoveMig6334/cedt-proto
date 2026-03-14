@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function DemoPage() {
   return (
-    <div className="min-h-screen bg-cream flex flex-col">
+    <div className="h-screen bg-cream flex flex-col overflow-hidden">
       {/* Header */}
-      <nav className="bg-white border-b border-n-200/70 shadow-sm">
+      <nav className="bg-white border-b border-n-200/70 shadow-sm shrink-0">
         <div className="max-w-7xl mx-auto px-10 py-5 flex items-center justify-between">
           <Link
             href="/"
@@ -26,15 +26,17 @@ export default function DemoPage() {
       </nav>
 
       {/* Carousel */}
-      <div className="flex-1 max-w-7xl mx-auto w-full px-10 py-16">
-        <h1 className="text-center text-[34px] font-extrabold text-n-900 mb-2.5">
+      <div className="flex-1 min-h-0 flex flex-col max-w-7xl mx-auto w-full px-10 pt-10 pb-6">
+        <h1 className="text-center text-[34px] font-extrabold text-n-900 mb-2 shrink-0">
           ครอบคลุมทุกขั้นตอนการผลิต
         </h1>
-        <p className="text-center text-n-500 text-[14.5px] mb-13">
+        <p className="text-center text-n-500 text-[14.5px] mb-8 shrink-0">
           ระบบเดียวที่จัดการกระบวนการทั้งหมดของโรงงานแปรรูปเนื้อวัว
           ตั้งแต่ต้นน้ำถึงปลายน้ำ
         </p>
-        <WorkflowCarousel />
+        <div className="flex-1 min-h-0">
+          <WorkflowCarousel />
+        </div>
       </div>
     </div>
   );

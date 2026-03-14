@@ -68,7 +68,7 @@ const suppliers = [
 
 export function SourcingSlide({ isActive }: SlideProps) {
   return (
-    <div className="w-full max-w-105 h-70 relative flex flex-col">
+    <div className="w-full max-w-105 relative flex flex-col">
       <motion.div
         className="flex flex-col gap-2 w-full h-full"
         variants={containerVariants}
