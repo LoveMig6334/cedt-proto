@@ -89,7 +89,7 @@
 
 ## 5. General
 
-- [ ] **System preview animation** on the Landing Page
+- [*] **System preview animation** on the Landing Page
   - Scrolling SVG animation showcasing the full workflow: sourcing → intake → production → QC → warehouse → distribution
   - Auto-plays continuously (horizontal scroll / carousel style)
   - Navigation dots/buttons at the bottom for manual control
