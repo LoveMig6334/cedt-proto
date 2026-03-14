@@ -540,7 +540,7 @@ export function SourcingClient() {
                         <div className="space-y-1.5 mt-2 bg-white p-3 rounded-lg border border-n-100">
                           {Object.entries(orderItems)
                             .filter(
-                              ([_, item]) =>
+                              ([, item]) =>
                                 item.checked && parseFloat(item.quantity) > 0,
                             )
                             .map(([meat, item]) => (
@@ -563,7 +563,7 @@ export function SourcingClient() {
                             REMARKS (หมายเหตุ):
                           </span>
                           <div className="bg-n-100/50 p-2.5 rounded italic text-n-600 leading-relaxed border-l-2 border-n-200">
-                            "{notes}"
+                            &quot;{notes}&quot;
                           </div>
                         </div>
                       )}
@@ -914,7 +914,7 @@ export function SourcingClient() {
                     </div>
                     <div className="space-y-2">
                       {Object.entries(selectedOrder.items)
-                        .filter(([_, item]) => item.checked)
+                        .filter(([, item]) => item.checked)
                         .map(([name, item]) => (
                           <div
                             key={name}
