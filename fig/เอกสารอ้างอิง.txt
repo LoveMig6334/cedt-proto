@@ -1,0 +1,57 @@
+11. เอกสารอ้างอิง
+
+— สถาปัตยกรรม Frontend แบบ Component-Based —
+
+Meta Platforms, Inc. (2568). React Documentation: Your First Component. React Official Docs.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://react.dev/learn/your-first-component
+
+Meta Platforms, Inc. (2568). React Documentation: Built-in React Hooks. React Official Docs.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://react.dev/reference/react/hooks
+
+— เฟรมเวิร์กเว็บ Next.js และ TypeScript —
+
+Vercel. (2568). Next.js Documentation: App Router. Next.js Official Docs.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://nextjs.org/docs/app
+
+Vercel. (2568). Next.js Documentation: Server and Client Components. Next.js Official Docs.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://nextjs.org/docs/app/building-your-application/rendering
+
+Microsoft. (2568). TypeScript Documentation: The TypeScript Handbook. TypeScript Official Docs.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://www.typescriptlang.org/docs/handbook/intro.html
+
+— การออกแบบ UI ด้วย Tailwind CSS —
+
+Tailwind Labs. (2568). Tailwind CSS Documentation. Tailwind CSS Official Docs.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://tailwindcss.com/docs/installation
+
+— สถาปัตยกรรม Backend แบบ RESTful API ด้วย Python และ Flask —
+
+Python Software Foundation. (2568). Python Documentation. Python Official Docs.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://docs.python.org/3/
+
+Pallets Projects. (2568). Flask Documentation: Quickstart. Flask Official Docs.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://flask.palletsprojects.com/en/stable/quickstart/
+
+— ระบบฐานข้อมูล Supabase —
+
+Supabase, Inc. (2568). Supabase Documentation: Introduction. Supabase Official Docs.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://supabase.com/docs
+
+Supabase, Inc. (2568). Supabase Documentation: Database. Supabase Official Docs.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://supabase.com/docs/guides/database/overview
+
+— การวิเคราะห์ข้อมูลด้วยโมเดลภาษาขนาดใหญ่ (LLM) —
+
+Google. (2568). Gemini API Documentation: Get started with the Gemini API. Google AI for Developers.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://ai.google.dev/gemini-api/docs/get-started
+
+Google. (2568). Gemini API Documentation: Models. Google AI for Developers.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://ai.google.dev/gemini-api/docs/models
+
+— การทำ Classification Model ด้วย YOLO —
+
+Ultralytics. (2568). Ultralytics YOLO Documentation: Image Classification. Ultralytics Official Docs.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://docs.ultralytics.com/tasks/classify/
+
+Ultralytics. (2568). Ultralytics YOLO Documentation: YOLO Model Architecture. Ultralytics Official Docs.
+    สืบค้นเมื่อ 15 มีนาคม 2569, จาก https://docs.ultralytics.com/models/
