@@ -155,7 +155,7 @@ export default function EmployeesSetupPage() {
           <div className="p-6 grid grid-cols-3 gap-4">
             <div>
               <label className="block text-[12px] font-bold text-n-700 mb-1.5">
-                username <span className="text-fp-red">*</span>
+                Username <span className="text-fp-red">*</span>
               </label>
               <input
                 type="text"
@@ -220,10 +220,10 @@ export default function EmployeesSetupPage() {
 
           {/* Add form */}
           <div className="p-6 border-b border-n-100">
-            <div className="grid grid-cols-5 gap-3 mb-3">
+            <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block text-[11.5px] font-bold text-n-700 mb-1.5">
-                  username
+                  Username
                 </label>
                 <input
                   type="text"
@@ -231,7 +231,7 @@ export default function EmployeesSetupPage() {
                   onChange={(e) =>
                     setNewEmp((n) => ({ ...n, name: e.target.value }))
                   }
-                  placeholder="username"
+                  placeholder="เช่น somchai_m"
                   className={inputClass}
                 />
               </div>
@@ -273,7 +273,7 @@ export default function EmployeesSetupPage() {
                   onChange={(e) =>
                     setNewEmp((n) => ({ ...n, title: e.target.value }))
                   }
-                  placeholder="หัวหน้าส่วน..."
+                  placeholder="เช่น หัวหน้าส่วนผลิต"
                   className={inputClass}
                 />
               </div>
@@ -292,8 +292,8 @@ export default function EmployeesSetupPage() {
           {/* Employee list */}
           {employees.length > 0 ? (
             <div>
-              <div className="px-6 py-3 bg-n-50 border-b border-n-100 grid grid-cols-4 gap-3 text-[11px] font-bold text-n-500 uppercase tracking-wide">
-                <span>ชื่อ-นามสกุล</span>
+              <div className="px-6 py-3 bg-n-50 border-b border-n-100 grid grid-cols-[1fr_1fr_1fr_40px] gap-3 text-[11px] font-bold text-n-500 uppercase tracking-wide">
+                <span>Username</span>
                 <span>อีเมล</span>
                 <span>ตำแหน่ง</span>
                 <span />
@@ -301,7 +301,7 @@ export default function EmployeesSetupPage() {
               {employees.map((emp, i) => (
                 <div
                   key={i}
-                  className="px-6 py-3.5 border-b border-n-100 last:border-0 grid grid-cols-4 gap-3 items-center hover:bg-n-50 transition-colors"
+                  className="px-6 py-3.5 border-b border-n-100 last:border-0 grid grid-cols-[1fr_1fr_1fr_40px] gap-3 items-center hover:bg-n-50 transition-colors"
                 >
                   <span className="text-[13px] font-semibold text-n-800 truncate">
                     {emp.name}
@@ -311,10 +311,6 @@ export default function EmployeesSetupPage() {
                   </span>
                   <span className="text-[12.5px] text-n-600 truncate">
                     {emp.title}
-                  </span>
-                  <span className="text-[12px] text-n-500">
-                    {departments.find((d) => d.value === emp.department)
-                      ?.label ?? emp.department}
                   </span>
                   <button
                     onClick={() => handleRemoveEmployee(i)}
